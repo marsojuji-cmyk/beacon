@@ -1,0 +1,135 @@
+{
+  "generated": "2026-09-30",
+  "items": [
+    {
+      "id": "ai-rnd-associates",
+      "name": "Alberta Innovates — Industry R&D Associates Program",
+      "status": "open",
+      "deadline": "Continuous intake",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "ai-digital-traction",
+      "name": "Alberta Digital Traction Program",
+      "status": "paused",
+      "deadline": "Halted — no intake",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "ai-vouchers",
+      "name": "Alberta Innovates — Micro Voucher / Voucher Program",
+      "status": "paused",
+      "deadline": "Intakes closed",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "ai-rin-2026",
+      "name": "Alberta Innovates — Regional Innovation Networks renewal",
+      "status": "open",
+      "deadline": "Apr 2026 – Mar 2029",
+      "deadline_date": "2029-03-31",
+      "days_until": 913,
+      "urgency": "later",
+      "tier": "VERIFIED"
+    },
+    {
+      "id": "elevateip-ab",
+      "name": "ElevateIP Alberta (relaunched)",
+      "status": "open",
+      "deadline": "Open — new portal",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "irap-ai-assist",
+      "name": "NRC IRAP — AI Assist",
+      "status": "open",
+      "deadline": "Rolling via ITA",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "irap-di-assist",
+      "name": "NRC IRAP — Defence Industry Assist (DI Assist)",
+      "status": "open",
+      "deadline": "Rolling via ITA",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "ai-compute-fund",
+      "name": "AI Compute Access Fund (Canada, $1B)",
+      "status": "open",
+      "deadline": "Ongoing",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "tech-growth-fund",
+      "name": "Canadian Tech Growth Fund ($500M)",
+      "status": "open",
+      "deadline": "Deploying 2026",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "raii-prairies",
+      "name": "Regional AI Initiative — PrairiesCan",
+      "status": "open",
+      "deadline": "To Dec 31, 2028",
+      "deadline_date": "2028-12-31",
+      "days_until": 823,
+      "urgency": "later",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "ieg-sred",
+      "name": "Innovation Employment Grant + SR&ED stack",
+      "status": "open",
+      "deadline": "Claim via AT1 Schedule 29 (no application)",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "mitacs-accelerate",
+      "name": "Mitacs Accelerate Entrepreneur",
+      "status": "open",
+      "deadline": "Rolling",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    },
+    {
+      "id": "enmax-amplifier",
+      "name": "ENMAX Amplifier Fund",
+      "status": "closed",
+      "deadline": "2026 awarded (Gradient Thermal) — watch for next cycle",
+      "deadline_date": null,
+      "days_until": null,
+      "urgency": "ongoing",
+      "tier": "INFERRED"
+    }
+  ]
+}

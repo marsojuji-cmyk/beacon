@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beacon — Dense view</title>
+<style>
+  :root{
+    --bg:#ffffff; --ink:#111418; --muted:#5f6b76; --faint:#8a94a0;
+    --line:#e9ebee; --accent:#0e7c6b; --amber:#b45309; --amber-soft:#fdf3e3;
+    --green:#1a7f4b; --row:#fafbfc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;font-size:13.5px;line-height:1.5}
+  .bar{border-bottom:1px solid var(--line);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:5}
+  .brand{font-weight:700;font-size:12px;letter-spacing:.22em}
+  .brand span{color:var(--accent)}
+  .bar .meta{font-size:12px;color:var(--faint)}
+  main{max-width:1180px;margin:0 auto;padding:18px 20px 70px}
+  .strip{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;font-size:13px;color:var(--muted);
+    padding:12px 16px;background:var(--row);border:1px solid var(--line);border-radius:8px;margin-bottom:14px}
+  .strip b{color:var(--ink)}
+  .strip .unlock{color:var(--amber);font-weight:600}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .controls input[type=search]{flex:1 1 240px;font:inherit;font-size:13.5px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;outline:none}
+  .controls input[type=search]:focus{border-color:var(--accent)}
+  .controls select{font:inherit;font-size:13px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted)}
+  .count{font-size:12px;color:var(--faint);margin:6px 0}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);
+    padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap;position:sticky;top:49px;background:#fff}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr.r:hover td{background:var(--row)}
+  tr.r.dim td{opacity:.38}
+  .pname{font-weight:600}
+  .pid{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--faint)}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+  .dot.open{background:var(--green)} .dot.paused{background:var(--amber)} .dot.closed{background:var(--faint)}
+  .st{font-size:12.5px;font-weight:600;text-transform:capitalize;white-space:nowrap}
+  .amt{font-weight:600;white-space:nowrap;font-size:12.5px}
+  .dl{font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .tier{font-size:10px;font-weight:700;letter-spacing:.08em;border:1px solid var(--line);color:var(--faint);border-radius:12px;padding:2px 8px;white-space:nowrap}
+  .tier.verified{color:var(--accent);border-color:var(--accent)}
+  .tier.inferred{color:var(--amber);border-color:#e8c98f}
+  .urg{font-size:10.5px;font-weight:700;text-transform:uppercase;border-radius:10px;padding:2px 8px;margin-left:6px;white-space:nowrap}
+  .urg.imminent{background:#fde8e8;color:#b42323}
+  .urg.upcoming{background:var(--amber-soft);color:var(--amber)}
+  .urg.overdue{background:#b42323;color:#fff}
+  tr.detail td{background:var(--row);font-size:13px;color:var(--muted)}
+  tr.detail ul{margin:6px 0;padding-left:18px;line-height:1.6}
+  tr.detail .stackline{margin-top:8px;font-size:12.5px}
+  tr.detail .stackline b{color:var(--accent)}
+  tr.detail a{color:var(--accent);font-weight:600;text-decoration:none}
+  details.ledger{margin-top:26px;font-size:13px;color:var(--muted)}
+  details.ledger summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:13.5px}
+  details.ledger li{margin:8px 0}
+  details.tiers{margin-top:16px;font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+  details.tiers summary{cursor:pointer;font-weight:700;color:var(--ink)}
+  footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
+  .empty{color:var(--faint);font-style:italic;padding:12px 0}
+  @media (max-width:760px){ .hide-sm{display:none} }
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand">BEA<span>CON</span> <span style="color:var(--faint);font-weight:400;letter-spacing:.05em">/ dense</span></div>
+  <div class="meta">sweep <b id="m-sweep">–</b> · <a href="/beacon/" style="color:var(--muted)">card view →</a></div>
+</div>
+<main>
+  <div class="strip" id="strip"></div>
+  <div class="controls">
+    <input type="search" id="q" placeholder="Filter: name, amount, eligibility, stacking…" aria-label="Filter programs" autocomplete="off">
+    <select id="f-region" aria-label="Region">
+      <option>All</option><option>Calgary</option><option>Alberta</option><option>Canada</option>
+    </select>
+    <select id="f-status" aria-label="Status">
+      <option>All</option><option>open</option><option>paused</option><option>closed</option>
+    </select>
+    <select id="f-verdict" aria-label="Fit">
+      <option value="All">All fit</option><option value="eligible-now">Eligible now</option>
+      <option value="blocked">Blocked</option><option value="not-for-him">Not for me</option>
+    </select>
+  </div>
+  <div class="count" id="count"></div>
+  <table>
+    <thead><tr>
+      <th>Program</th><th class="hide-sm">Region</th><th>Status</th><th>Fit</th>
+      <th>Amount</th><th>Deadline</th><th class="hide-sm">Tier</th>
+    </tr></thead>
+    <tbody id="body"></tbody>
+  </table>
+
+  <details class="ledger">
+    <summary>Change ledger (<span id="ledger-n">0</span> events)</summary>
+    <ul id="timeline" style="list-style:none;padding:0"></ul>
+  </details>
+
+  <details class="tiers">
+    <summary>How verification works</summary>
+    <p><b>VERIFIED</b> — primary source this cycle. <b>INFERRED</b> — secondary reporting; re-verify before applying.
+    <b>GUESSED / UNKNOWN</b> — the evidence doesn't support more. A failed re-check never flips a status silently.</p>
+  </details>
+
+  <footer>Compiled from public program pages &amp; guides · Beacon v2 · Verify before you apply</footer>
+</main>
+<script>
+const DATA = /*__PROGRAMS_JSON__*/{};
+const SHORTLIST = /*__SHORTLIST_JSON__*/{};
+const LEDGER = /*__LEDGER_JSON__*/[];
+const DEADLINES = /*__DEADLINES_JSON__*/{};
+const state = {q:'', region:'All', status:'All', verdict:'All'};
+const deadlineById = {};
+((DEADLINES||{}).items||[]).forEach(d=>{ deadlineById[d.id]=d; });
+const verdictById = {};
+['shortlist','blocked','not_for_him'].forEach(k=>{
+  ((SHORTLIST||{})[k]||[]).forEach(p=>{ verdictById[p.id]=p.verdict; });
+});
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function shortName(n){const i=String(n).indexOf('—');return (i>0?String(n).slice(i+1):String(n)).trim().replace(/\s*\(relaunched\)\s*$/i,'');}
+function tierBadge(t){const c=t==='VERIFIED'?'verified':(t==='INFERRED'?'inferred':'');return `<span class="tier ${c}">${esc(t)}</span>`;}
+function progById(id){return (DATA.programs||[]).find(p=>p.id===id);}
+function urgBadge(p){
+  const d=deadlineById[p.id];
+  if(!d||!d.urgency||d.urgency==='ongoing'||d.urgency==='later')return '';
+  const lbl=d.urgency==='overdue'?'overdue':d.days_until+'d left';
+  return `<span class="urg ${esc(d.urgency)}">${esc(lbl)}</span>`;
+}
+function fitBadge(p){
+  const v=verdictById[p.id]||'—';
+  const color=v==='eligible-now'?'var(--green)':(v==='blocked'?'var(--amber)':'var(--faint)');
+  return `<span style="color:${color};font-weight:600;font-size:12.5px;white-space:nowrap">${esc(v.replace('not-for-him','not for me'))}</span>`;
+}
+function matches(p){
+  if(state.region!=='All'&&p.region!==state.region)return false;
+  if(state.status!=='All'&&p.status!==state.status)return false;
+  if(state.verdict!=='All'&&(verdictById[p.id]||'—')!==state.verdict)return false;
+  const q=state.q.trim().toLowerCase();
+  if(q){
+    const hay=[p.name,p.id,p.amount,p.region,p.status,p.type,p.deadline,(p.eligibility||[]).join(' '),
+      (p.stacking||[]).map(s=>s.note).join(' ')].join(' ').toLowerCase();
+    if(!q.split(/\s+/).every(w=>hay.includes(w)))return false;
+  }
+  return true;
+}
+
+function render(){
+  const body=document.getElementById('body');
+  const ps=(DATA.programs||[]).filter(matches);
+  document.getElementById('count').textContent=`Showing ${ps.length} of ${DATA.programs.length} programs — click a row for eligibility, stacking & source.`;
+  body.innerHTML='';
+  ps.forEach(p=>{
+    const tr=document.createElement('tr');tr.className='r';
+    tr.innerHTML=
+      `<td><div class="pname">${esc(p.name)}</div><div class="pid">${esc(p.id)}</div></td>`+
+      `<td class="hide-sm">${esc(p.region)}</td>`+
+      `<td><span class="dot ${esc(p.status)}"></span><span class="st">${esc(p.status)}</span></td>`+
+      `<td>${fitBadge(p)}</td>`+
+      `<td class="amt">${esc(p.amount)}</td>`+
+      `<td class="dl">${esc(p.deadline||'—')}${urgBadge(p)}</td>`+
+      `<td class="hide-sm">${tierBadge(p.tier)}</td>`;
+    tr.onclick=()=>{
+      const nx=tr.nextSibling;
+      if(nx&&nx.classList&&nx.classList.contains('detail')){nx.remove();return;}
+      const d=document.createElement('tr');d.className='detail';
+      const elig=(p.eligibility||[]).map(e=>`<li>${esc(e)}</li>`).join('');
+      const stack=(p.stacking||[]).map(s=>{
+        const t=s.with&&progById(s.with)?shortName(progById(s.with).name):null;
+        return `<div class="stackline"><b>Stacking${t?' · '+esc(t):''} (${esc(p.stacking_tier||'INFERRED')}):</b> ${esc(s.note)}</div>`;
+      }).join('');
+      d.innerHTML=`<td colspan="7"><ul>${elig}</ul>${stack}`+
+        `<div style="margin-top:8px"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a>`+
+        ` <span style="color:var(--faint)">· ${esc(p.source_name||'')} · verified ${esc(p.checked)}</span></div></td>`;
+      tr.after(d);
+    };
+    body.appendChild(tr);
+  });
+  // strip
+  const sl=SHORTLIST||{}, c=sl.counts||{};
+  const road=(sl.unlock_roadmap||[]).map(s=>`<span class="unlock">${esc(s.label.split('→')[0].trim())} → unlocks ${s.count}</span>`).join(' · ');
+  document.getElementById('strip').innerHTML=
+    `<span><b>${DATA.programs.length}</b> tracked</span>`+
+    `<span><b>${(DATA.programs||[]).filter(p=>p.status==='open').length}</b> open</span>`+
+    `<span><b>${c['eligible-now']??(sl.shortlist||[]).length}</b> eligible now</span>`+
+    (road?`<span>${road}</span>`:'');
+  document.getElementById('m-sweep').textContent=DATA.generated||sl.generated||'—';
+  // ledger
+  const ev=(LEDGER||[]).slice().reverse();
+  document.getElementById('ledger-n').textContent=ev.length;
+  document.getElementById('timeline').innerHTML=ev.length?ev.map(e=>{
+    const what=e.concern?`<b style="color:var(--amber)">Concern</b> ${esc(e.program_id)} — ${esc(e.concern)} (held at ${esc(e.old_status)})`
+      :(e.old_status!==e.new_status?`${esc(e.program_id)}: ${esc(e.old_status)} → ${esc(e.new_status)}`:`${esc(e.program_id)}: re-checked, unchanged`);
+    return `<li><span style="color:var(--faint);font-size:12px">${esc(e.date)}</span> — ${what} ${tierBadge(e.tier)} <a href="${esc(e.evidence_url)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:none">evidence ↗</a></li>`;
+  }).join(''):'<li class="empty">No changes recorded yet.</li>';
+}
+
+['q','f-region','f-status','f-verdict'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',e=>{
+    state[{q:'q','f-region':'region','f-status':'status','f-verdict':'verdict'}[id]]=e.target.value;
+    render();
+  });
+});
+render();
+</script>
+</body>
+</html>

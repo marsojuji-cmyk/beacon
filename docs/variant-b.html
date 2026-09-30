@@ -3,184 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Beacon — Funding radar for independent builders</title>
+<title>Beacon — Dense view</title>
 <style>
   :root{
     --bg:#ffffff; --ink:#111418; --muted:#5f6b76; --faint:#8a94a0;
-    --line:#e9ebee; --accent:#0e7c6b; --accent-soft:#e9f5f2;
-    --amber:#b45309; --amber-soft:#fdf3e3;
-    --green:#1a7f4b; --radius:10px;
+    --line:#e9ebee; --accent:#0e7c6b; --amber:#b45309; --amber-soft:#fdf3e3;
+    --green:#1a7f4b; --row:#fafbfc;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
+  body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    font-size:15px; line-height:1.55;
-  }
-  .topbar{border-bottom:1px solid var(--line)}
-  .topbar-inner{max-width:880px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
-  .brand{font-weight:700;font-size:13px;letter-spacing:.22em}
+    -webkit-font-smoothing:antialiased;font-size:13.5px;line-height:1.5}
+  .bar{border-bottom:1px solid var(--line);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:5}
+  .brand{font-weight:700;font-size:12px;letter-spacing:.22em}
   .brand span{color:var(--accent)}
-  .topbar-right{font-size:12.5px;color:var(--faint)}
-  .topbar-right a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--faint)}
-  main{max-width:880px;margin:0 auto;padding:0 24px 90px}
-  .hero{padding:56px 0 8px}
-  h1{font-size:clamp(30px,5vw,42px);font-weight:700;letter-spacing:-.025em;line-height:1.12;margin:0 0 14px}
-  .lede{color:var(--muted);font-size:16.5px;line-height:1.65;max-width:62ch;margin:0}
-  .stats{display:flex;flex-wrap:wrap;gap:14px 56px;margin:34px 0 6px}
-  .stat .num{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
-  .stat .lbl{color:var(--muted);font-size:13px;margin-top:6px}
-  h2.sec{font-size:12px;font-weight:650;text-transform:uppercase;letter-spacing:.15em;color:var(--faint);margin:52px 0 14px;padding-top:26px;border-top:1px solid var(--line)}
-  h2.sec:first-of-type{border-top:none;padding-top:0}
-  /* roadmap */
-  .steps{list-style:none;margin:0;padding:0;counter-reset:step}
-  .steps li{counter-increment:step;display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
-  .steps li:last-child{border-bottom:none}
-  .steps .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;
-    font-size:13px;font-weight:650;display:flex;align-items:center;justify-content:center}
-  .steps .n::before{content:counter(step)}
-  .steps .body{flex:1}
-  .steps .label{font-weight:600;font-size:15px}
-  .steps .unlocks{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
-  .pchip{font-size:12.5px;color:var(--muted);background:var(--accent-soft);border-radius:20px;padding:4px 12px}
-  /* cards */
-  .card{border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px 16px;margin:0 0 12px;background:#fff}
-  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
-  .card h3{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em;line-height:1.35}
-  .amount{font-size:19px;font-weight:700;letter-spacing:-.015em;margin:10px 0 6px}
-  .reason{color:var(--muted);font-size:14px;margin:0 0 12px;line-height:1.55}
-  .unlock-line{font-size:13px;color:var(--amber);font-weight:600;margin:0 0 12px}
-  .card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
-  .card-foot a{color:var(--accent);text-decoration:none;font-weight:600}
-  .card-foot a:hover{text-decoration:underline}
-  .tier{font-size:10.5px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;
-    border:1px solid var(--line);color:var(--faint);border-radius:20px;padding:3px 10px;white-space:nowrap}
+  .bar .meta{font-size:12px;color:var(--faint)}
+  main{max-width:1180px;margin:0 auto;padding:18px 20px 70px}
+  .strip{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;font-size:13px;color:var(--muted);
+    padding:12px 16px;background:var(--row);border:1px solid var(--line);border-radius:8px;margin-bottom:14px}
+  .strip b{color:var(--ink)}
+  .strip .unlock{color:var(--amber);font-weight:600}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .controls input[type=search]{flex:1 1 240px;font:inherit;font-size:13.5px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;outline:none}
+  .controls input[type=search]:focus{border-color:var(--accent)}
+  .controls select{font:inherit;font-size:13px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted)}
+  .count{font-size:12px;color:var(--faint);margin:6px 0}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);
+    padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap;position:sticky;top:49px;background:#fff}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr.r:hover td{background:var(--row)}
+  tr.r.dim td{opacity:.38}
+  .pname{font-weight:600}
+  .pid{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--faint)}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+  .dot.open{background:var(--green)} .dot.paused{background:var(--amber)} .dot.closed{background:var(--faint)}
+  .st{font-size:12.5px;font-weight:600;text-transform:capitalize;white-space:nowrap}
+  .amt{font-weight:600;white-space:nowrap;font-size:12.5px}
+  .dl{font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .tier{font-size:10px;font-weight:700;letter-spacing:.08em;border:1px solid var(--line);color:var(--faint);border-radius:12px;padding:2px 8px;white-space:nowrap}
   .tier.verified{color:var(--accent);border-color:var(--accent)}
   .tier.inferred{color:var(--amber);border-color:#e8c98f}
-  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-  .dot.open{background:var(--green)} .dot.paused{background:var(--amber)} .dot.closed{background:var(--faint)}
-  .status-word{font-size:12.5px;color:var(--muted);font-weight:600;text-transform:capitalize}
-  /* filters + table */
-  .filters{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:center;margin:4px 0 6px}
-  .fgroup{display:flex;gap:2px;align-items:center}
-  .flabel{font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-right:8px}
-  .tab{border:none;background:none;font:inherit;font-size:13.5px;color:var(--muted);padding:8px 10px;cursor:pointer;
-    border-bottom:2px solid transparent}
-  .tab[aria-pressed="true"]{color:var(--ink);font-weight:650;border-bottom-color:var(--ink)}
-  .tab:hover{color:var(--ink)}
-  .toggle{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);cursor:pointer;margin-left:auto}
-  .toggle input{accent-color:var(--accent);width:15px;height:15px}
-  .search{flex:1 1 100%;margin-bottom:10px}
-  .search input{width:100%;font:inherit;font-size:14.5px;padding:11px 16px;border:1px solid var(--line);
-    border-radius:var(--radius);background:#fafbfc;color:var(--ink);outline:none}
-  .search input:focus{border-color:var(--accent);background:#fff}
-  .search input::placeholder{color:var(--faint)}
-  .stack{margin:0 0 12px;padding:10px 14px;background:#fafbfc;border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
-  .stack .stack-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-  .stack p{margin:4px 0;font-size:13.5px;color:var(--muted);line-height:1.55}
-  .stack p strong{color:var(--ink)}
-  .urgent{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    border-radius:20px;padding:3px 10px;margin-left:8px;white-space:nowrap;vertical-align:2px}
-  .urgent.imminent{background:#fde8e8;color:#b42323}
-  .urgent.upcoming{background:var(--amber-soft);color:var(--amber)}
-  .urgent.overdue{background:#b42323;color:#fff}
-  .countline{font-size:13px;color:var(--faint);margin:10px 0 4px}
-  table.radar{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
-  table.radar th{text-align:left;font-size:11px;font-weight:650;text-transform:uppercase;letter-spacing:.1em;
-    color:var(--faint);padding:10px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-  table.radar td{padding:13px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  table.radar tr.row{cursor:pointer}
-  table.radar tr.row:hover td{background:#fafbfc}
-  table.radar tr.dim td{opacity:.38}
-  .pname{font-weight:600}
-  .pid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--faint);margin-top:3px}
-  td.amt{white-space:nowrap;font-weight:600;font-size:13.5px}
-  tr.detail td{background:#fafbfc;padding:4px 10px 16px 10px}
-  tr.detail ul{margin:6px 0;padding-left:18px;color:var(--muted);font-size:13.5px;line-height:1.6}
-  tr.detail .src{font-size:13px;margin-top:8px}
-  tr.detail .src a{color:var(--accent);font-weight:600;text-decoration:none}
-  /* ledger */
-  .events{list-style:none;margin:0;padding:0}
-  .events li{padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
-  .events li:last-child{border-bottom:none}
-  .events .when{font-size:12px;color:var(--faint);font-weight:600;letter-spacing:.06em}
-  .events .what{margin:3px 0}
-  .events .meta{font-size:12.5px;color:var(--faint);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-  .events .meta a{color:var(--accent);text-decoration:none;font-weight:600}
-  .concern-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
-  details.tiers{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;font-size:13.5px;color:var(--muted)}
-  details.tiers summary{cursor:pointer;font-weight:650;color:var(--ink);font-size:14px}
-  details.tiers p{margin:10px 0 0;line-height:1.6}
-  footer{border-top:1px solid var(--line);margin-top:60px;padding:22px 0 40px;font-size:12.5px;color:var(--faint);
-    display:flex;flex-wrap:wrap;gap:6px 28px}
-  .empty{color:var(--faint);font-style:italic;padding:14px 0;font-size:14px}
-  @media (max-width:640px){
-    .card-top{flex-direction:column}
-    table.radar .hide-sm{display:none}
-    .toggle{margin-left:0}
-  }
+  .urg{font-size:10.5px;font-weight:700;text-transform:uppercase;border-radius:10px;padding:2px 8px;margin-left:6px;white-space:nowrap}
+  .urg.imminent{background:#fde8e8;color:#b42323}
+  .urg.upcoming{background:var(--amber-soft);color:var(--amber)}
+  .urg.overdue{background:#b42323;color:#fff}
+  tr.detail td{background:var(--row);font-size:13px;color:var(--muted)}
+  tr.detail ul{margin:6px 0;padding-left:18px;line-height:1.6}
+  tr.detail .stackline{margin-top:8px;font-size:12.5px}
+  tr.detail .stackline b{color:var(--accent)}
+  tr.detail a{color:var(--accent);font-weight:600;text-decoration:none}
+  details.ledger{margin-top:26px;font-size:13px;color:var(--muted)}
+  details.ledger summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:13.5px}
+  details.ledger li{margin:8px 0}
+  details.tiers{margin-top:16px;font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+  details.tiers summary{cursor:pointer;font-weight:700;color:var(--ink)}
+  footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
+  .empty{color:var(--faint);font-style:italic;padding:12px 0}
+  @media (max-width:760px){ .hide-sm{display:none} }
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">BEA<span>CON</span></div>
-    <div class="topbar-right">Last sweep <b id="m-sweep">–</b> · <a href="#tiers">how verification works</a> · <a href="variant-b.html">dense view →</a></div>
-  </div>
+<div class="bar">
+  <div class="brand">BEA<span>CON</span> <span style="color:var(--faint);font-weight:400;letter-spacing:.05em">/ dense</span></div>
+  <div class="meta">sweep <b id="m-sweep">–</b> · <a href="/beacon/" style="color:var(--muted)">card view →</a></div>
 </div>
 <main>
-  <section class="hero">
-    <h1>Funding you can actually use.</h1>
-    <p class="lede" id="lede">Programs tracked across Calgary, Alberta, and Canada — scored against your builder profile. Every entry carries its source, its check date, and a claim tier, so you know exactly what to trust.</p>
-    <div class="stats">
-      <div class="stat"><div class="num" id="s-eligible">–</div><div class="lbl">eligible now</div></div>
-      <div class="stat"><div class="num" id="s-blocked">–</div><div class="lbl">unlock on incorporation</div></div>
-      <div class="stat"><div class="num" id="s-open">–</div><div class="lbl">open right now</div></div>
-    </div>
-  </section>
-
-  <h2 class="sec">Your next moves</h2>
-  <ol class="steps" id="roadmap"></ol>
-
-  <h2 class="sec">Eligible now</h2>
-  <div id="eligible-cards"></div>
-
-  <h2 class="sec">Blocked — one step away</h2>
-  <div id="blocked-cards"></div>
-
-  <h2 class="sec">Full radar</h2>
-  <div class="filters">
-    <div class="search"><input type="search" id="q" placeholder="Search programs, amounts, eligibility…" aria-label="Search programs" autocomplete="off"></div>
-    <div class="fgroup" id="f-region"><span class="flabel">Region</span></div>
-    <div class="fgroup" id="f-status"><span class="flabel">Status</span></div>
-    <label class="toggle"><input type="checkbox" id="f-incorp"> I have an incorporated company</label>
+  <div class="strip" id="strip"></div>
+  <div class="controls">
+    <input type="search" id="q" placeholder="Filter: name, amount, eligibility, stacking…" aria-label="Filter programs" autocomplete="off">
+    <select id="f-region" aria-label="Region">
+      <option>All</option><option>Calgary</option><option>Alberta</option><option>Canada</option>
+    </select>
+    <select id="f-status" aria-label="Status">
+      <option>All</option><option>open</option><option>paused</option><option>closed</option>
+    </select>
+    <select id="f-verdict" aria-label="Fit">
+      <option value="All">All fit</option><option value="eligible-now">Eligible now</option>
+      <option value="blocked">Blocked</option><option value="not-for-him">Not for me</option>
+    </select>
   </div>
-  <div class="countline" id="count"></div>
-  <table class="radar" id="radar-table">
+  <div class="count" id="count"></div>
+  <table>
     <thead><tr>
-      <th>Program</th><th class="hide-sm">Region</th><th>Status</th>
-      <th>Amount</th><th>Deadline</th><th class="hide-sm">Tier</th><th class="hide-sm">Verified</th>
+      <th>Program</th><th class="hide-sm">Region</th><th>Status</th><th>Fit</th>
+      <th>Amount</th><th>Deadline</th><th class="hide-sm">Tier</th>
     </tr></thead>
-    <tbody id="radar-body"></tbody>
+    <tbody id="body"></tbody>
   </table>
 
-  <h2 class="sec">Change ledger</h2>
-  <ul class="events" id="timeline"></ul>
-
-  <details class="tiers" id="tiers">
-    <summary>How verification works</summary>
-    <p><strong>VERIFIED</strong> — confirmed against the program's own site or announcement in the current check cycle.
-    <strong>INFERRED</strong> — drawn from secondary reporting (press, guides). A lead, not a fact: re-verify before applying.
-    <strong>GUESSED / UNKNOWN</strong> — the evidence doesn't support more, and the page says so.</p>
-    <p>Re-checks run on a schedule. A failed fetch never silently flips a program — the status is held and a concern is written to the ledger below. Nothing here is advice.</p>
+  <details class="ledger">
+    <summary>Change ledger (<span id="ledger-n">0</span> events)</summary>
+    <ul id="timeline" style="list-style:none;padding:0"></ul>
   </details>
 
-  <footer>
-    <span>Compiled from public program pages &amp; guides · Beacon v2</span>
-    <span>Verify before you apply</span>
-  </footer>
+  <details class="tiers">
+    <summary>How verification works</summary>
+    <p><b>VERIFIED</b> — primary source this cycle. <b>INFERRED</b> — secondary reporting; re-verify before applying.
+    <b>GUESSED / UNKNOWN</b> — the evidence doesn't support more. A failed re-check never flips a status silently.</p>
+  </details>
+
+  <footer>Compiled from public program pages &amp; guides · Beacon v2 · Verify before you apply</footer>
 </main>
 <script>
 const DATA = {
@@ -1095,169 +1018,99 @@ const DEADLINES = {
     }
   ]
 };
-const state = {region:'All', status:'All', incorp:false, q:'', openRow:null};
+const state = {q:'', region:'All', status:'All', verdict:'All'};
 const deadlineById = {};
 ((DEADLINES||{}).items||[]).forEach(d=>{ deadlineById[d.id]=d; });
-
-function urgencyBadge(p){
-  const d = deadlineById[p.id];
-  if(!d || !d.urgency || d.urgency==='ongoing' || d.urgency==='later') return '';
-  const label = d.urgency==='overdue' ? 'overdue'
-    : d.urgency==='imminent' ? (d.days_until+' days left') : (d.days_until+' days left');
-  return `<span class="urgent ${esc(d.urgency)}">${esc(label)}</span>`;
-}
-function deadlineCell(p){
-  const d = deadlineById[p.id];
-  const txt = esc(p.deadline || (d && d.deadline) || '—');
-  return txt + urgencyBadge(p);
-}
-function stackingBlock(p){
-  if(!(p.stacking||[]).length) return '';
-  const notes = p.stacking.map(s=>{
-    const target = s.with && progById(s.with) ? shortName(progById(s.with).name) : null;
-    const head = target ? `<strong>Stacks with ${esc(target)}:</strong> ` : '';
-    return `<p>${head}${esc(s.note)}</p>`;
-  }).join('');
-  return `<div class="stack"><div class="stack-label">Stacking · ${esc(p.stacking_tier||'INFERRED')}</div>${notes}</div>`;
-}
-function matchesQuery(p){
-  const q = state.q.trim().toLowerCase();
-  if(!q) return true;
-  const hay = [p.name, p.id, p.amount, p.region, p.status, p.type, p.deadline,
-    (p.eligibility||[]).join(' '), (p.stacking||[]).map(s=>s.note).join(' ')].join(' ').toLowerCase();
-  return q.split(/\s+/).every(w=>hay.includes(w));
-}
+const verdictById = {};
+['shortlist','blocked','not_for_him'].forEach(k=>{
+  ((SHORTLIST||{})[k]||[]).forEach(p=>{ verdictById[p.id]=p.verdict; });
+});
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function shortName(n){
-  const i = String(n).indexOf('—');
-  return (i > 0 ? String(n).slice(i+1) : String(n)).trim().replace(/\s*\(relaunched\)\s*$/i,'');
+function shortName(n){const i=String(n).indexOf('—');return (i>0?String(n).slice(i+1):String(n)).trim().replace(/\s*\(relaunched\)\s*$/i,'');}
+function tierBadge(t){const c=t==='VERIFIED'?'verified':(t==='INFERRED'?'inferred':'');return `<span class="tier ${c}">${esc(t)}</span>`;}
+function progById(id){return (DATA.programs||[]).find(p=>p.id===id);}
+function urgBadge(p){
+  const d=deadlineById[p.id];
+  if(!d||!d.urgency||d.urgency==='ongoing'||d.urgency==='later')return '';
+  const lbl=d.urgency==='overdue'?'overdue':d.days_until+'d left';
+  return `<span class="urg ${esc(d.urgency)}">${esc(lbl)}</span>`;
 }
-function tierBadge(t){
-  const cls = t==='VERIFIED' ? 'verified' : (t==='INFERRED' ? 'inferred' : '');
-  return `<span class="tier ${cls}">${esc(t)}</span>`;
+function fitBadge(p){
+  const v=verdictById[p.id]||'—';
+  const color=v==='eligible-now'?'var(--green)':(v==='blocked'?'var(--amber)':'var(--faint)');
+  return `<span style="color:${color};font-weight:600;font-size:12.5px;white-space:nowrap">${esc(v.replace('not-for-him','not for me'))}</span>`;
 }
-function progById(id){ return (DATA.programs||[]).find(p=>p.id===id); }
-
-function tab(group, label, pressed){
-  const b = document.createElement('button');
-  b.className='tab'; b.textContent=label; b.setAttribute('aria-pressed', pressed?'true':'false');
-  b.onclick = ()=>{
-    const key = group==='f-region' ? 'region' : 'status';
-    state[key]=label;
-    [...document.getElementById(group).querySelectorAll('.tab')].forEach(c=>c.setAttribute('aria-pressed', c===b?'true':'false'));
-    renderRadar();
-  };
-  document.getElementById(group).appendChild(b);
-}
-['All','Calgary','Alberta','Canada'].forEach(l=>tab('f-region',l,l==='All'));
-['All','open','paused','closed'].forEach(l=>tab('f-status',l,l==='All'));
-document.getElementById('f-incorp').onchange = e=>{state.incorp=e.target.checked;renderRadar();};
-document.getElementById('q').addEventListener('input', e=>{state.q=e.target.value;renderRadar();});
-
-function renderHero(){
-  const sl = SHORTLIST||{};
-  const counts = sl.counts||{};
-  document.getElementById('s-eligible').textContent = counts['eligible-now'] ?? (sl.shortlist||[]).length;
-  document.getElementById('s-blocked').textContent = counts['blocked'] ?? (sl.blocked||[]).length;
-  document.getElementById('s-open').textContent = (DATA.programs||[]).filter(p=>p.status==='open').length;
-  document.getElementById('m-sweep').textContent = DATA.generated || sl.generated || '—';
-  const prof = sl.profile||{};
-  if(prof.location) document.getElementById('lede').textContent =
-    `${DATA.programs.length} programs tracked across Calgary, Alberta, and Canada — scored against your profile ` +
-    `(${prof.identity||'builder'}, ${prof.location}). Every entry carries its source, its check date, and a claim tier, so you know exactly what to trust.`;
+function matches(p){
+  if(state.region!=='All'&&p.region!==state.region)return false;
+  if(state.status!=='All'&&p.status!==state.status)return false;
+  if(state.verdict!=='All'&&(verdictById[p.id]||'—')!==state.verdict)return false;
+  const q=state.q.trim().toLowerCase();
+  if(q){
+    const hay=[p.name,p.id,p.amount,p.region,p.status,p.type,p.deadline,(p.eligibility||[]).join(' '),
+      (p.stacking||[]).map(s=>s.note).join(' ')].join(' ').toLowerCase();
+    if(!q.split(/\s+/).every(w=>hay.includes(w)))return false;
+  }
+  return true;
 }
 
-function renderRoadmap(){
-  const el = document.getElementById('roadmap');
-  const steps = (SHORTLIST||{}).unlock_roadmap || [];
-  if(!steps.length){ el.innerHTML = '<li><div class="body"><div class="label">Nothing blocked — your profile clears the full set.</div></div></li>'; return; }
-  el.innerHTML = steps.map(s=>{
-    const chips = (s.unlocks||[]).map(id=>{
-      const p = progById(id);
-      return `<span class="pchip">${esc(p ? shortName(p.name) : id)}</span>`;
-    }).join('');
-    return `<li><div class="n"></div><div class="body"><div class="label">${esc(s.label)}</div><div class="unlocks">${chips}</div></div></li>`;
-  }).join('');
-}
-
-function programCard(p, opts){
-  const badge = p.verdict==='blocked'
-    ? `<p class="unlock-line">Unlocks with: ${esc(p.unblock||'see roadmap')}</p>` : '';
-  return `<div class="card"><div class="card-top"><div><h3><span class="dot ${esc(p.status)}"></span>${esc(p.name)}</h3></div>${tierBadge(p.tier)}</div>`+
-    `<div class="amount">${esc(p.amount)}</div>`+
-    `<p class="reason">${esc(p.reason||'')}</p>${badge}`+ stackingBlock(p) +
-    `<div class="card-foot"><span class="status-word">${esc(p.status)}</span><span>·</span><span>${esc(p.region)}</span><span>·</span>`+
-    `<span>verified ${esc(p.checked)}</span><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a></div></div>`;
-}
-
-function renderBuckets(){
-  const sl = SHORTLIST||{};
-  const eg = document.getElementById('eligible-cards');
-  const bl = document.getElementById('blocked-cards');
-  eg.innerHTML = (sl.shortlist||[]).map(p=>programCard(p)).join('') || '<div class="empty">None eligible right now.</div>';
-  bl.innerHTML = (sl.blocked||[]).map(p=>programCard(p)).join('') || '<div class="empty">Nothing blocked.</div>';
-}
-
-function renderRadar(){
-  const body = document.getElementById('radar-body');
-  const ps = (DATA.programs||[]).filter(p =>
-    (state.region==='All'||p.region===state.region) &&
-    (state.status==='All'||p.status===state.status) &&
-    matchesQuery(p));
-  document.getElementById('count').textContent =
-    `Showing ${ps.length} of ${DATA.programs.length} programs` +
-    (state.q.trim() ? ` matching "${state.q.trim()}"` : '') +
-    (state.incorp ? '' : ' — dimmed rows need incorporation');
-  body.innerHTML = '';
+function render(){
+  const body=document.getElementById('body');
+  const ps=(DATA.programs||[]).filter(matches);
+  document.getElementById('count').textContent=`Showing ${ps.length} of ${DATA.programs.length} programs — click a row for eligibility, stacking & source.`;
+  body.innerHTML='';
   ps.forEach(p=>{
-    const dim = (!state.incorp && p.requires_incorporation) ? ' dim' : '';
-    const tr = document.createElement('tr');
-    tr.className = 'row'+dim;
-    tr.innerHTML =
+    const tr=document.createElement('tr');tr.className='r';
+    tr.innerHTML=
       `<td><div class="pname">${esc(p.name)}</div><div class="pid">${esc(p.id)}</div></td>`+
       `<td class="hide-sm">${esc(p.region)}</td>`+
-      `<td><span class="dot ${esc(p.status)}"></span><span class="status-word">${esc(p.status)}</span></td>`+
+      `<td><span class="dot ${esc(p.status)}"></span><span class="st">${esc(p.status)}</span></td>`+
+      `<td>${fitBadge(p)}</td>`+
       `<td class="amt">${esc(p.amount)}</td>`+
-      `<td style="font-size:13px;color:var(--muted);white-space:nowrap">${deadlineCell(p)}</td>`+
-      `<td class="hide-sm">${tierBadge(p.tier)}</td>`+
-      `<td class="hide-sm" style="color:var(--faint);font-size:13px;white-space:nowrap">${esc(p.checked)}</td>`;
-    tr.onclick = ()=>{
-      const next = tr.nextSibling;
-      if(next && next.classList && next.classList.contains('detail')){ next.remove(); return; }
-      const d = document.createElement('tr');
-      d.className='detail';
-      const elig = (p.eligibility||[]).map(e=>`<li>${esc(e)}</li>`).join('');
-      d.innerHTML = `<td colspan="7"><ul>${elig}</ul>`+
-        `<div class="src"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a>`+
-        ` <span style="color:var(--faint)">· ${esc(p.source_name||'')} · status since ${esc(p.status_since||'—')}${p.deadline? ' · '+esc(p.deadline):''}</span></div></td>`;
+      `<td class="dl">${esc(p.deadline||'—')}${urgBadge(p)}</td>`+
+      `<td class="hide-sm">${tierBadge(p.tier)}</td>`;
+    tr.onclick=()=>{
+      const nx=tr.nextSibling;
+      if(nx&&nx.classList&&nx.classList.contains('detail')){nx.remove();return;}
+      const d=document.createElement('tr');d.className='detail';
+      const elig=(p.eligibility||[]).map(e=>`<li>${esc(e)}</li>`).join('');
+      const stack=(p.stacking||[]).map(s=>{
+        const t=s.with&&progById(s.with)?shortName(progById(s.with).name):null;
+        return `<div class="stackline"><b>Stacking${t?' · '+esc(t):''} (${esc(p.stacking_tier||'INFERRED')}):</b> ${esc(s.note)}</div>`;
+      }).join('');
+      d.innerHTML=`<td colspan="7"><ul>${elig}</ul>${stack}`+
+        `<div style="margin-top:8px"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a>`+
+        ` <span style="color:var(--faint)">· ${esc(p.source_name||'')} · verified ${esc(p.checked)}</span></div></td>`;
       tr.after(d);
     };
     body.appendChild(tr);
   });
+  // strip
+  const sl=SHORTLIST||{}, c=sl.counts||{};
+  const road=(sl.unlock_roadmap||[]).map(s=>`<span class="unlock">${esc(s.label.split('→')[0].trim())} → unlocks ${s.count}</span>`).join(' · ');
+  document.getElementById('strip').innerHTML=
+    `<span><b>${DATA.programs.length}</b> tracked</span>`+
+    `<span><b>${(DATA.programs||[]).filter(p=>p.status==='open').length}</b> open</span>`+
+    `<span><b>${c['eligible-now']??(sl.shortlist||[]).length}</b> eligible now</span>`+
+    (road?`<span>${road}</span>`:'');
+  document.getElementById('m-sweep').textContent=DATA.generated||sl.generated||'—';
+  // ledger
+  const ev=(LEDGER||[]).slice().reverse();
+  document.getElementById('ledger-n').textContent=ev.length;
+  document.getElementById('timeline').innerHTML=ev.length?ev.map(e=>{
+    const what=e.concern?`<b style="color:var(--amber)">Concern</b> ${esc(e.program_id)} — ${esc(e.concern)} (held at ${esc(e.old_status)})`
+      :(e.old_status!==e.new_status?`${esc(e.program_id)}: ${esc(e.old_status)} → ${esc(e.new_status)}`:`${esc(e.program_id)}: re-checked, unchanged`);
+    return `<li><span style="color:var(--faint);font-size:12px">${esc(e.date)}</span> — ${what} ${tierBadge(e.tier)} <a href="${esc(e.evidence_url)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:none">evidence ↗</a></li>`;
+  }).join(''):'<li class="empty">No changes recorded yet.</li>';
 }
 
-function renderLedger(){
-  const el = document.getElementById('timeline');
-  const events = (LEDGER||[]).slice().reverse();
-  if(!events.length){ el.innerHTML = '<li class="empty">No changes recorded yet — reverify has not logged a status flip or concern this cycle.</li>'; return; }
-  el.innerHTML = events.map(e=>{
-    const concern = !!e.concern;
-    const what = concern
-      ? `<span class="concern-tag">Concern</span> ${esc(e.program_id)} — ${esc(e.concern)} (status held at ${esc(e.old_status)})`
-      : (e.old_status!==e.new_status
-        ? `${esc(e.program_id)}: ${esc(e.old_status)} → ${esc(e.new_status)}`
-        : `${esc(e.program_id)}: re-checked, status unchanged (${esc(e.old_status)})`);
-    return `<li><div class="when">${esc(e.date)}</div><div class="what">${what}</div>`+
-      `<div class="meta">${tierBadge(e.tier)}<a href="${esc(e.evidence_url)}" target="_blank" rel="noopener">evidence ↗</a></div></li>`;
-  }).join('');
-}
-
-renderHero();
-renderRoadmap();
-renderBuckets();
-renderRadar();
-renderLedger();
+['q','f-region','f-status','f-verdict'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',e=>{
+    state[{q:'q','f-region':'region','f-status':'status','f-verdict':'verdict'}[id]]=e.target.value;
+    render();
+  });
+});
+render();
 </script>
 </body>
 </html>

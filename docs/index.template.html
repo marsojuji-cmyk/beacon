@@ -3,276 +3,352 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BEACON — Funding Radar for Independent Builders · Alberta &amp; Canada</title>
+<title>Beacon — Funding radar for independent builders</title>
 <style>
   :root{
-    --paper:#f3e9d2; --paper2:#eadfc3; --ink:#211d16; --ink-soft:#5a5245;
-    --crimson:#a31621; --teal:#0f5257; --ochre:#b98a1d; --line:#c9b98f;
+    --bg:#ffffff; --ink:#111418; --muted:#5f6b76; --faint:#8a94a0;
+    --line:#e9ebee; --accent:#0e7c6b; --accent-soft:#e9f5f2;
+    --amber:#b45309; --amber-soft:#fdf3e3;
+    --green:#1a7f4b; --radius:10px;
   }
   *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
   body{
-    margin:0; color:var(--ink); font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(169,22,33,.05), transparent 55%),
-      radial-gradient(ellipse at 85% 90%, rgba(15,82,87,.06), transparent 50%),
-      repeating-linear-gradient(0deg, transparent 0 31px, rgba(33,29,22,.045) 31px 32px),
-      repeating-linear-gradient(90deg, transparent 0 31px, rgba(33,29,22,.045) 31px 32px),
-      var(--paper);
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    font-size:15px; line-height:1.55;
   }
-  .wrap{max-width:1120px;margin:0 auto;padding:34px 22px 70px}
-  header.plate{border:2px solid var(--ink);padding:26px 30px 22px;position:relative;background:rgba(255,252,240,.55)}
-  header.plate:before,header.plate:after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--ink)}
-  header.plate:before{top:-2px;left:-2px;border-right:none;border-bottom:none}
-  header.plate:after{bottom:-2px;right:-2px;border-left:none;border-top:none}
-  .kicker{letter-spacing:.32em;font-size:11px;color:var(--ink-soft);text-transform:uppercase}
-  h1{font-family:Didot,"Bodoni MT",Georgia,serif;font-size:clamp(34px,6vw,58px);margin:8px 0 4px;letter-spacing:.04em}
-  h1 .accent{color:var(--crimson)}
-  .sub{font-family:Georgia,serif;font-style:italic;color:var(--ink-soft);font-size:15px;max-width:62ch}
-  .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
-  .meta b{color:var(--ink)}
-  .views{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
-  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 8px}
-  .fgroup{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-  .flabel{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-right:2px}
-  button.chip{border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:12px;letter-spacing:.06em;
-    padding:6px 13px;cursor:pointer;border-radius:20px}
-  button.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-  .toggle{display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;user-select:none}
-  .toggle input{accent-color:var(--teal);width:16px;height:16px}
-  .count{margin:14px 0 4px;font-family:Georgia,serif;font-style:italic;color:var(--ink-soft)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:10px}
-  .card{border:1.5px solid var(--ink);background:rgba(255,252,240,.6);padding:18px 18px 14px;position:relative;
-    transition:transform .12s ease}
-  .card:hover{transform:translateY(-2px)}
-  .card.dim{opacity:.42}
-  .card .row1{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-  .card h2{font-family:Didot,"Bodoni MT",Georgia,serif;font-size:19px;margin:0;line-height:1.25}
-  .badge{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1.5px solid;white-space:nowrap}
-  .b-open{color:var(--teal);border-color:var(--teal)}
-  .b-paused{color:var(--ochre);border-color:var(--ochre)}
-  .b-closed{color:var(--ink-soft);border-color:var(--ink-soft)}
-  .b-eligible{color:var(--teal);border-color:var(--teal)}
-  .b-blocked{color:var(--ochre);border-color:var(--ochre)}
-  .b-not{color:var(--ink-soft);border-color:var(--ink-soft)}
-  .region{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--crimson);margin:8px 0 2px}
-  .amount{font-family:Georgia,serif;font-size:15px;margin:2px 0 10px}
-  .card ul{margin:0 0 10px;padding-left:18px;font-size:13px;line-height:1.55}
-  .card li::marker{color:var(--teal)}
-  .reason{font-size:13px;line-height:1.5;margin:0 0 10px;color:var(--ink)}
-  .foot{border-top:1px dotted var(--line);padding-top:9px;font-size:11.5px;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:4px 12px}
-  .foot a{color:var(--teal);text-decoration:none;border-bottom:1px dotted var(--teal)}
-  .tier{font-size:10px;letter-spacing:.16em;border:1px solid var(--ink-soft);padding:2px 7px;text-transform:uppercase}
-  .tier.v{color:var(--teal);border-color:var(--teal)}
-  .verified{letter-spacing:.12em;text-transform:uppercase;font-size:10.5px;color:var(--teal)}
-  footer{margin-top:44px;border-top:2px solid var(--ink);padding-top:14px;font-size:12px;color:var(--ink-soft);
-    display:flex;flex-wrap:wrap;gap:6px 26px;letter-spacing:.04em}
-  .note{background:rgba(185,138,29,.12);border:1.5px dashed var(--ochre);padding:12px 16px;font-size:13px;margin:18px 0 4px}
-  .panel{display:none}
-  .panel.active{display:block}
-  .roadmap{margin:12px 0 22px;border:1.5px solid var(--ink);background:rgba(255,252,240,.55);padding:16px 18px}
-  .roadmap h3{font-family:Didot,"Bodoni MT",Georgia,serif;font-size:20px;margin:0 0 10px}
-  .roadmap ol{margin:0;padding-left:20px}
-  .roadmap li{margin:0 0 10px;font-size:13.5px;line-height:1.5}
-  .roadmap .ids{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--teal)}
-  .timeline{margin-top:10px;border-left:2px solid var(--ink);padding-left:0}
-  .tevent{position:relative;padding:12px 0 12px 22px;border-bottom:1px dotted var(--line)}
-  .tevent:before{content:"";position:absolute;left:-6px;top:18px;width:10px;height:10px;background:var(--paper);
-    border:2px solid var(--crimson);border-radius:50%}
-  .tevent.concern:before{border-color:var(--ochre)}
-  .tevent .when{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
-  .tevent .what{font-size:14px;margin:4px 0}
-  .tevent .meta-line{font-size:12px;color:var(--ink-soft)}
-  .tevent a{color:var(--teal)}
-  .empty{font-family:Georgia,serif;font-style:italic;color:var(--ink-soft);padding:18px 0}
-  .section-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:22px 0 8px}
+  .topbar{border-bottom:1px solid var(--line)}
+  .topbar-inner{max-width:880px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+  .brand{font-weight:700;font-size:13px;letter-spacing:.22em}
+  .brand span{color:var(--accent)}
+  .topbar-right{font-size:12.5px;color:var(--faint)}
+  .topbar-right a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--faint)}
+  main{max-width:880px;margin:0 auto;padding:0 24px 90px}
+  .hero{padding:56px 0 8px}
+  h1{font-size:clamp(30px,5vw,42px);font-weight:700;letter-spacing:-.025em;line-height:1.12;margin:0 0 14px}
+  .lede{color:var(--muted);font-size:16.5px;line-height:1.65;max-width:62ch;margin:0}
+  .stats{display:flex;flex-wrap:wrap;gap:14px 56px;margin:34px 0 6px}
+  .stat .num{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .stat .lbl{color:var(--muted);font-size:13px;margin-top:6px}
+  h2.sec{font-size:12px;font-weight:650;text-transform:uppercase;letter-spacing:.15em;color:var(--faint);margin:52px 0 14px;padding-top:26px;border-top:1px solid var(--line)}
+  h2.sec:first-of-type{border-top:none;padding-top:0}
+  /* roadmap */
+  .steps{list-style:none;margin:0;padding:0;counter-reset:step}
+  .steps li{counter-increment:step;display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .steps li:last-child{border-bottom:none}
+  .steps .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;
+    font-size:13px;font-weight:650;display:flex;align-items:center;justify-content:center}
+  .steps .n::before{content:counter(step)}
+  .steps .body{flex:1}
+  .steps .label{font-weight:600;font-size:15px}
+  .steps .unlocks{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .pchip{font-size:12.5px;color:var(--muted);background:var(--accent-soft);border-radius:20px;padding:4px 12px}
+  /* cards */
+  .card{border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px 16px;margin:0 0 12px;background:#fff}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+  .card h3{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em;line-height:1.35}
+  .amount{font-size:19px;font-weight:700;letter-spacing:-.015em;margin:10px 0 6px}
+  .reason{color:var(--muted);font-size:14px;margin:0 0 12px;line-height:1.55}
+  .unlock-line{font-size:13px;color:var(--amber);font-weight:600;margin:0 0 12px}
+  .card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+  .card-foot a{color:var(--accent);text-decoration:none;font-weight:600}
+  .card-foot a:hover{text-decoration:underline}
+  .tier{font-size:10.5px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid var(--line);color:var(--faint);border-radius:20px;padding:3px 10px;white-space:nowrap}
+  .tier.verified{color:var(--accent);border-color:var(--accent)}
+  .tier.inferred{color:var(--amber);border-color:#e8c98f}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+  .dot.open{background:var(--green)} .dot.paused{background:var(--amber)} .dot.closed{background:var(--faint)}
+  .status-word{font-size:12.5px;color:var(--muted);font-weight:600;text-transform:capitalize}
+  /* filters + table */
+  .filters{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:center;margin:4px 0 6px}
+  .fgroup{display:flex;gap:2px;align-items:center}
+  .flabel{font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-right:8px}
+  .tab{border:none;background:none;font:inherit;font-size:13.5px;color:var(--muted);padding:8px 10px;cursor:pointer;
+    border-bottom:2px solid transparent}
+  .tab[aria-pressed="true"]{color:var(--ink);font-weight:650;border-bottom-color:var(--ink)}
+  .tab:hover{color:var(--ink)}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);cursor:pointer;margin-left:auto}
+  .toggle input{accent-color:var(--accent);width:15px;height:15px}
+  .search{flex:1 1 100%;margin-bottom:10px}
+  .search input{width:100%;font:inherit;font-size:14.5px;padding:11px 16px;border:1px solid var(--line);
+    border-radius:var(--radius);background:#fafbfc;color:var(--ink);outline:none}
+  .search input:focus{border-color:var(--accent);background:#fff}
+  .search input::placeholder{color:var(--faint)}
+  .stack{margin:0 0 12px;padding:10px 14px;background:#fafbfc;border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
+  .stack .stack-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+  .stack p{margin:4px 0;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .stack p strong{color:var(--ink)}
+  .urgent{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    border-radius:20px;padding:3px 10px;margin-left:8px;white-space:nowrap;vertical-align:2px}
+  .urgent.imminent{background:#fde8e8;color:#b42323}
+  .urgent.upcoming{background:var(--amber-soft);color:var(--amber)}
+  .urgent.overdue{background:#b42323;color:#fff}
+  .countline{font-size:13px;color:var(--faint);margin:10px 0 4px}
+  table.radar{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  table.radar th{text-align:left;font-size:11px;font-weight:650;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--faint);padding:10px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  table.radar td{padding:13px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.radar tr.row{cursor:pointer}
+  table.radar tr.row:hover td{background:#fafbfc}
+  table.radar tr.dim td{opacity:.38}
+  .pname{font-weight:600}
+  .pid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--faint);margin-top:3px}
+  td.amt{white-space:nowrap;font-weight:600;font-size:13.5px}
+  tr.detail td{background:#fafbfc;padding:4px 10px 16px 10px}
+  tr.detail ul{margin:6px 0;padding-left:18px;color:var(--muted);font-size:13.5px;line-height:1.6}
+  tr.detail .src{font-size:13px;margin-top:8px}
+  tr.detail .src a{color:var(--accent);font-weight:600;text-decoration:none}
+  /* ledger */
+  .events{list-style:none;margin:0;padding:0}
+  .events li{padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .events li:last-child{border-bottom:none}
+  .events .when{font-size:12px;color:var(--faint);font-weight:600;letter-spacing:.06em}
+  .events .what{margin:3px 0}
+  .events .meta{font-size:12.5px;color:var(--faint);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .events .meta a{color:var(--accent);text-decoration:none;font-weight:600}
+  .concern-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+  details.tiers{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;font-size:13.5px;color:var(--muted)}
+  details.tiers summary{cursor:pointer;font-weight:650;color:var(--ink);font-size:14px}
+  details.tiers p{margin:10px 0 0;line-height:1.6}
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:22px 0 40px;font-size:12.5px;color:var(--faint);
+    display:flex;flex-wrap:wrap;gap:6px 28px}
+  .empty{color:var(--faint);font-style:italic;padding:14px 0;font-size:14px}
+  @media (max-width:640px){
+    .card-top{flex-direction:column}
+    table.radar .hide-sm{display:none}
+    .toggle{margin-left:0}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="plate">
-    <div class="kicker">Field instrument · No. 02 · v2</div>
-    <h1>BEA<span class="accent">C</span>ON</h1>
-    <div class="sub">A funding radar for independent builders in Alberta &amp; Canada — every entry carries its source, its check date, and its claim tier. Shortlist scores against the builder profile; the ledger records every status flip. Nothing here is advice; verify before you apply.</div>
-    <div class="meta">
-      <span>Entries <b id="m-total">–</b></span>
-      <span>Open <b id="m-open">–</b></span>
-      <span>Paused <b id="m-paused">–</b></span>
-      <span>Shortlist <b id="m-short">–</b></span>
-      <span>Last sweep <b id="m-sweep">–</b></span>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">BEA<span>CON</span></div>
+    <div class="topbar-right">Last sweep <b id="m-sweep">–</b> · <a href="#tiers">how verification works</a> · <a href="variant-b.html">dense view →</a></div>
+  </div>
+</div>
+<main>
+  <section class="hero">
+    <h1>Funding you can actually use.</h1>
+    <p class="lede" id="lede">Programs tracked across Calgary, Alberta, and Canada — scored against your builder profile. Every entry carries its source, its check date, and a claim tier, so you know exactly what to trust.</p>
+    <div class="stats">
+      <div class="stat"><div class="num" id="s-eligible">–</div><div class="lbl">eligible now</div></div>
+      <div class="stat"><div class="num" id="s-blocked">–</div><div class="lbl">unlock on incorporation</div></div>
+      <div class="stat"><div class="num" id="s-open">–</div><div class="lbl">open right now</div></div>
     </div>
-  </header>
+  </section>
 
-  <div class="views" id="f-view" role="tablist" aria-label="Views"></div>
+  <h2 class="sec">Your next moves</h2>
+  <ol class="steps" id="roadmap"></ol>
 
-  <div id="panel-radar" class="panel active">
-    <div class="note">Most Alberta programs require an incorporated company — toggle below to dim everything you can't touch yet as an independent builder. Honest eligibility beats a long list.</div>
-    <div class="filters">
-      <div class="fgroup" id="f-region"><span class="flabel">Region</span></div>
-      <div class="fgroup" id="f-status"><span class="flabel">Status</span></div>
-      <label class="toggle"><input type="checkbox" id="f-incorp"> I have an incorporated company</label>
-    </div>
-    <div class="count" id="count"></div>
-    <div class="grid" id="grid"></div>
+  <h2 class="sec">Eligible now</h2>
+  <div id="eligible-cards"></div>
+
+  <h2 class="sec">Blocked — one step away</h2>
+  <div id="blocked-cards"></div>
+
+  <h2 class="sec">Full radar</h2>
+  <div class="filters">
+    <div class="search"><input type="search" id="q" placeholder="Search programs, amounts, eligibility…" aria-label="Search programs" autocomplete="off"></div>
+    <div class="fgroup" id="f-region"><span class="flabel">Region</span></div>
+    <div class="fgroup" id="f-status"><span class="flabel">Status</span></div>
+    <label class="toggle"><input type="checkbox" id="f-incorp"> I have an incorporated company</label>
   </div>
+  <div class="countline" id="count"></div>
+  <table class="radar" id="radar-table">
+    <thead><tr>
+      <th>Program</th><th class="hide-sm">Region</th><th>Status</th>
+      <th>Amount</th><th>Deadline</th><th class="hide-sm">Tier</th><th class="hide-sm">Verified</th>
+    </tr></thead>
+    <tbody id="radar-body"></tbody>
+  </table>
 
-  <div id="panel-shortlist" class="panel">
-    <div class="note" id="profile-note">Profile-matched shortlist for the configured builder. Verdicts: eligible-now · blocked (one unblock step) · not-for-him.</div>
-    <div class="roadmap" id="roadmap"></div>
-    <div class="section-label">Eligible now</div>
-    <div class="grid" id="short-grid"></div>
-    <div class="section-label">Blocked — single unlock step</div>
-    <div class="grid" id="blocked-grid"></div>
-  </div>
+  <h2 class="sec">Change ledger</h2>
+  <ul class="events" id="timeline"></ul>
 
-  <div id="panel-ledger" class="panel">
-    <div class="note">Change ledger — every status flip (and fetch concern) recorded with date, program, evidence URL, and claim tier. Empty means no flips this cycle.</div>
-    <div class="timeline" id="timeline"></div>
-  </div>
+  <details class="tiers" id="tiers">
+    <summary>How verification works</summary>
+    <p><strong>VERIFIED</strong> — confirmed against the program's own site or announcement in the current check cycle.
+    <strong>INFERRED</strong> — drawn from secondary reporting (press, guides). A lead, not a fact: re-verify before applying.
+    <strong>GUESSED / UNKNOWN</strong> — the evidence doesn't support more, and the page says so.</p>
+    <p>Re-checks run on a schedule. A failed fetch never silently flips a program — the status is held and a concern is written to the ledger below. Nothing here is advice.</p>
+  </details>
 
   <footer>
     <span>Compiled from public program pages &amp; guides · Beacon v2</span>
-    <span>Claim tiers: VERIFIED = primary source this cycle · INFERRED = secondary reporting — re-verify before applying</span>
-    <span>Built for the portfolio · Field instrument No. 02</span>
+    <span>Verify before you apply</span>
   </footer>
-</div>
+</main>
 <script>
 const DATA = /*__PROGRAMS_JSON__*/{};
 const SHORTLIST = /*__SHORTLIST_JSON__*/{};
 const LEDGER = /*__LEDGER_JSON__*/[];
-const grid = document.getElementById('grid');
-const state = {view:'radar', region:'All', status:'All', incorp:false};
+const DEADLINES = /*__DEADLINES_JSON__*/{};
+const state = {region:'All', status:'All', incorp:false, q:'', openRow:null};
+const deadlineById = {};
+((DEADLINES||{}).items||[]).forEach(d=>{ deadlineById[d.id]=d; });
 
-function chip(group, label, pressed){
+function urgencyBadge(p){
+  const d = deadlineById[p.id];
+  if(!d || !d.urgency || d.urgency==='ongoing' || d.urgency==='later') return '';
+  const label = d.urgency==='overdue' ? 'overdue'
+    : d.urgency==='imminent' ? (d.days_until+' days left') : (d.days_until+' days left');
+  return `<span class="urgent ${esc(d.urgency)}">${esc(label)}</span>`;
+}
+function deadlineCell(p){
+  const d = deadlineById[p.id];
+  const txt = esc(p.deadline || (d && d.deadline) || '—');
+  return txt + urgencyBadge(p);
+}
+function stackingBlock(p){
+  if(!(p.stacking||[]).length) return '';
+  const notes = p.stacking.map(s=>{
+    const target = s.with && progById(s.with) ? shortName(progById(s.with).name) : null;
+    const head = target ? `<strong>Stacks with ${esc(target)}:</strong> ` : '';
+    return `<p>${head}${esc(s.note)}</p>`;
+  }).join('');
+  return `<div class="stack"><div class="stack-label">Stacking · ${esc(p.stacking_tier||'INFERRED')}</div>${notes}</div>`;
+}
+function matchesQuery(p){
+  const q = state.q.trim().toLowerCase();
+  if(!q) return true;
+  const hay = [p.name, p.id, p.amount, p.region, p.status, p.type, p.deadline,
+    (p.eligibility||[]).join(' '), (p.stacking||[]).map(s=>s.note).join(' ')].join(' ').toLowerCase();
+  return q.split(/\s+/).every(w=>hay.includes(w));
+}
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function shortName(n){
+  const i = String(n).indexOf('—');
+  return (i > 0 ? String(n).slice(i+1) : String(n)).trim().replace(/\s*\(relaunched\)\s*$/i,'');
+}
+function tierBadge(t){
+  const cls = t==='VERIFIED' ? 'verified' : (t==='INFERRED' ? 'inferred' : '');
+  return `<span class="tier ${cls}">${esc(t)}</span>`;
+}
+function progById(id){ return (DATA.programs||[]).find(p=>p.id===id); }
+
+function tab(group, label, pressed){
   const b = document.createElement('button');
-  b.className='chip'; b.textContent=label; b.setAttribute('aria-pressed', pressed?'true':'false');
+  b.className='tab'; b.textContent=label; b.setAttribute('aria-pressed', pressed?'true':'false');
   b.onclick = ()=>{
-    if(group==='f-view'){
-      state.view = label.toLowerCase();
-      [...document.getElementById(group).querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed', c===b?'true':'false'));
-      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-      document.getElementById('panel-'+state.view).classList.add('active');
-      return;
-    }
     const key = group==='f-region' ? 'region' : 'status';
     state[key]=label;
-    [...document.getElementById(group).querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed', c===b?'true':'false'));
+    [...document.getElementById(group).querySelectorAll('.tab')].forEach(c=>c.setAttribute('aria-pressed', c===b?'true':'false'));
     renderRadar();
   };
   document.getElementById(group).appendChild(b);
 }
-['Radar','Shortlist','Ledger'].forEach((l,i)=>chip('f-view',l,i===0));
-['All','Calgary','Alberta','Canada'].forEach(l=>chip('f-region',l,l==='All'));
-['All','open','paused','closed'].forEach(l=>chip('f-status',l,l==='All'));
+['All','Calgary','Alberta','Canada'].forEach(l=>tab('f-region',l,l==='All'));
+['All','open','paused','closed'].forEach(l=>tab('f-status',l,l==='All'));
 document.getElementById('f-incorp').onchange = e=>{state.incorp=e.target.checked;renderRadar();};
+document.getElementById('q').addEventListener('input', e=>{state.q=e.target.value;renderRadar();});
 
-function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderHero(){
+  const sl = SHORTLIST||{};
+  const counts = sl.counts||{};
+  document.getElementById('s-eligible').textContent = counts['eligible-now'] ?? (sl.shortlist||[]).length;
+  document.getElementById('s-blocked').textContent = counts['blocked'] ?? (sl.blocked||[]).length;
+  document.getElementById('s-open').textContent = (DATA.programs||[]).filter(p=>p.status==='open').length;
+  document.getElementById('m-sweep').textContent = DATA.generated || sl.generated || '—';
+  const prof = sl.profile||{};
+  if(prof.location) document.getElementById('lede').textContent =
+    `${DATA.programs.length} programs tracked across Calgary, Alberta, and Canada — scored against your profile ` +
+    `(${prof.identity||'builder'}, ${prof.location}). Every entry carries its source, its check date, and a claim tier, so you know exactly what to trust.`;
+}
 
-function cardFoot(p){
-  return `<div class="foot"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">source ↗</a>`+
-    `<span class="verified">last verified ${esc(p.checked)}</span>`+
-    `<span class="tier ${p.tier==='VERIFIED'?'v':''}">${esc(p.tier)}</span>`+
-    `<span>since ${esc(p.status_since)}${p.deadline?' · '+esc(p.deadline):''}</span></div>`;
+function renderRoadmap(){
+  const el = document.getElementById('roadmap');
+  const steps = (SHORTLIST||{}).unlock_roadmap || [];
+  if(!steps.length){ el.innerHTML = '<li><div class="body"><div class="label">Nothing blocked — your profile clears the full set.</div></div></li>'; return; }
+  el.innerHTML = steps.map(s=>{
+    const chips = (s.unlocks||[]).map(id=>{
+      const p = progById(id);
+      return `<span class="pchip">${esc(p ? shortName(p.name) : id)}</span>`;
+    }).join('');
+    return `<li><div class="n"></div><div class="body"><div class="label">${esc(s.label)}</div><div class="unlocks">${chips}</div></div></li>`;
+  }).join('');
+}
+
+function programCard(p, opts){
+  const badge = p.verdict==='blocked'
+    ? `<p class="unlock-line">Unlocks with: ${esc(p.unblock||'see roadmap')}</p>` : '';
+  return `<div class="card"><div class="card-top"><div><h3><span class="dot ${esc(p.status)}"></span>${esc(p.name)}</h3></div>${tierBadge(p.tier)}</div>`+
+    `<div class="amount">${esc(p.amount)}</div>`+
+    `<p class="reason">${esc(p.reason||'')}</p>${badge}`+ stackingBlock(p) +
+    `<div class="card-foot"><span class="status-word">${esc(p.status)}</span><span>·</span><span>${esc(p.region)}</span><span>·</span>`+
+    `<span>verified ${esc(p.checked)}</span><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a></div></div>`;
+}
+
+function renderBuckets(){
+  const sl = SHORTLIST||{};
+  const eg = document.getElementById('eligible-cards');
+  const bl = document.getElementById('blocked-cards');
+  eg.innerHTML = (sl.shortlist||[]).map(p=>programCard(p)).join('') || '<div class="empty">None eligible right now.</div>';
+  bl.innerHTML = (sl.blocked||[]).map(p=>programCard(p)).join('') || '<div class="empty">Nothing blocked.</div>';
 }
 
 function renderRadar(){
-  const ps = DATA.programs.filter(p =>
+  const body = document.getElementById('radar-body');
+  const ps = (DATA.programs||[]).filter(p =>
     (state.region==='All'||p.region===state.region) &&
-    (state.status==='All'||p.status===state.status));
+    (state.status==='All'||p.status===state.status) &&
+    matchesQuery(p));
   document.getElementById('count').textContent =
     `Showing ${ps.length} of ${DATA.programs.length} programs` +
-    (state.incorp ? '' : ' · dimmed = needs incorporation');
-  grid.innerHTML='';
+    (state.q.trim() ? ` matching "${state.q.trim()}"` : '') +
+    (state.incorp ? '' : ' — dimmed rows need incorporation');
+  body.innerHTML = '';
   ps.forEach(p=>{
     const dim = (!state.incorp && p.requires_incorporation) ? ' dim' : '';
-    const card = document.createElement('div');
-    card.className='card'+dim;
-    card.innerHTML =
-      `<div class="row1"><h2>${esc(p.name)}</h2><span class="badge b-${esc(p.status)}">${esc(p.status)}</span></div>`+
-      `<div class="region">${esc(p.region)} · ${esc(String(p.type).replace('-',' '))}</div>`+
-      `<div class="amount">${esc(p.amount)}</div>`+
-      `<ul>${(p.eligibility||[]).map(e=>`<li>${esc(e)}</li>`).join('')}</ul>`+
-      cardFoot(p);
-    grid.appendChild(card);
+    const tr = document.createElement('tr');
+    tr.className = 'row'+dim;
+    tr.innerHTML =
+      `<td><div class="pname">${esc(p.name)}</div><div class="pid">${esc(p.id)}</div></td>`+
+      `<td class="hide-sm">${esc(p.region)}</td>`+
+      `<td><span class="dot ${esc(p.status)}"></span><span class="status-word">${esc(p.status)}</span></td>`+
+      `<td class="amt">${esc(p.amount)}</td>`+
+      `<td style="font-size:13px;color:var(--muted);white-space:nowrap">${deadlineCell(p)}</td>`+
+      `<td class="hide-sm">${tierBadge(p.tier)}</td>`+
+      `<td class="hide-sm" style="color:var(--faint);font-size:13px;white-space:nowrap">${esc(p.checked)}</td>`;
+    tr.onclick = ()=>{
+      const next = tr.nextSibling;
+      if(next && next.classList && next.classList.contains('detail')){ next.remove(); return; }
+      const d = document.createElement('tr');
+      d.className='detail';
+      const elig = (p.eligibility||[]).map(e=>`<li>${esc(e)}</li>`).join('');
+      d.innerHTML = `<td colspan="7"><ul>${elig}</ul>`+
+        `<div class="src"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a>`+
+        ` <span style="color:var(--faint)">· ${esc(p.source_name||'')} · status since ${esc(p.status_since||'—')}${p.deadline? ' · '+esc(p.deadline):''}</span></div></td>`;
+      tr.after(d);
+    };
+    body.appendChild(tr);
   });
-}
-
-function renderShortlist(){
-  const sl = SHORTLIST || {};
-  const prof = sl.profile || {};
-  document.getElementById('profile-note').textContent =
-    `Profile: ${prof.identity||'builder'} · ${prof.location||''} · ${prof.sector||''} · ${prof.stage||''}` +
-    ` · incorporated=${prof.incorporated===true} · R&D spend=${prof.rnd_spend===true}. ` +
-    `Eligible-now ${(sl.shortlist||[]).length} · blocked ${(sl.blocked||[]).length} · not-for-him ${(sl.not_for_him||[]).length}.`;
-
-  const road = document.getElementById('roadmap');
-  const steps = sl.unlock_roadmap || [];
-  if(!steps.length){
-    road.innerHTML = '<h3>Unlock roadmap</h3><p class="empty">No unlock steps — profile already clears the blocked set, or nothing is blocked.</p>';
-  } else {
-    road.innerHTML = '<h3>Unlock roadmap</h3><ol>' + steps.map(s =>
-      `<li><strong>${esc(s.label)}</strong><div class="ids">${(s.unlocks||[]).map(esc).join(' · ')}</div></li>`
-    ).join('') + '</ol>';
-  }
-
-  function fill(id, items, badgeClass){
-    const el = document.getElementById(id);
-    el.innerHTML = '';
-    if(!(items||[]).length){
-      el.innerHTML = '<div class="empty">None in this bucket.</div>';
-      return;
-    }
-    items.forEach(p=>{
-      const card = document.createElement('div');
-      card.className = 'card';
-      const badge = p.verdict === 'eligible-now' ? 'eligible' : (p.verdict === 'blocked' ? 'blocked' : 'not');
-      card.innerHTML =
-        `<div class="row1"><h2>${esc(p.name)}</h2><span class="badge b-${badge}">${esc(p.verdict)}</span></div>`+
-        `<div class="region">${esc(p.region)} · ${esc(p.type)}</div>`+
-        `<div class="amount">${esc(p.amount)}</div>`+
-        `<p class="reason">${esc(p.reason)}${p.unblock ? ' · unlock: '+esc(p.unblock) : ''}</p>`+
-        cardFoot(p);
-      el.appendChild(card);
-    });
-  }
-  fill('short-grid', sl.shortlist, 'eligible');
-  fill('blocked-grid', sl.blocked, 'blocked');
 }
 
 function renderLedger(){
   const el = document.getElementById('timeline');
-  const events = (LEDGER || []).slice().reverse();
-  if(!events.length){
-    el.innerHTML = '<div class="empty">No ledger events yet — reverify has not recorded a status flip or concern this cycle.</div>';
-    return;
-  }
+  const events = (LEDGER||[]).slice().reverse();
+  if(!events.length){ el.innerHTML = '<li class="empty">No changes recorded yet — reverify has not logged a status flip or concern this cycle.</li>'; return; }
   el.innerHTML = events.map(e=>{
     const concern = !!e.concern;
-    const flip = e.old_status !== e.new_status;
     const what = concern
-      ? `Concern on ${esc(e.program_id)} — ${esc(e.concern)} (status held at ${esc(e.old_status)})`
-      : (flip
+      ? `<span class="concern-tag">Concern</span> ${esc(e.program_id)} — ${esc(e.concern)} (status held at ${esc(e.old_status)})`
+      : (e.old_status!==e.new_status
         ? `${esc(e.program_id)}: ${esc(e.old_status)} → ${esc(e.new_status)}`
-        : `${esc(e.program_id)}: status unchanged (${esc(e.old_status)})`);
-    return `<div class="tevent${concern?' concern':''}">`+
-      `<div class="when">${esc(e.date)}</div>`+
-      `<div class="what">${what}</div>`+
-      `<div class="meta-line"><span class="tier ${e.tier==='VERIFIED'?'v':''}">${esc(e.tier)}</span> · `+
-      `<a href="${esc(e.evidence_url)}" target="_blank" rel="noopener">evidence ↗</a></div></div>`;
+        : `${esc(e.program_id)}: re-checked, status unchanged (${esc(e.old_status)})`);
+    return `<li><div class="when">${esc(e.date)}</div><div class="what">${what}</div>`+
+      `<div class="meta">${tierBadge(e.tier)}<a href="${esc(e.evidence_url)}" target="_blank" rel="noopener">evidence ↗</a></div></li>`;
   }).join('');
 }
 
-function renderMeta(){
-  const c=s=>DATA.programs.filter(p=>p.status===s).length;
-  document.getElementById('m-total').textContent=DATA.programs.length;
-  document.getElementById('m-open').textContent=c('open');
-  document.getElementById('m-paused').textContent=c('paused');
-  document.getElementById('m-short').textContent=(SHORTLIST.shortlist||[]).length;
-  document.getElementById('m-sweep').textContent=DATA.generated || (SHORTLIST.generated||'—');
-}
-
-renderMeta();
+renderHero();
+renderRoadmap();
+renderBuckets();
 renderRadar();
-renderShortlist();
 renderLedger();
 </script>
 </body>
