@@ -1,0 +1,18 @@
+# Beacon eligibility profile — Marcus Richards / independent Alberta builder
+# Claim tier: facts stated by the operator for matching. Not a legal filing.
+
+identity: unincorporated independent builder
+location: Calgary AB
+region_fit: [Calgary, Alberta, Canada]
+sector: AI/software
+stage: pre-revenue
+team: solo
+incorporated: false
+rnd_payroll: false
+rnd_spend: false
+employees: 0
+revenue: 0
+notes: >
+  Solo pre-revenue AI/software builder in Calgary. No incorporation yet,
+  no R&D payroll, no eligible R&D spend claimed. Match engine scores against
+  this profile only — never invents eligibility beyond these facts.

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BEACON — Funding Radar for Independent Builders · Alberta &amp; Canada</title>
+<style>
+  :root{
+    --paper:#f3e9d2; --paper2:#eadfc3; --ink:#211d16; --ink-soft:#5a5245;
+    --crimson:#a31621; --teal:#0f5257; --ochre:#b98a1d; --line:#c9b98f;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--ink); font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(169,22,33,.05), transparent 55%),
+      radial-gradient(ellipse at 85% 90%, rgba(15,82,87,.06), transparent 50%),
+      repeating-linear-gradient(0deg, transparent 0 31px, rgba(33,29,22,.045) 31px 32px),
+      repeating-linear-gradient(90deg, transparent 0 31px, rgba(33,29,22,.045) 31px 32px),
+      var(--paper);
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:34px 22px 70px}
+  header.plate{border:2px solid var(--ink);padding:26px 30px 22px;position:relative;background:rgba(255,252,240,.55)}
+  header.plate:before,header.plate:after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--ink)}
+  header.plate:before{top:-2px;left:-2px;border-right:none;border-bottom:none}
+  header.plate:after{bottom:-2px;right:-2px;border-left:none;border-top:none}
+  .kicker{letter-spacing:.32em;font-size:11px;color:var(--ink-soft);text-transform:uppercase}
+  h1{font-family:Didot,"Bodoni MT",Georgia,serif;font-size:clamp(34px,6vw,58px);margin:8px 0 4px;letter-spacing:.04em}
+  h1 .accent{color:var(--crimson)}
+  .sub{font-family:Georgia,serif;font-style:italic;color:var(--ink-soft);font-size:15px;max-width:62ch}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .meta b{color:var(--ink)}
+  .views{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 8px}
+  .fgroup{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .flabel{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-right:2px}
+  button.chip{border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:12px;letter-spacing:.06em;
+    padding:6px 13px;cursor:pointer;border-radius:20px}
+  button.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;user-select:none}
+  .toggle input{accent-color:var(--teal);width:16px;height:16px}
+  .count{margin:14px 0 4px;font-family:Georgia,serif;font-style:italic;color:var(--ink-soft)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:10px}
+  .card{border:1.5px solid var(--ink);background:rgba(255,252,240,.6);padding:18px 18px 14px;position:relative;
+    transition:transform .12s ease}
+  .card:hover{transform:translateY(-2px)}
+  .card.dim{opacity:.42}
+  .card .row1{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+  .card h2{font-family:Didot,"Bodoni MT",Georgia,serif;font-size:19px;margin:0;line-height:1.25}
+  .badge{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1.5px solid;white-space:nowrap}
+  .b-open{color:var(--teal);border-color:var(--teal)}
+  .b-paused{color:var(--ochre);border-color:var(--ochre)}
+  .b-closed{color:var(--ink-soft);border-color:var(--ink-soft)}
+  .b-eligible{color:var(--teal);border-color:var(--teal)}
+  .b-blocked{color:var(--ochre);border-color:var(--ochre)}
+  .b-not{color:var(--ink-soft);border-color:var(--ink-soft)}
+  .region{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--crimson);margin:8px 0 2px}
+  .amount{font-family:Georgia,serif;font-size:15px;margin:2px 0 10px}
+  .card ul{margin:0 0 10px;padding-left:18px;font-size:13px;line-height:1.55}
+  .card li::marker{color:var(--teal)}
+  .reason{font-size:13px;line-height:1.5;margin:0 0 10px;color:var(--ink)}
+  .foot{border-top:1px dotted var(--line);padding-top:9px;font-size:11.5px;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:4px 12px}
+  .foot a{color:var(--teal);text-decoration:none;border-bottom:1px dotted var(--teal)}
+  .tier{font-size:10px;letter-spacing:.16em;border:1px solid var(--ink-soft);padding:2px 7px;text-transform:uppercase}
+  .tier.v{color:var(--teal);border-color:var(--teal)}
+  .verified{letter-spacing:.12em;text-transform:uppercase;font-size:10.5px;color:var(--teal)}
+  footer{margin-top:44px;border-top:2px solid var(--ink);padding-top:14px;font-size:12px;color:var(--ink-soft);
+    display:flex;flex-wrap:wrap;gap:6px 26px;letter-spacing:.04em}
+  .note{background:rgba(185,138,29,.12);border:1.5px dashed var(--ochre);padding:12px 16px;font-size:13px;margin:18px 0 4px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .roadmap{margin:12px 0 22px;border:1.5px solid var(--ink);background:rgba(255,252,240,.55);padding:16px 18px}
+  .roadmap h3{font-family:Didot,"Bodoni MT",Georgia,serif;font-size:20px;margin:0 0 10px}
+  .roadmap ol{margin:0;padding-left:20px}
+  .roadmap li{margin:0 0 10px;font-size:13.5px;line-height:1.5}
+  .roadmap .ids{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--teal)}
+  .timeline{margin-top:10px;border-left:2px solid var(--ink);padding-left:0}
+  .tevent{position:relative;padding:12px 0 12px 22px;border-bottom:1px dotted var(--line)}
+  .tevent:before{content:"";position:absolute;left:-6px;top:18px;width:10px;height:10px;background:var(--paper);
+    border:2px solid var(--crimson);border-radius:50%}
+  .tevent.concern:before{border-color:var(--ochre)}
+  .tevent .when{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  .tevent .what{font-size:14px;margin:4px 0}
+  .tevent .meta-line{font-size:12px;color:var(--ink-soft)}
+  .tevent a{color:var(--teal)}
+  .empty{font-family:Georgia,serif;font-style:italic;color:var(--ink-soft);padding:18px 0}
+  .section-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:22px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="plate">
+    <div class="kicker">Field instrument · No. 02 · v2</div>
+    <h1>BEA<span class="accent">C</span>ON</h1>
+    <div class="sub">A funding radar for independent builders in Alberta &amp; Canada — every entry carries its source, its check date, and its claim tier. Shortlist scores against the builder profile; the ledger records every status flip. Nothing here is advice; verify before you apply.</div>
+    <div class="meta">
+      <span>Entries <b id="m-total">–</b></span>
+      <span>Open <b id="m-open">–</b></span>
+      <span>Paused <b id="m-paused">–</b></span>
+      <span>Shortlist <b id="m-short">–</b></span>
+      <span>Last sweep <b id="m-sweep">–</b></span>
+    </div>
+  </header>
+
+  <div class="views" id="f-view" role="tablist" aria-label="Views"></div>
+
+  <div id="panel-radar" class="panel active">
+    <div class="note">Most Alberta programs require an incorporated company — toggle below to dim everything you can't touch yet as an independent builder. Honest eligibility beats a long list.</div>
+    <div class="filters">
+      <div class="fgroup" id="f-region"><span class="flabel">Region</span></div>
+      <div class="fgroup" id="f-status"><span class="flabel">Status</span></div>
+      <label class="toggle"><input type="checkbox" id="f-incorp"> I have an incorporated company</label>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div id="panel-shortlist" class="panel">
+    <div class="note" id="profile-note">Profile-matched shortlist for the configured builder. Verdicts: eligible-now · blocked (one unblock step) · not-for-him.</div>
+    <div class="roadmap" id="roadmap"></div>
+    <div class="section-label">Eligible now</div>
+    <div class="grid" id="short-grid"></div>
+    <div class="section-label">Blocked — single unlock step</div>
+    <div class="grid" id="blocked-grid"></div>
+  </div>
+
+  <div id="panel-ledger" class="panel">
+    <div class="note">Change ledger — every status flip (and fetch concern) recorded with date, program, evidence URL, and claim tier. Empty means no flips this cycle.</div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <footer>
+    <span>Compiled from public program pages &amp; guides · Beacon v2</span>
+    <span>Claim tiers: VERIFIED = primary source this cycle · INFERRED = secondary reporting — re-verify before applying</span>
+    <span>Built for the portfolio · Field instrument No. 02</span>
+  </footer>
+</div>
+<script>
+const DATA = /*__PROGRAMS_JSON__*/{};
+const SHORTLIST = /*__SHORTLIST_JSON__*/{};
+const LEDGER = /*__LEDGER_JSON__*/[];
+const grid = document.getElementById('grid');
+const state = {view:'radar', region:'All', status:'All', incorp:false};
+
+function chip(group, label, pressed){
+  const b = document.createElement('button');
+  b.className='chip'; b.textContent=label; b.setAttribute('aria-pressed', pressed?'true':'false');
+  b.onclick = ()=>{
+    if(group==='f-view'){
+      state.view = label.toLowerCase();
+      [...document.getElementById(group).querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed', c===b?'true':'false'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById('panel-'+state.view).classList.add('active');
+      return;
+    }
+    const key = group==='f-region' ? 'region' : 'status';
+    state[key]=label;
+    [...document.getElementById(group).querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed', c===b?'true':'false'));
+    renderRadar();
+  };
+  document.getElementById(group).appendChild(b);
+}
+['Radar','Shortlist','Ledger'].forEach((l,i)=>chip('f-view',l,i===0));
+['All','Calgary','Alberta','Canada'].forEach(l=>chip('f-region',l,l==='All'));
+['All','open','paused','closed'].forEach(l=>chip('f-status',l,l==='All'));
+document.getElementById('f-incorp').onchange = e=>{state.incorp=e.target.checked;renderRadar();};
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function cardFoot(p){
+  return `<div class="foot"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">source ↗</a>`+
+    `<span class="verified">last verified ${esc(p.checked)}</span>`+
+    `<span class="tier ${p.tier==='VERIFIED'?'v':''}">${esc(p.tier)}</span>`+
+    `<span>since ${esc(p.status_since)}${p.deadline?' · '+esc(p.deadline):''}</span></div>`;
+}
+
+function renderRadar(){
+  const ps = DATA.programs.filter(p =>
+    (state.region==='All'||p.region===state.region) &&
+    (state.status==='All'||p.status===state.status));
+  document.getElementById('count').textContent =
+    `Showing ${ps.length} of ${DATA.programs.length} programs` +
+    (state.incorp ? '' : ' · dimmed = needs incorporation');
+  grid.innerHTML='';
+  ps.forEach(p=>{
+    const dim = (!state.incorp && p.requires_incorporation) ? ' dim' : '';
+    const card = document.createElement('div');
+    card.className='card'+dim;
+    card.innerHTML =
+      `<div class="row1"><h2>${esc(p.name)}</h2><span class="badge b-${esc(p.status)}">${esc(p.status)}</span></div>`+
+      `<div class="region">${esc(p.region)} · ${esc(String(p.type).replace('-',' '))}</div>`+
+      `<div class="amount">${esc(p.amount)}</div>`+
+      `<ul>${(p.eligibility||[]).map(e=>`<li>${esc(e)}</li>`).join('')}</ul>`+
+      cardFoot(p);
+    grid.appendChild(card);
+  });
+}
+
+function renderShortlist(){
+  const sl = SHORTLIST || {};
+  const prof = sl.profile || {};
+  document.getElementById('profile-note').textContent =
+    `Profile: ${prof.identity||'builder'} · ${prof.location||''} · ${prof.sector||''} · ${prof.stage||''}` +
+    ` · incorporated=${prof.incorporated===true} · R&D spend=${prof.rnd_spend===true}. ` +
+    `Eligible-now ${(sl.shortlist||[]).length} · blocked ${(sl.blocked||[]).length} · not-for-him ${(sl.not_for_him||[]).length}.`;
+
+  const road = document.getElementById('roadmap');
+  const steps = sl.unlock_roadmap || [];
+  if(!steps.length){
+    road.innerHTML = '<h3>Unlock roadmap</h3><p class="empty">No unlock steps — profile already clears the blocked set, or nothing is blocked.</p>';
+  } else {
+    road.innerHTML = '<h3>Unlock roadmap</h3><ol>' + steps.map(s =>
+      `<li><strong>${esc(s.label)}</strong><div class="ids">${(s.unlocks||[]).map(esc).join(' · ')}</div></li>`
+    ).join('') + '</ol>';
+  }
+
+  function fill(id, items, badgeClass){
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    if(!(items||[]).length){
+      el.innerHTML = '<div class="empty">None in this bucket.</div>';
+      return;
+    }
+    items.forEach(p=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+      const badge = p.verdict === 'eligible-now' ? 'eligible' : (p.verdict === 'blocked' ? 'blocked' : 'not');
+      card.innerHTML =
+        `<div class="row1"><h2>${esc(p.name)}</h2><span class="badge b-${badge}">${esc(p.verdict)}</span></div>`+
+        `<div class="region">${esc(p.region)} · ${esc(p.type)}</div>`+
+        `<div class="amount">${esc(p.amount)}</div>`+
+        `<p class="reason">${esc(p.reason)}${p.unblock ? ' · unlock: '+esc(p.unblock) : ''}</p>`+
+        cardFoot(p);
+      el.appendChild(card);
+    });
+  }
+  fill('short-grid', sl.shortlist, 'eligible');
+  fill('blocked-grid', sl.blocked, 'blocked');
+}
+
+function renderLedger(){
+  const el = document.getElementById('timeline');
+  const events = (LEDGER || []).slice().reverse();
+  if(!events.length){
+    el.innerHTML = '<div class="empty">No ledger events yet — reverify has not recorded a status flip or concern this cycle.</div>';
+    return;
+  }
+  el.innerHTML = events.map(e=>{
+    const concern = !!e.concern;
+    const flip = e.old_status !== e.new_status;
+    const what = concern
+      ? `Concern on ${esc(e.program_id)} — ${esc(e.concern)} (status held at ${esc(e.old_status)})`
+      : (flip
+        ? `${esc(e.program_id)}: ${esc(e.old_status)} → ${esc(e.new_status)}`
+        : `${esc(e.program_id)}: status unchanged (${esc(e.old_status)})`);
+    return `<div class="tevent${concern?' concern':''}">`+
+      `<div class="when">${esc(e.date)}</div>`+
+      `<div class="what">${what}</div>`+
+      `<div class="meta-line"><span class="tier ${e.tier==='VERIFIED'?'v':''}">${esc(e.tier)}</span> · `+
+      `<a href="${esc(e.evidence_url)}" target="_blank" rel="noopener">evidence ↗</a></div></div>`;
+  }).join('');
+}
+
+function renderMeta(){
+  const c=s=>DATA.programs.filter(p=>p.status===s).length;
+  document.getElementById('m-total').textContent=DATA.programs.length;
+  document.getElementById('m-open').textContent=c('open');
+  document.getElementById('m-paused').textContent=c('paused');
+  document.getElementById('m-short').textContent=(SHORTLIST.shortlist||[]).length;
+  document.getElementById('m-sweep').textContent=DATA.generated || (SHORTLIST.generated||'—');
+}
+
+renderMeta();
+renderRadar();
+renderShortlist();
+renderLedger();
+</script>
+</body>
+</html>
