@@ -116,6 +116,31 @@
   footer{border-top:1px solid var(--line);margin-top:60px;padding:22px 0 40px;font-size:12.5px;color:var(--faint);
     display:flex;flex-wrap:wrap;gap:6px 28px}
   .empty{color:var(--faint);font-style:italic;padding:14px 0;font-size:14px}
+  /* wave 2/3: pipeline + evidence dossiers */
+  .seclabel{font-size:13.5px;color:var(--muted);margin:-6px 0 12px;max-width:70ch;line-height:1.6}
+  .seclabel b{color:var(--ink)}
+  .stage{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    border-radius:20px;padding:3px 10px;white-space:nowrap}
+  .stage.prospecting{background:#f1f3f5;color:var(--faint)}
+  .stage.preparing{background:var(--amber-soft);color:var(--amber)}
+  .stage.applied{background:var(--accent-soft);color:var(--accent)}
+  .stage.in-review{background:var(--amber-soft);color:var(--amber)}
+  .stage.awarded{background:#e6f6ec;color:var(--green)}
+  .stage.declined{background:#f1f3f5;color:var(--muted)}
+  .dossier{border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-top:12px;background:#fff}
+  .dossier h3{margin:0 0 4px;font-size:17px;font-weight:650;letter-spacing:-.01em}
+  .dossier .dsub{font-size:12.5px;color:var(--faint);margin-bottom:6px}
+  .dossier h4{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:18px 0 8px}
+  .fact{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .fact:last-child{border-bottom:none}
+  .fact .ftxt{flex:1}
+  .fact .fsrc{display:block;font-size:12px;color:var(--faint);margin-top:2px}
+  .fact .fsrc a{color:var(--accent);font-weight:600;text-decoration:none}
+  .unk{font-size:13.5px;color:var(--muted);padding:6px 0;display:flex;gap:10px;align-items:center}
+  .tier.unknown{color:var(--faint);border-style:dashed}
+  .tier.sample{color:#7c3aed;border-color:#c4b5fd}
+  select.evsel{font:inherit;font-size:14.5px;padding:11px 14px;border:1px solid var(--line);
+    border-radius:var(--radius);background:#fafbfc;color:var(--ink);max-width:100%}
   @media (max-width:640px){
     .card-top{flex-direction:column}
     table.radar .hide-sm{display:none}
@@ -165,6 +190,20 @@
     </tr></thead>
     <tbody id="radar-body"></tbody>
   </table>
+
+  <h2 class="sec">Application pipeline</h2>
+  <p class="seclabel" id="pipeline-note"></p>
+  <table class="radar" id="pipeline-table">
+    <thead><tr>
+      <th>Stage</th><th>Program</th><th class="hide-sm">Entered</th><th class="hide-sm">Amount applied</th><th>Notes</th>
+    </tr></thead>
+    <tbody id="pipeline-body"></tbody>
+  </table>
+
+  <h2 class="sec">Evidence &amp; funder history</h2>
+  <p class="seclabel">Every claim below carries its source, its check date, and a claim tier. Items without evidence are labeled <b>UNKNOWN — not yet verified</b>, never presented as fact.</p>
+  <div class="search"><select class="evsel" id="ev-select" aria-label="Choose a program dossier"></select></div>
+  <div class="dossier" id="dossier"></div>
 
   <h2 class="sec">Change ledger</h2>
   <ul class="events" id="timeline"></ul>
@@ -1095,6 +1134,554 @@ const DEADLINES = {
     }
   ]
 };
+const PIPELINE = {"applications":[{"amount_applied":null,"entered_stage":"2026-09-30","id":"app-001","notes":"SAMPLE: watching for programs the RINs launch locally — no application exists.","program_id":"ai-rin-2026","sample":true,"stage":"prospecting","tier":"SAMPLE"},{"amount_applied":105000,"entered_stage":"2026-09-30","id":"app-002","notes":"SAMPLE: draft budget for R&D Associate hire; blocked until incorporation.","program_id":"ai-rnd-associates","sample":true,"stage":"preparing","tier":"SAMPLE"},{"amount_applied":null,"entered_stage":"2026-09-30","id":"app-003","notes":"SAMPLE: IP strategy intake submitted via new portal.","program_id":"elevateip-ab","sample":true,"stage":"applied","tier":"SAMPLE"},{"amount_applied":10000,"entered_stage":"2026-09-30","id":"app-004","notes":"SAMPLE: intakes closed before submission — park and watch for reopen.","program_id":"ai-vouchers","sample":true,"stage":"declined","tier":"SAMPLE"}],"note":"SAMPLE DATA — this file is a schema reference only. Copy it to data/pipeline.json and fill in real entries; pipeline.json is gitignored and never pushed to the public repo.","sample":true,"stages":["prospecting","preparing","applied","in-review","awarded","declined"]};
+const PIPELINE_SRC = "template";
+const EVIDENCE = {
+  "generated": "2026-09-30",
+  "snapshots": [
+    {
+      "program_id": "ai-rnd-associates",
+      "program_name": "Alberta Innovates — Industry R&D Associates Program",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026 (continuous))",
+          "source_name": "Ayming Canada (secondary)",
+          "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Continuous intake",
+          "source_name": "Ayming Canada (secondary)",
+          "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: Up to $105,000 (non-repayable)",
+          "source_name": "Ayming Canada (secondary)",
+          "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (5 criteria listed)",
+          "source_name": "Ayming Canada (secondary)",
+          "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "ai-digital-traction",
+      "program_name": "Alberta Digital Traction Program",
+      "facts": [
+        {
+          "fact": "Status: paused (since 2026-05-29)",
+          "source_name": "Alberta Business Grants (secondary)",
+          "source_url": "https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Halted — no intake",
+          "source_name": "Alberta Business Grants (secondary)",
+          "source_url": "https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: Up to $50,000 (non-dilutive)",
+          "source_name": "Alberta Business Grants (secondary)",
+          "source_url": "https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (4 criteria listed)",
+          "source_name": "Alberta Business Grants (secondary)",
+          "source_url": "https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "ai-vouchers",
+      "program_name": "Alberta Innovates — Micro Voucher / Voucher Program",
+      "facts": [
+        {
+          "fact": "Status: paused (since 2026-05-29)",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Intakes closed",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: Micro Voucher $10,000 · Voucher $100,000",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (3 criteria listed)",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "ai-rin-2026",
+      "program_name": "Alberta Innovates — Regional Innovation Networks renewal",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026-09-23)",
+          "source_name": "Alberta Innovates (primary)",
+          "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
+          "checked": "2026-09-30",
+          "tier": "VERIFIED"
+        },
+        {
+          "fact": "Deadline: Apr 2026 – Mar 2029",
+          "source_name": "Alberta Innovates (primary)",
+          "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
+          "checked": "2026-09-30",
+          "tier": "VERIFIED"
+        },
+        {
+          "fact": "Amount: $20.6M over 3 years (ecosystem infrastructure)",
+          "source_name": "Alberta Innovates (primary)",
+          "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
+          "checked": "2026-09-30",
+          "tier": "VERIFIED"
+        },
+        {
+          "fact": "Eligibility (2 criteria listed)",
+          "source_name": "Alberta Innovates (primary)",
+          "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
+          "checked": "2026-09-30",
+          "tier": "VERIFIED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "elevateip-ab",
+      "program_name": "ElevateIP Alberta (relaunched)",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026-08-31)",
+          "source_name": "Innovate Calgary via press (secondary)",
+          "source_url": "https://www.europesays.com/canada/190129/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Open — new portal",
+          "source_name": "Innovate Calgary via press (secondary)",
+          "source_url": "https://www.europesays.com/canada/190129/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: IP strategy funding (streams vary)",
+          "source_name": "Innovate Calgary via press (secondary)",
+          "source_url": "https://www.europesays.com/canada/190129/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (2 criteria listed)",
+          "source_name": "Innovate Calgary via press (secondary)",
+          "source_url": "https://www.europesays.com/canada/190129/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "irap-ai-assist",
+      "program_name": "NRC IRAP — AI Assist",
+      "facts": [
+        {
+          "fact": "Status: open (since 2025–26 scaling)",
+          "source_name": "GrantCompass / NRC (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Rolling via ITA",
+          "source_name": "GrantCompass / NRC (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: $50,000 – $500,000+ (non-repayable)",
+          "source_name": "GrantCompass / NRC (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (4 criteria listed)",
+          "source_name": "GrantCompass / NRC (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "irap-di-assist",
+      "program_name": "NRC IRAP — Defence Industry Assist (DI Assist)",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026-01)",
+          "source_name": "GrantCompass (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Rolling via ITA",
+          "source_name": "GrantCompass (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: $244.2M envelope (project-level varies)",
+          "source_name": "GrantCompass (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (3 criteria listed)",
+          "source_name": "GrantCompass (secondary)",
+          "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "ai-compute-fund",
+      "program_name": "AI Compute Access Fund (Canada, $1B)",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026 (expanded))",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Ongoing",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: Compute credits (variable)",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (2 criteria listed)",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "tech-growth-fund",
+      "program_name": "Canadian Tech Growth Fund ($500M)",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026-06-04)",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Deploying 2026",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: $5M+ growth capital / equity",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (3 criteria listed)",
+          "source_name": "Northern Arc sector briefing (secondary)",
+          "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-09-30",
+          "event": "Re-check concern: fetch_failed: RemoteDisconnected: Remote end closed connection without response (status held at open)",
+          "tier": "INFERRED",
+          "evidence_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf"
+        }
+      ],
+      "unknown": [
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "raii-prairies",
+      "program_name": "Regional AI Initiative — PrairiesCan",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026)",
+          "source_name": "IMFounder guide (secondary)",
+          "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: To Dec 31, 2028",
+          "source_name": "IMFounder guide (secondary)",
+          "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: $250K – $5M (repayable, interest-free)",
+          "source_name": "IMFounder guide (secondary)",
+          "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (3 criteria listed)",
+          "source_name": "IMFounder guide (secondary)",
+          "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "ieg-sred",
+      "program_name": "Innovation Employment Grant + SR&ED stack",
+      "facts": [
+        {
+          "fact": "Status: open (since ongoing)",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Claim via AT1 Schedule 29 (no application)",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: 8% base / 20% enhanced on eligible R&D (up to $4M spend)",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (3 criteria listed)",
+          "source_name": "Reinvest Wealth guide (secondary)",
+          "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "mitacs-accelerate",
+      "program_name": "Mitacs Accelerate Entrepreneur",
+      "facts": [
+        {
+          "fact": "Status: open (since 2026)",
+          "source_name": "BoilerplateHub guide (secondary)",
+          "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: Rolling",
+          "source_name": "BoilerplateHub guide (secondary)",
+          "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: ~$7,500 Mitacs contribution per 4-month unit",
+          "source_name": "BoilerplateHub guide (secondary)",
+          "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (3 criteria listed)",
+          "source_name": "BoilerplateHub guide (secondary)",
+          "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    },
+    {
+      "program_id": "enmax-amplifier",
+      "program_name": "ENMAX Amplifier Fund",
+      "facts": [
+        {
+          "fact": "Status: closed (since 2026 (awarded))",
+          "source_name": "Calgary Chamber via YouTube (secondary)",
+          "source_url": "https://www.youtube.com/watch?v=ynMktBfqoyY",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Deadline: 2026 awarded (Gradient Thermal) — watch for next cycle",
+          "source_name": "Calgary Chamber via YouTube (secondary)",
+          "source_url": "https://www.youtube.com/watch?v=ynMktBfqoyY",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Amount: $25,000 (annual award)",
+          "source_name": "Calgary Chamber via YouTube (secondary)",
+          "source_url": "https://www.youtube.com/watch?v=ynMktBfqoyY",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        },
+        {
+          "fact": "Eligibility (2 criteria listed)",
+          "source_name": "Calgary Chamber via YouTube (secondary)",
+          "source_url": "https://www.youtube.com/watch?v=ynMktBfqoyY",
+          "checked": "2026-09-30",
+          "tier": "INFERRED"
+        }
+      ],
+      "history": [],
+      "unknown": [
+        "Status-change history — not yet verified (no reverify events recorded)",
+        "Funder disbursement history — not yet verified",
+        "Prior award cycles and amounts — not yet verified",
+        "Funder contact history — not yet verified"
+      ]
+    }
+  ]
+};
+const evidenceById = {};
+((EVIDENCE||{}).snapshots||[]).forEach(s=>{ evidenceById[s.program_id]=s; });
 const state = {region:'All', status:'All', incorp:false, q:'', openRow:null};
 const deadlineById = {};
 ((DEADLINES||{}).items||[]).forEach(d=>{ deadlineById[d.id]=d; });
@@ -1237,8 +1824,60 @@ function renderRadar(){
   });
 }
 
-function renderLedger(){
-  const el = document.getElementById('timeline');
+function renderPipeline(){
+  const apps = (PIPELINE||{}).applications||[];
+  const note = document.getElementById('pipeline-note');
+  if(PIPELINE_SRC==='private'){
+    note.innerHTML = 'Showing <b>your private pipeline.json</b> — it is gitignored and never pushed to the public repo.';
+  } else if(PIPELINE_SRC==='template'){
+    note.innerHTML = 'Showing <b>SAMPLE data</b> from <span class="pid">data/pipeline.template.json</span> — copy it to the gitignored <span class="pid">data/pipeline.json</span> and fill in real entries.';
+  } else {
+    note.textContent = 'No pipeline data found.';
+  }
+  const body = document.getElementById('pipeline-body');
+  if(!apps.length){ body.innerHTML = '<tr><td colspan="5"><div class="empty">No applications tracked yet.</div></td></tr>'; return; }
+  body.innerHTML = apps.map(a=>{
+    const p = progById(a.program_id);
+    const amt = a.amount_applied==null ? '—' : '$'+Number(a.amount_applied).toLocaleString('en-CA');
+    const sample = a.sample ? ' '+tierBadge('SAMPLE') : '';
+    return `<tr><td><span class="stage ${esc(a.stage)}">${esc(a.stage)}</span></td>`+
+      `<td><div class="pname">${esc(p?shortName(p.name):a.program_id)}</div><div class="pid">${esc(a.program_id)}</div></td>`+
+      `<td class="hide-sm" style="white-space:nowrap;color:var(--muted);font-size:13px">${esc(a.entered_stage||'—')}</td>`+
+      `<td class="hide-sm amt">${esc(amt)}</td>`+
+      `<td style="font-size:13px;color:var(--muted)">${esc(a.notes||'')}${sample}</td></tr>`;
+  }).join('');
+}
+
+function renderDossier(){
+  const sel = document.getElementById('ev-select');
+  const snaps = (EVIDENCE||{}).snapshots||[];
+  sel.innerHTML = snaps.map(s=>`<option value="${esc(s.program_id)}">${esc(s.program_name)}</option>`).join('');
+  const show = ()=>{
+    const s = evidenceById[sel.value];
+    const el = document.getElementById('dossier');
+    if(!s){ el.innerHTML = '<div class="empty">No snapshot for this program yet.</div>'; return; }
+    const facts = (s.facts||[]).map(f=>
+      `<div class="fact"><div class="ftxt">${esc(f.fact)}`+
+      `<span class="fsrc"><a href="${esc(f.source_url)}" target="_blank" rel="noopener">Source ↗</a> · ${esc(f.source_name)} · checked ${esc(f.checked)}</span></div>`+
+      `${tierBadge(f.tier)}</div>`).join('');
+    const hist = ((s.history||[]).map(h=>
+      `<div class="fact"><div class="ftxt">${esc(h.event)}`+
+      `<span class="fsrc">${esc(h.date)}${h.evidence_url?` · <a href="${esc(h.evidence_url)}" target="_blank" rel="noopener">evidence ↗</a>`:''}</span></div>`+
+      `${tierBadge(h.tier)}</div>`).join(''))
+      || '<div class="empty">No status-change events recorded.</div>';
+    const unk = (s.unknown||[]).map(u=>
+      `<div class="unk"><span class="tier unknown">UNKNOWN</span><span>${esc(u)}</span></div>`).join('');
+    el.innerHTML = `<h3>${esc(s.program_name)}</h3>`+
+      `<div class="dsub">snapshot generated ${esc(EVIDENCE.generated||'—')}</div>`+
+      `<h4>Verified facts</h4>${facts}`+
+      `<h4>Funder &amp; status history</h4>${hist}`+
+      (unk?`<h4>Not yet verified</h4>${unk}`:'');
+  };
+  sel.onchange = show;
+  show();
+}
+
+function renderLedger(){  const el = document.getElementById('timeline');
   const events = (LEDGER||[]).slice().reverse();
   if(!events.length){ el.innerHTML = '<li class="empty">No changes recorded yet — reverify has not logged a status flip or concern this cycle.</li>'; return; }
   el.innerHTML = events.map(e=>{
@@ -1257,6 +1896,8 @@ renderHero();
 renderRoadmap();
 renderBuckets();
 renderRadar();
+renderPipeline();
+renderDossier();
 renderLedger();
 </script>
 </body>

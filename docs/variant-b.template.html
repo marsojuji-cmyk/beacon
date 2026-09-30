@@ -110,6 +110,13 @@ const DATA = /*__PROGRAMS_JSON__*/{};
 const SHORTLIST = /*__SHORTLIST_JSON__*/{};
 const LEDGER = /*__LEDGER_JSON__*/[];
 const DEADLINES = /*__DEADLINES_JSON__*/{};
+const PIPELINE = /*__PIPELINE_JSON__*/{};
+const PIPELINE_SRC = /*__PIPELINE_SRC__*/"template";
+const EVIDENCE = /*__EVIDENCE_JSON__*/{};
+const pipeById = {};
+((PIPELINE||{}).applications||[]).forEach(a=>{ pipeById[a.program_id]=a; });
+const evidenceById = {};
+((EVIDENCE||{}).snapshots||[]).forEach(s=>{ evidenceById[s.program_id]=s; });
 const state = {q:'', region:'All', status:'All', verdict:'All'};
 const deadlineById = {};
 ((DEADLINES||{}).items||[]).forEach(d=>{ deadlineById[d.id]=d; });
@@ -170,7 +177,11 @@ function render(){
         const t=s.with&&progById(s.with)?shortName(progById(s.with).name):null;
         return `<div class="stackline"><b>Stacking${t?' · '+esc(t):''} (${esc(p.stacking_tier||'INFERRED')}):</b> ${esc(s.note)}</div>`;
       }).join('');
-      d.innerHTML=`<td colspan="7"><ul>${elig}</ul>${stack}`+
+      const pa=pipeById[p.id];
+      const pl=pa?`<div class="stackline"><b>Pipeline${pa.sample?' (SAMPLE data)':''}:</b> ${esc(pa.stage)}${pa.entered_stage?' · entered '+esc(pa.entered_stage):''}</div>`:'';
+      const ev=evidenceById[p.id];
+      const evl=ev?`<div class="stackline"><b>Evidence:</b> ${ev.facts.length} verified facts · ${ev.history.length} history events · ${ev.unknown.length} unverified <span style="color:var(--faint)">(full dossier on the card view)</span></div>`:'';
+      d.innerHTML=`<td colspan="7"><ul>${elig}</ul>${stack}${pl}${evl}`+
         `<div style="margin-top:8px"><a href="${esc(p.source_url)}" target="_blank" rel="noopener">Source ↗</a>`+
         ` <span style="color:var(--faint)">· ${esc(p.source_name||'')} · verified ${esc(p.checked)}</span></div></td>`;
       tr.after(d);

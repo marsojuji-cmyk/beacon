@@ -1,0 +1,3 @@
+# Private pipeline data never ships to the public repo.
+# Copy data/pipeline.template.json -> data/pipeline.json and fill in real entries.
+data/pipeline.json
