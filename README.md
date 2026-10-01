@@ -36,6 +36,33 @@ Open `docs/index.html` in a browser. That's the whole deployment.
 - **Wave 2** (2026-09-30): application pipeline tracker — stages prospecting → preparing → applied → in-review → awarded/declined. Real entries live in the gitignored `data/pipeline.json`; the repo ships `data/pipeline.template.json` with clearly-labeled SAMPLE data. The page says which one it's showing.
 - **Wave 3** (2026-09-30): per-program evidence snapshots (`data/evidence.json`, generated from `programs.json` + `ledger.jsonl`) — every fact carries a named source, check date, and claim tier; funder history comes only from recorded ledger events; anything unverified renders as UNKNOWN, never as a plausible fact. The `data/` directory is documented as a static JSON read API in `data/README.md`.
 
+## Stage 2 — the agent loop (2026-09-30)
+
+One command runs the whole radar cycle, in dependency order:
+
+```bash
+python3 scripts/agent.py              # full loop (see below)
+python3 scripts/agent.py --dry-run    # reverify/discover/alerts print, don't write
+python3 scripts/agent.py --limit 2    # smoke-test the loop on 2 programs
+```
+
+| Step | Script | What it does |
+|---|---|---|
+| 1 | `reverify.py --respect-cadence` | Re-checks only sources due this run (`check_cadence_days`: 7 open / 14 paused / 30 closed); flips and concerns → ledger |
+| 2 | `match.py` | **Automatic re-scoring** of every program against `data/profile.yaml` → `shortlist.json` |
+| 3 | `deadlines.py` | Recomputes urgency bands → `deadlines.json` |
+| 4 | `evidence.py` | Rebuilds per-program evidence snapshots |
+| 5 | `discover.py` | Scans `data/discovery_sources.json` listing pages for new-program **leads** → `data/discovery.json` (tier UNKNOWN, never auto-promoted) |
+| 6 | `alerts.py` | Deadline crossings (≤30d, overdue), today's status flips, discovery digest → `data/alerts.json` + provenance-bearing ledger events |
+| 7 | `embed.py` | Rebuilds `docs/index.html` + `docs/variant-b.html` |
+| 8 | `check.py` | Validates the dataset |
+
+Every run writes `data/agent.json` — the run receipt (timestamps, per-step results, counts). A failed step is recorded, not fatal; the loop finishes what it can and reports `RESULT: FAIL` naming the step.
+
+**Scheduled:** `.github/workflows/agent.yml` runs `scripts/agent.py` daily at 13:17 UTC and commits `data/` + `docs/` back to main — the radar updates itself.
+
+**Claim-tier discipline holds throughout:** discovery candidates are UNKNOWN leads; fetch failures never flip or delete; alerts are derived, not primary claims.
+
 ## Current state (2026-09-30)
 
 13 programs: 10 open, 2 paused, 1 closed. 3 eligible for an unincorporated solo builder today; 5 unlock on incorporation; 5 aren't a fit. Most records are INFERRED from secondary sources — the one VERIFIED record is the Alberta Innovates Regional Innovation Networks renewal ($20.6M, Sep 2026). Verify before you apply; Beacon tells you exactly which claims need it.

@@ -92,6 +92,7 @@
 </div>
 <main>
   <div class="strip" id="strip"></div>
+  <div class="strip" id="agent-strip" style="margin-top:-4px"></div>
   <div class="controls">
     <input type="search" id="q" placeholder="Filter: name, amount, eligibility, stacking…" aria-label="Filter programs" autocomplete="off">
     <select id="f-region" aria-label="Region">
@@ -135,6 +136,9 @@ const DEADLINES = /*__DEADLINES_JSON__*/{};
 const PIPELINE = /*__PIPELINE_JSON__*/{};
 const PIPELINE_SRC = /*__PIPELINE_SRC__*/"template";
 const EVIDENCE = /*__EVIDENCE_JSON__*/{};
+const AGENT = /*__AGENT_JSON__*/{};
+const ALERTS = /*__ALERTS_JSON__*/{};
+const DISCOVERY = /*__DISCOVERY_JSON__*/{};
 const pipeById = {};
 ((PIPELINE||{}).applications||[]).forEach(a=>{ pipeById[a.program_id]=a; });
 const evidenceById = {};
@@ -219,6 +223,15 @@ function render(){
     `<span><b>${c['eligible-now']??(sl.shortlist||[]).length}</b> eligible now</span>`+
     (road?`<span>${road}</span>`:'');
   document.getElementById('m-sweep').textContent=DATA.generated||sl.generated||'—';
+  // agent strip
+  const ag=AGENT||{}, asum=ag.summary||{};
+  const nAlert=(ALERTS.active||[]).length, nCand=((DISCOVERY||{}).candidates||[]).length;
+  const aDot=ag.ok==null?'—':(ag.ok?'●':'✕');
+  document.getElementById('agent-strip').innerHTML=
+    `<span><b>${aDot}</b> agent ${esc((ag.finished_utc||'').slice(0,10)||'never')}</span>`+
+    `<span><b>${asum.checked??'—'}</b> re-checked</span>`+
+    `<span><b>${nAlert}</b> alerts</span>`+
+    `<span><b>${nCand}</b> candidates</span>`;
   // ledger
   const ev=(LEDGER||[]).slice().reverse();
   document.getElementById('ledger-n').textContent=ev.length;

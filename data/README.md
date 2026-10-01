@@ -44,6 +44,23 @@ flips a program — it writes a `concern` event and holds the old status.
 ### `data/evidence.json` — Wave 3
 Per-program evidence snapshots (`scripts/evidence.py`, regenerated from
 `programs.json` + `ledger.jsonl` — edit those, not this file).
+
+### `data/agent.json` — Stage 2
+Run receipt for the autonomous loop (`scripts/agent.py`): `run_id`,
+UTC timestamps, per-step `rc` + notes, `failed_steps`, and a `summary`
+(programs, re-checked today, active alerts, discovery candidates).
+
+### `data/alerts.json` — Stage 2
+Active + recently resolved alerts (`scripts/alerts.py`). Kinds:
+`deadline_imminent` (≤30d), `deadline_overdue`, `status_flip`, `discovery`.
+Resolved alerts carry a `resolved` date — nothing is deleted silently.
+Alert raisings are also appended to `ledger.jsonl` as `kind: "alert"` events.
+
+### `data/discovery.json` — Stage 2
+Unverified leads from `scripts/discover.py` scanning
+`data/discovery_sources.json`. Every candidate is tier `UNKNOWN`,
+status `candidate` — verify against a primary source before adding to
+`programs.json`. The agent never promotes candidates on its own.
 ```
 { "generated": "2026-09-30",
   "snapshots": [

@@ -21,6 +21,9 @@ DEADLINES = ROOT / "data" / "deadlines.json"
 PIPELINE_PRIVATE = ROOT / "data" / "pipeline.json"
 PIPELINE_TEMPLATE = ROOT / "data" / "pipeline.template.json"
 EVIDENCE = ROOT / "data" / "evidence.json"
+AGENT = ROOT / "data" / "agent.json"
+ALERTS = ROOT / "data" / "alerts.json"
+DISCOVERY = ROOT / "data" / "discovery.json"
 
 
 def load_ledger(path: Path) -> list:
@@ -36,11 +39,13 @@ def load_ledger(path: Path) -> list:
 
 
 def build(tpl_path: Path, out_path: Path, programs: str, shortlist: str, ledger: str,
-          deadlines: str, pipeline: str, pipeline_src: str, evidence: str) -> int:
+          deadlines: str, pipeline: str, pipeline_src: str, evidence: str,
+          agent: str, alerts: str, discovery: str) -> int:
     tpl = tpl_path.read_text(encoding="utf-8")
     markers = ["/*__PROGRAMS_JSON__*/", "/*__SHORTLIST_JSON__*/", "/*__LEDGER_JSON__*/",
                "/*__DEADLINES_JSON__*/", "/*__PIPELINE_JSON__*/", "/*__PIPELINE_SRC__*/",
-               "/*__EVIDENCE_JSON__*/"]
+               "/*__EVIDENCE_JSON__*/", "/*__AGENT_JSON__*/", "/*__ALERTS_JSON__*/",
+               "/*__DISCOVERY_JSON__*/"]
     if any(m not in tpl for m in markers):
         print(f"FAIL: {tpl_path.name} missing embed markers")
         return 1
@@ -52,6 +57,9 @@ def build(tpl_path: Path, out_path: Path, programs: str, shortlist: str, ledger:
         .replace("/*__PIPELINE_JSON__*/{}", pipeline)
         .replace('/*__PIPELINE_SRC__*/"template"', json.dumps(pipeline_src))
         .replace("/*__EVIDENCE_JSON__*/{}", evidence)
+        .replace("/*__AGENT_JSON__*/{}", agent)
+        .replace("/*__ALERTS_JSON__*/{}", alerts)
+        .replace("/*__DISCOVERY_JSON__*/{}", discovery)
     )
     out_path.write_text(html, encoding="utf-8")
     print(f"Wrote {out_path} ({len(html)} bytes)")
@@ -65,6 +73,9 @@ def main() -> int:
         ledger = json.dumps(load_ledger(LEDGER), ensure_ascii=False, separators=(",", ":"))
         deadlines = DEADLINES.read_text(encoding="utf-8").strip() if DEADLINES.exists() else "{}"
         evidence = EVIDENCE.read_text(encoding="utf-8").strip() if EVIDENCE.exists() else "{}"
+        agent = AGENT.read_text(encoding="utf-8").strip() if AGENT.exists() else "{}"
+        alerts = ALERTS.read_text(encoding="utf-8").strip() if ALERTS.exists() else "{}"
+        discovery = DISCOVERY.read_text(encoding="utf-8").strip() if DISCOVERY.exists() else "{}"
         # Private pipeline wins; the committed template ships as labeled SAMPLE data.
         if PIPELINE_PRIVATE.exists():
             pipeline = PIPELINE_PRIVATE.read_text(encoding="utf-8").strip()
@@ -78,11 +89,13 @@ def main() -> int:
         print(f"FAIL: {exc}")
         return 1
 
-    rc = build(TEMPLATE, OUT, programs, shortlist, ledger, deadlines, pipeline, pipeline_src, evidence)
+    rc = build(TEMPLATE, OUT, programs, shortlist, ledger, deadlines, pipeline,
+             pipeline_src, evidence, agent, alerts, discovery)
     if rc:
         return rc
     if VARIANT_B.exists():
-        rc = build(VARIANT_B, OUT_B, programs, shortlist, ledger, deadlines, pipeline, pipeline_src, evidence)
+        rc = build(VARIANT_B, OUT_B, programs, shortlist, ledger, deadlines,
+                   pipeline, pipeline_src, evidence, agent, alerts, discovery)
         if rc:
             return rc
 

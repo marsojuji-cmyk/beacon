@@ -1,0 +1,58 @@
+{
+  "run_id": "20261001T013602Z",
+  "started_utc": "2026-10-01T01:36:02.866009+00:00",
+  "finished_utc": "2026-10-01T01:36:06.201243+00:00",
+  "ok": true,
+  "failed_steps": [],
+  "steps": [
+    {
+      "step": "reverify",
+      "rc": 0,
+      "note": "  [ieg-sred] skip — checked 0d ago, cadence 7d |   [mitacs-accelerate] skip — checked 0d ago, cadence 7d |   [enmax-amplifier] skip — checked 0d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
+    },
+    {
+      "step": "match",
+      "rc": 0,
+      "note": "  → incorporate unlocks 5: ai-rnd-associates, irap-ai-assist, raii-prairies, ieg-sred, mitacs-accelerate |   → first-rnd-dollar unlocks 1: ieg-sred | Wrote /home/hatch/workspace/beacon/data/shortlist.json | RESULT: PASS"
+    },
+    {
+      "step": "deadlines",
+      "rc": 0,
+      "note": "Wrote /home/hatch/workspace/beacon/data/deadlines.json (13 programs, 0 flagged) | --- digest --- | No dated deadlines within 90 days. | RESULT: PASS"
+    },
+    {
+      "step": "evidence",
+      "rc": 0,
+      "note": "Wrote /home/hatch/workspace/beacon/data/evidence.json: 13 snapshots, 52 facts, 1 history events | RESULT: PASS"
+    },
+    {
+      "step": "discover",
+      "rc": 0,
+      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 0 new candidate(s) | Wrote /home/hatch/workspace/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=10 total_candidates=10"
+    },
+    {
+      "step": "alerts",
+      "rc": 0,
+      "note": "Beacon alerts — 13 programs · 2026-09-30 | Wrote /home/hatch/workspace/beacon/data/alerts.json | RESULT: PASS · raised=1 active=1 {'discovery': 1} |   NEW [discovery] queue: 10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source be"
+    },
+    {
+      "step": "embed",
+      "rc": 0,
+      "note": "Wrote /home/hatch/workspace/beacon/docs/index.html (94644 bytes) | Wrote /home/hatch/workspace/beacon/docs/variant-b.html (75194 bytes) | RESULT: PASS"
+    },
+    {
+      "step": "check",
+      "rc": 0,
+      "note": "Beacon check — 13 programs, generated 2026-09-30 | Status: closed=1, open=10, paused=2 | RESULT: PASS"
+    }
+  ],
+  "summary": {
+    "programs_total": 13,
+    "checked": 0,
+    "flips": 0,
+    "alerts_active": 1,
+    "discovery_candidates": 10
+  },
+  "schedule": "daily via .github/workflows/agent.yml (13:17 UTC); manual: python3 scripts/agent.py",
+  "note": "Autonomous loop receipt. reverify respects per-program check_cadence_days; flips and alert crossings are appended to data/ledger.jsonl with evidence."
+}

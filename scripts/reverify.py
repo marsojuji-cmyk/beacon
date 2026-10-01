@@ -9,6 +9,9 @@ Never drops a program on fetch failure: keeps old status, marks tier concern
 
 Usage:
   python3 scripts/reverify.py [--dry-run] [--timeout SEC] [--limit N]
+                             [--respect-cadence]
+  --respect-cadence skips programs checked more recently than their
+  check_cadence_days (days). The agent loop always passes it.
 """
 from __future__ import annotations
 
@@ -48,13 +51,15 @@ OPEN_RE = re.compile(
 
 def parse_args(argv: list[str]) -> dict:
     dry = "--dry-run" in argv
+    respect_cadence = "--respect-cadence" in argv
     timeout = 20.0
     limit = None
     if "--timeout" in argv:
         timeout = float(argv[argv.index("--timeout") + 1])
     if "--limit" in argv:
         limit = int(argv[argv.index("--limit") + 1])
-    return {"dry_run": dry, "timeout": timeout, "limit": limit}
+    return {"dry_run": dry, "timeout": timeout, "limit": limit,
+            "respect_cadence": respect_cadence}
 
 
 def is_primary(source_name: str) -> bool:
@@ -197,14 +202,27 @@ def main() -> int:
     flips = 0
     concerns = 0
     verified = 0
+    skipped = 0
     events: list[dict] = []
     dirty = False
 
     print(f"Beacon reverify — {len(programs)} programs · {today}"
-          + (" · DRY-RUN" if opts["dry_run"] else ""))
+          + (" · DRY-RUN" if opts["dry_run"] else "")
+          + (" · respect-cadence" if opts["respect_cadence"] else ""))
 
     for p in programs:
         pid = p.get("id", "?")
+        if opts["respect_cadence"]:
+            cadence = p.get("check_cadence_days", 7)
+            try:
+                y, m, d = (int(x) for x in p.get("checked", "").split("-"))
+                age = (date.today() - date(y, m, d)).days
+            except ValueError:
+                age = 10 ** 9  # unparseable checked date — always due
+            if age < cadence:
+                skipped += 1
+                print(f"  [{pid}] skip — checked {age}d ago, cadence {cadence}d")
+                continue
         url = p.get("source_url", "")
         old_status = p.get("status", "open")
         print(f"  [{pid}] fetch {url[:72]}…")
@@ -290,7 +308,8 @@ def main() -> int:
 
     append_ledger(events, opts["dry_run"])
 
-    print(f"RESULT: flips={flips} concerns={concerns} primary_verified={verified} events={len(events)}")
+    print(f"RESULT: flips={flips} concerns={concerns} primary_verified={verified} "
+          f"skipped={skipped} events={len(events)}")
     # Always exit 0 if we completed the sweep — failures are recorded, not fatal.
     return 0
 

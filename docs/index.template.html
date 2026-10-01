@@ -149,6 +149,21 @@
   /* wave 2/3: pipeline + evidence dossiers */
   .seclabel{font-size:13.5px;color:var(--ink-soft);margin:-6px 0 12px;max-width:70ch;line-height:1.6}
   .seclabel b{color:var(--ink)}
+  /* stage 2: agent loop */
+  .astrip{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+  .astrip>span{border:2px solid var(--ink);border-radius:var(--radius);padding:10px 14px;font-size:13px;background:var(--paper-deep)}
+  .astrip>span b{font-family:var(--display);font-weight:900;font-size:20px;margin-right:6px}
+  .abanner{border:2px solid var(--ink);border-left-width:10px;margin:0 0 10px;padding:10px 14px;font-size:13.5px;background:#fff}
+  .abanner.k-deadline_overdue{border-left-color:var(--resolved)}
+  .abanner.k-deadline_imminent{border-left-color:var(--signal)}
+  .abanner.k-status_flip{border-left-color:var(--evidence)}
+  .abanner.k-discovery{border-left-color:var(--proposal)}
+  .abanner .ak{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+  .dqueue{display:grid;gap:10px;margin:0 0 6px}
+  .dcard{border:2px dashed var(--ink);border-radius:var(--radius);padding:10px 14px;font-size:13.5px}
+  .dcard .dsnip{color:var(--ink-soft);font-size:12.5px;margin-top:4px;line-height:1.5}
+  .dcard .dmeta{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+  .dcard .dmeta a{color:var(--evidence);text-decoration:none;font-weight:700}
   .stage{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
     border-radius:2px;padding:4px 10px;white-space:nowrap;border:1.5px solid var(--ink)}
   .stage.prospecting{background:var(--dormant);color:var(--ink)}
@@ -196,6 +211,11 @@
     </div>
   </section>
 
+  <h2 class="sec">Agent <span class="scope">scope · autonomous loop</span></h2>
+  <p class="seclabel">The agent runs the full radar cycle on schedule — re-checking sources due this run, re-scoring eligibility, surfacing deadline crossings, and scanning for new candidates. Its run receipt is below; every change lands in the ledger with evidence.</p>
+  <div class="astrip" id="agent-strip"></div>
+  <div id="alerts-banner"></div>
+
   <h2 class="sec">Your next moves <span class="scope">scope · unlock roadmap</span></h2>
   <ol class="steps" id="roadmap"></ol>
 
@@ -236,6 +256,10 @@
   <div class="search"><select class="evsel" id="ev-select" aria-label="Choose a program dossier"></select></div>
   <div class="dossier" id="dossier"></div>
 
+  <h2 class="sec">Discovery queue <span class="scope">scope · unverified leads</span></h2>
+  <p class="seclabel">Spotted on listing pages by the agent's discovery pass. Tier <b>UNKNOWN</b> — verify against a primary source before tracking.</p>
+  <div class="dqueue" id="discovery-queue"></div>
+
   <h2 class="sec">Change ledger <span class="scope">scope · ledger.jsonl</span></h2>
   <ul class="events" id="timeline"></ul>
 
@@ -260,6 +284,9 @@ const DEADLINES = /*__DEADLINES_JSON__*/{};
 const PIPELINE = /*__PIPELINE_JSON__*/{};
 const PIPELINE_SRC = /*__PIPELINE_SRC__*/"template";
 const EVIDENCE = /*__EVIDENCE_JSON__*/{};
+const AGENT = /*__AGENT_JSON__*/{};
+const ALERTS = /*__ALERTS_JSON__*/{};
+const DISCOVERY = /*__DISCOVERY_JSON__*/{};
 const evidenceById = {};
 ((EVIDENCE||{}).snapshots||[]).forEach(s=>{ evidenceById[s.program_id]=s; });
 const state = {region:'All', status:'All', incorp:false, q:'', openRow:null};
@@ -488,6 +515,29 @@ function renderLedger(){  const el = document.getElementById('timeline');
   }).join('');
 }
 
+function renderAgent(){
+  const ag = AGENT||{};
+  const sum = ag.summary||{};
+  const runTxt = ag.finished_utc ? ag.finished_utc.slice(0,16).replace('T',' ')+' UTC' : 'never run';
+  const dot = ag.ok==null ? '—' : (ag.ok ? '●' : '✕');
+  document.getElementById('agent-strip').innerHTML =
+    `<span><b>${dot}</b> last run ${esc(runTxt)}</span>`+
+    `<span><b>${sum.checked??'—'}</b> re-checked this run</span>`+
+    `<span><b>${(ALERTS.active||[]).length}</b> active alerts</span>`+
+    `<span><b>${((DISCOVERY||{}).candidates||[]).length}</b> discovery candidates</span>`+
+    `<span style="background:transparent;border-style:dashed">daily sweep · GitHub Actions</span>`;
+  const act = (ALERTS.active||[]);
+  document.getElementById('alerts-banner').innerHTML = act.length ? act.map(a=>
+    `<div class="abanner k-${esc(a.kind)}"><span class="ak">${esc(a.kind.replace(/_/g,' '))} · ${esc(a.raised)} · tier ${esc(a.tier)}</span>${esc(a.message)}</div>`
+  ).join('') : '<p class="empty">No active alerts — nothing imminent, overdue, or flipped.</p>';
+  const cands = ((DISCOVERY||{}).candidates||[]).slice().reverse();
+  document.getElementById('discovery-queue').innerHTML = cands.length ? cands.map(c=>
+    `<div class="dcard"><div><b>${esc(c.name_guess)}</b> <span class="tier unknown">UNKNOWN</span></div>`+
+    `<div class="dsnip">${esc(c.snippet)}</div>`+
+    `<div class="dmeta"><a href="${esc(c.url)}" target="_blank" rel="noopener">open ↗</a><span>via ${esc(c.discovery_source)}</span><span>spotted ${esc(c.discovered)}</span></div></div>`
+  ).join('') : '<p class="empty">Discovery queue is empty — no new candidates spotted.</p>';
+}
+
 renderHero();
 renderRoadmap();
 renderBuckets();
@@ -496,6 +546,7 @@ renderRadar();
 renderPipeline();
 renderDossier();
 renderLedger();
+renderAgent();
 </script>
 </body>
 </html>

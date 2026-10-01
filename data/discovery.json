@@ -1,0 +1,97 @@
+{
+  "generated": "2026-09-30",
+  "sources_checked": 3,
+  "candidates": [
+    {
+      "name_guess": "Alberta Digital Traction Program Sectors: Emerging Technology & Data Science Alberta-based Intakes Closed",
+      "url": "https://albertainnovates.ca/funding/alberta-digital-traction-program/",
+      "discovery_source": "Alberta Innovates — Funding",
+      "snippet": "Life Sciences Alberta-based Intakes Closed Alberta Digital Traction Program Secto",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Lighthouse Initiative Sectors: Health & Life Sciences Alberta-based Intakes Closed",
+      "url": "https://albertainnovates.ca/funding/alberta-lighthouse-initiative/",
+      "discovery_source": "Alberta Innovates — Funding",
+      "snippet": "; Data Science Alberta-based Intakes Closed Alberta Lighthouse Initiative Sectors:</s",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Chronic Wasting Disease Research Program Sectors: Agriculture & Forestry Alberta-based Intakes Closed",
+      "url": "https://albertainnovates.ca/funding/chronic-wasting-disease-research-program/",
+      "discovery_source": "Alberta Innovates — Funding",
+      "snippet": "; Data Science Alberta-based Intakes Closed Chronic Wasting Disease Research Program <span class=\"visual",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Agri-Processing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/alberta-agri-processing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "ue'> Alberta Agri-Processing Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "British Columbia Manufacturing & Processing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/british-columbia-manufacturing-processing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "y\" href=\"https://www.ayming.ca/investment-tax-credits/alberta-agri-processing-investment-tax-credit/\">Alberta Agri-Processing Investment Tax Credit British Columbia Manufacturing & Processing Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Clean Technology Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/clean-technology-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "tax-credits/british-columbia-manufacturing-processing-investment-tax-credit/\">British Columbia Manufacturing & Processing Investment Tax Credit Clean Technology Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Manitoba Green Energy & Equipment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/manitoba-green-energy-equipment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "n btn--tertiary\" href=\"https://www.ayming.ca/investment-tax-credits/clean-technology-investment-tax-credit/\">Clean Technology Investment Tax Credit Manitoba Green Energy & Equipment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Manitoba Manufacturing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/manitoba-manufacturing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "y\" href=\"https://www.ayming.ca/investment-tax-credits/manitoba-green-energy-equipment-tax-credit/\">Manitoba Green Energy & Equipment Tax Credit Manitoba Manufacturing Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Ontario Made Manufacturing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/investment-tax-credits/ontario-made-manufacturing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "ary\" href=\"https://www.ayming.ca/investment-tax-credits/manitoba-manufacturing-investment-tax-credit/\">Manitoba Manufacturing Investment Tax Credit Ontario Made Manufacturing Investment Tax Credit <div cl",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Saskatchewan Manufacturing & Processing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/manufacturing-processing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "a/investment-tax-credits/investment-tax-credits/ontario-made-manufacturing-investment-tax-credit/\">Ontario Made Manufacturing Investment Tax Credit Saskatchewan Manufacturing & Processing Investment Tax Credit <div class=\"meg",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    }
+  ],
+  "note": "Candidates are UNVERIFIED leads (tier UNKNOWN). Nothing here is a tracked program until a human verifies it against a primary source and adds it to programs.json."
+}

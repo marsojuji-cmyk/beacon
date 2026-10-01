@@ -149,6 +149,21 @@
   /* wave 2/3: pipeline + evidence dossiers */
   .seclabel{font-size:13.5px;color:var(--ink-soft);margin:-6px 0 12px;max-width:70ch;line-height:1.6}
   .seclabel b{color:var(--ink)}
+  /* stage 2: agent loop */
+  .astrip{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+  .astrip>span{border:2px solid var(--ink);border-radius:var(--radius);padding:10px 14px;font-size:13px;background:var(--paper-deep)}
+  .astrip>span b{font-family:var(--display);font-weight:900;font-size:20px;margin-right:6px}
+  .abanner{border:2px solid var(--ink);border-left-width:10px;margin:0 0 10px;padding:10px 14px;font-size:13.5px;background:#fff}
+  .abanner.k-deadline_overdue{border-left-color:var(--resolved)}
+  .abanner.k-deadline_imminent{border-left-color:var(--signal)}
+  .abanner.k-status_flip{border-left-color:var(--evidence)}
+  .abanner.k-discovery{border-left-color:var(--proposal)}
+  .abanner .ak{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+  .dqueue{display:grid;gap:10px;margin:0 0 6px}
+  .dcard{border:2px dashed var(--ink);border-radius:var(--radius);padding:10px 14px;font-size:13.5px}
+  .dcard .dsnip{color:var(--ink-soft);font-size:12.5px;margin-top:4px;line-height:1.5}
+  .dcard .dmeta{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+  .dcard .dmeta a{color:var(--evidence);text-decoration:none;font-weight:700}
   .stage{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
     border-radius:2px;padding:4px 10px;white-space:nowrap;border:1.5px solid var(--ink)}
   .stage.prospecting{background:var(--dormant);color:var(--ink)}
@@ -196,6 +211,11 @@
     </div>
   </section>
 
+  <h2 class="sec">Agent <span class="scope">scope · autonomous loop</span></h2>
+  <p class="seclabel">The agent runs the full radar cycle on schedule — re-checking sources due this run, re-scoring eligibility, surfacing deadline crossings, and scanning for new candidates. Its run receipt is below; every change lands in the ledger with evidence.</p>
+  <div class="astrip" id="agent-strip"></div>
+  <div id="alerts-banner"></div>
+
   <h2 class="sec">Your next moves <span class="scope">scope · unlock roadmap</span></h2>
   <ol class="steps" id="roadmap"></ol>
 
@@ -236,6 +256,10 @@
   <div class="search"><select class="evsel" id="ev-select" aria-label="Choose a program dossier"></select></div>
   <div class="dossier" id="dossier"></div>
 
+  <h2 class="sec">Discovery queue <span class="scope">scope · unverified leads</span></h2>
+  <p class="seclabel">Spotted on listing pages by the agent's discovery pass. Tier <b>UNKNOWN</b> — verify against a primary source before tracking.</p>
+  <div class="dqueue" id="discovery-queue"></div>
+
   <h2 class="sec">Change ledger <span class="scope">scope · ledger.jsonl</span></h2>
   <ul class="events" id="timeline"></ul>
 
@@ -258,8 +282,10 @@ const DATA = {
   "programs": [
     {
       "amount": "Up to $105,000 (non-repayable)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Continuous intake",
+      "deadline_date": null,
       "eligibility": [
         "Alberta-based incorporated for-profit SME",
         "Under 500 employees, under $50M revenue",
@@ -273,23 +299,24 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "Ayming Canada (secondary)",
       "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
-      "status": "open",
-      "status_since": "2026 (continuous)",
-      "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
       "stacking": [
         {
           "with": "ieg-sred",
           "note": "Provincial grant funding reduces the federal SR&ED claim base."
         }
       ],
-      "stacking_tier": "INFERRED"
+      "stacking_tier": "INFERRED",
+      "status": "open",
+      "status_since": "2026 (continuous)",
+      "tier": "INFERRED",
+      "type": "grant"
     },
     {
       "amount": "Up to $50,000 (non-dilutive)",
+      "check_cadence_days": 14,
       "checked": "2026-09-30",
       "deadline": "Halted — no intake",
+      "deadline_date": null,
       "eligibility": [
         "Alberta digital tech company, software core to product",
         "Under 50 FTE, under $1M ARR",
@@ -302,18 +329,19 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "Alberta Business Grants (secondary)",
       "source_url": "https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "paused",
       "status_since": "2026-05-29",
       "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "grant"
     },
     {
       "amount": "Micro Voucher $10,000 · Voucher $100,000",
+      "check_cadence_days": 14,
       "checked": "2026-09-30",
       "deadline": "Intakes closed",
+      "deadline_date": null,
       "eligibility": [
         "Alberta-registered for-profit, under 500 employees",
         "Under $50M gross revenue",
@@ -325,23 +353,24 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "Reinvest Wealth guide (secondary)",
       "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-      "status": "paused",
-      "status_since": "2026-05-29",
-      "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
       "stacking": [
         {
           "with": "ieg-sred",
           "note": "Voucher funding is assistance against SR&ED-eligible spend."
         }
       ],
-      "stacking_tier": "INFERRED"
+      "stacking_tier": "INFERRED",
+      "status": "paused",
+      "status_since": "2026-05-29",
+      "tier": "INFERRED",
+      "type": "grant"
     },
     {
       "amount": "$20.6M over 3 years (ecosystem infrastructure)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Apr 2026 – Mar 2029",
+      "deadline_date": "2029-03-31",
       "eligibility": [
         "Flows via 8 Regional Innovation Networks (incl. Calgary Innovation Coalition)",
         "Founder-facing: watch for programs the RINs launch locally"
@@ -352,18 +381,19 @@ const DATA = {
       "requires_incorporation": false,
       "source_name": "Alberta Innovates (primary)",
       "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "open",
       "status_since": "2026-09-23",
       "tier": "VERIFIED",
-      "type": "ecosystem",
-      "deadline_date": "2029-03-31",
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "ecosystem"
     },
     {
       "amount": "IP strategy funding (streams vary)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Open — new portal",
+      "deadline_date": null,
       "eligibility": [
         "Alberta startups and SMEs",
         "IP education, strategy coaching, protection funding"
@@ -374,18 +404,19 @@ const DATA = {
       "requires_incorporation": false,
       "source_name": "Innovate Calgary via press (secondary)",
       "source_url": "https://www.europesays.com/canada/190129/",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "open",
       "status_since": "2026-08-31",
       "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "grant"
     },
     {
       "amount": "$50,000 – $500,000+ (non-repayable)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Rolling via ITA",
+      "deadline_date": null,
       "eligibility": [
         "Canadian-incorporated SME, under 500 employees",
         "Internal technical team",
@@ -398,23 +429,24 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "GrantCompass / NRC (secondary)",
       "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-      "status": "open",
-      "status_since": "2025–26 scaling",
-      "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
       "stacking": [
         {
           "with": "ieg-sred",
           "note": "IRAP funding is government assistance — it reduces your SR&ED expenditure pool."
         }
       ],
-      "stacking_tier": "INFERRED"
+      "stacking_tier": "INFERRED",
+      "status": "open",
+      "status_since": "2025–26 scaling",
+      "tier": "INFERRED",
+      "type": "grant"
     },
     {
       "amount": "$244.2M envelope (project-level varies)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Rolling via ITA",
+      "deadline_date": null,
       "eligibility": [
         "Canadian SME",
         "Dual-use tech: cybersecurity, autonomous systems, advanced materials, comms, surveillance",
@@ -426,18 +458,19 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "GrantCompass (secondary)",
       "source_url": "https://grantcompass.ca/irap-funding-canada.html",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "open",
       "status_since": "2026-01",
       "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "grant"
     },
     {
       "amount": "Compute credits (variable)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Ongoing",
+      "deadline_date": null,
       "eligibility": [
         "SMEs, AI startups, research-driven companies",
         "HPC / training / deployment workloads"
@@ -448,18 +481,19 @@ const DATA = {
       "requires_incorporation": false,
       "source_name": "Northern Arc sector briefing (secondary)",
       "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "open",
       "status_since": "2026 (expanded)",
       "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "grant"
     },
     {
       "amount": "$5M+ growth capital / equity",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Deploying 2026",
+      "deadline_date": null,
       "eligibility": [
         "Canadian AI scaleups with commercial traction",
         "Defensible IP, credible path to global growth",
@@ -471,18 +505,19 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "Northern Arc sector briefing (secondary)",
       "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "open",
       "status_since": "2026-06-04",
       "tier": "INFERRED",
-      "type": "signal",
-      "deadline_date": null,
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "signal"
     },
     {
       "amount": "$250K – $5M (repayable, interest-free)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "To Dec 31, 2028",
+      "deadline_date": "2028-12-31",
       "eligibility": [
         "SMEs building or adopting AI",
         "Via PrairiesCan for Alberta founders",
@@ -494,23 +529,24 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "IMFounder guide (secondary)",
       "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
-      "status": "open",
-      "status_since": "2026",
-      "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": "2028-12-31",
       "stacking": [
         {
           "with": "ieg-sred",
           "note": "Repayable contributions still interact with stacking caps — confirm with a tax advisor."
         }
       ],
-      "stacking_tier": "INFERRED"
+      "stacking_tier": "INFERRED",
+      "status": "open",
+      "status_since": "2026",
+      "tier": "INFERRED",
+      "type": "grant"
     },
     {
       "amount": "8% base / 20% enhanced on eligible R&D (up to $4M spend)",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Claim via AT1 Schedule 29 (no application)",
+      "deadline_date": null,
       "eligibility": [
         "Alberta corporation with eligible R&D spend",
         "Expenses must qualify under federal SR&ED",
@@ -522,23 +558,24 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "Reinvest Wealth guide (secondary)",
       "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-      "status": "open",
-      "status_since": "ongoing",
-      "tier": "INFERRED",
-      "type": "tax-credit",
-      "deadline_date": null,
       "stacking": [
         {
           "with": null,
           "note": "Designed stack: federal SR&ED credit + Alberta IEG on the same eligible R&D spend."
         }
       ],
-      "stacking_tier": "INFERRED"
+      "stacking_tier": "INFERRED",
+      "status": "open",
+      "status_since": "ongoing",
+      "tier": "INFERRED",
+      "type": "tax-credit"
     },
     {
       "amount": "~$7,500 Mitacs contribution per 4-month unit",
+      "check_cadence_days": 7,
       "checked": "2026-09-30",
       "deadline": "Rolling",
+      "deadline_date": null,
       "eligibility": [
         "Incorporated startup hosted in Mitacs-approved incubator",
         "Project with genuine research content",
@@ -550,23 +587,24 @@ const DATA = {
       "requires_incorporation": true,
       "source_name": "BoilerplateHub guide (secondary)",
       "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
-      "status": "open",
-      "status_since": "2026",
-      "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
       "stacking": [
         {
           "with": "ieg-sred",
           "note": "Mitacs contributions count as government assistance for SR&ED purposes."
         }
       ],
-      "stacking_tier": "INFERRED"
+      "stacking_tier": "INFERRED",
+      "status": "open",
+      "status_since": "2026",
+      "tier": "INFERRED",
+      "type": "grant"
     },
     {
       "amount": "$25,000 (annual award)",
+      "check_cadence_days": 30,
       "checked": "2026-09-30",
       "deadline": "2026 awarded (Gradient Thermal) — watch for next cycle",
+      "deadline_date": null,
       "eligibility": [
         "Innovative Calgary small business",
         "Annual competition via Calgary Chamber of Commerce"
@@ -577,13 +615,12 @@ const DATA = {
       "requires_incorporation": false,
       "source_name": "Calgary Chamber via YouTube (secondary)",
       "source_url": "https://www.youtube.com/watch?v=ynMktBfqoyY",
+      "stacking": [],
+      "stacking_tier": "INFERRED",
       "status": "closed",
       "status_since": "2026 (awarded)",
       "tier": "INFERRED",
-      "type": "grant",
-      "deadline_date": null,
-      "stacking": [],
-      "stacking_tier": "INFERRED"
+      "type": "grant"
     }
   ],
   "radar": "Beacon — funding radar for independent Alberta/Canada builders",
@@ -1029,7 +1066,7 @@ const SHORTLIST = {
     }
   ]
 };
-const LEDGER = [{"date":"2026-09-30","program_id":"tech-growth-fund","old_status":"open","new_status":"open","evidence_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","tier":"INFERRED","concern":"fetch_failed: RemoteDisconnected: Remote end closed connection without response"}];
+const LEDGER = [{"date":"2026-09-30","program_id":"tech-growth-fund","old_status":"open","new_status":"open","evidence_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","tier":"INFERRED","concern":"fetch_failed: RemoteDisconnected: Remote end closed connection without response"},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."}];
 const DEADLINES = {
   "generated": "2026-09-30",
   "items": [
@@ -1711,6 +1748,177 @@ const EVIDENCE = {
     }
   ]
 };
+const AGENT = {
+  "run_id": "20261001T013602Z",
+  "started_utc": "2026-10-01T01:36:02.866009+00:00",
+  "finished_utc": "2026-10-01T01:36:06.201243+00:00",
+  "ok": true,
+  "failed_steps": [],
+  "steps": [
+    {
+      "step": "reverify",
+      "rc": 0,
+      "note": "  [ieg-sred] skip — checked 0d ago, cadence 7d |   [mitacs-accelerate] skip — checked 0d ago, cadence 7d |   [enmax-amplifier] skip — checked 0d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
+    },
+    {
+      "step": "match",
+      "rc": 0,
+      "note": "  → incorporate unlocks 5: ai-rnd-associates, irap-ai-assist, raii-prairies, ieg-sred, mitacs-accelerate |   → first-rnd-dollar unlocks 1: ieg-sred | Wrote /home/hatch/workspace/beacon/data/shortlist.json | RESULT: PASS"
+    },
+    {
+      "step": "deadlines",
+      "rc": 0,
+      "note": "Wrote /home/hatch/workspace/beacon/data/deadlines.json (13 programs, 0 flagged) | --- digest --- | No dated deadlines within 90 days. | RESULT: PASS"
+    },
+    {
+      "step": "evidence",
+      "rc": 0,
+      "note": "Wrote /home/hatch/workspace/beacon/data/evidence.json: 13 snapshots, 52 facts, 1 history events | RESULT: PASS"
+    },
+    {
+      "step": "discover",
+      "rc": 0,
+      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 0 new candidate(s) | Wrote /home/hatch/workspace/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=10 total_candidates=10"
+    },
+    {
+      "step": "alerts",
+      "rc": 0,
+      "note": "Beacon alerts — 13 programs · 2026-09-30 | Wrote /home/hatch/workspace/beacon/data/alerts.json | RESULT: PASS · raised=1 active=1 {'discovery': 1} |   NEW [discovery] queue: 10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source be"
+    },
+    {
+      "step": "embed",
+      "rc": 0,
+      "note": "Wrote /home/hatch/workspace/beacon/docs/index.html (94644 bytes) | Wrote /home/hatch/workspace/beacon/docs/variant-b.html (75194 bytes) | RESULT: PASS"
+    },
+    {
+      "step": "check",
+      "rc": 0,
+      "note": "Beacon check — 13 programs, generated 2026-09-30 | Status: closed=1, open=10, paused=2 | RESULT: PASS"
+    }
+  ],
+  "summary": {
+    "programs_total": 13,
+    "checked": 0,
+    "flips": 0,
+    "alerts_active": 1,
+    "discovery_candidates": 10
+  },
+  "schedule": "daily via .github/workflows/agent.yml (13:17 UTC); manual: python3 scripts/agent.py",
+  "note": "Autonomous loop receipt. reverify respects per-program check_cadence_days; flips and alert crossings are appended to data/ledger.jsonl with evidence."
+};
+const ALERTS = {
+  "generated": "2026-09-30",
+  "active": [
+    {
+      "id": "discovery:queue:2026-09-30",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-09-30",
+      "tier": "UNKNOWN",
+      "resolved": null
+    }
+  ],
+  "resolved": [],
+  "note": "Alerts are derived, not primary claims. Deadline alerts fire only on real deadline_date values; flips come from ledger events; discovery items stay UNKNOWN until verified."
+};
+const DISCOVERY = {
+  "generated": "2026-09-30",
+  "sources_checked": 3,
+  "candidates": [
+    {
+      "name_guess": "Alberta Digital Traction Program Sectors: Emerging Technology & Data Science Alberta-based Intakes Closed",
+      "url": "https://albertainnovates.ca/funding/alberta-digital-traction-program/",
+      "discovery_source": "Alberta Innovates — Funding",
+      "snippet": "Life Sciences Alberta-based Intakes Closed Alberta Digital Traction Program Secto",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Lighthouse Initiative Sectors: Health & Life Sciences Alberta-based Intakes Closed",
+      "url": "https://albertainnovates.ca/funding/alberta-lighthouse-initiative/",
+      "discovery_source": "Alberta Innovates — Funding",
+      "snippet": "; Data Science Alberta-based Intakes Closed Alberta Lighthouse Initiative Sectors:</s",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Chronic Wasting Disease Research Program Sectors: Agriculture & Forestry Alberta-based Intakes Closed",
+      "url": "https://albertainnovates.ca/funding/chronic-wasting-disease-research-program/",
+      "discovery_source": "Alberta Innovates — Funding",
+      "snippet": "; Data Science Alberta-based Intakes Closed Chronic Wasting Disease Research Program <span class=\"visual",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Agri-Processing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/alberta-agri-processing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "ue'> Alberta Agri-Processing Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "British Columbia Manufacturing & Processing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/british-columbia-manufacturing-processing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "y\" href=\"https://www.ayming.ca/investment-tax-credits/alberta-agri-processing-investment-tax-credit/\">Alberta Agri-Processing Investment Tax Credit British Columbia Manufacturing & Processing Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Clean Technology Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/clean-technology-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "tax-credits/british-columbia-manufacturing-processing-investment-tax-credit/\">British Columbia Manufacturing & Processing Investment Tax Credit Clean Technology Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Manitoba Green Energy & Equipment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/manitoba-green-energy-equipment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "n btn--tertiary\" href=\"https://www.ayming.ca/investment-tax-credits/clean-technology-investment-tax-credit/\">Clean Technology Investment Tax Credit Manitoba Green Energy & Equipment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Manitoba Manufacturing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/manitoba-manufacturing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "y\" href=\"https://www.ayming.ca/investment-tax-credits/manitoba-green-energy-equipment-tax-credit/\">Manitoba Green Energy & Equipment Tax Credit Manitoba Manufacturing Investment Tax Credit",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Ontario Made Manufacturing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/investment-tax-credits/ontario-made-manufacturing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "ary\" href=\"https://www.ayming.ca/investment-tax-credits/manitoba-manufacturing-investment-tax-credit/\">Manitoba Manufacturing Investment Tax Credit Ontario Made Manufacturing Investment Tax Credit <div cl",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Saskatchewan Manufacturing & Processing Investment Tax Credit",
+      "url": "https://www.ayming.ca/investment-tax-credits/manufacturing-processing-investment-tax-credit/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "a/investment-tax-credits/investment-tax-credits/ontario-made-manufacturing-investment-tax-credit/\">Ontario Made Manufacturing Investment Tax Credit Saskatchewan Manufacturing & Processing Investment Tax Credit <div class=\"meg",
+      "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    }
+  ],
+  "note": "Candidates are UNVERIFIED leads (tier UNKNOWN). Nothing here is a tracked program until a human verifies it against a primary source and adds it to programs.json."
+};
 const evidenceById = {};
 ((EVIDENCE||{}).snapshots||[]).forEach(s=>{ evidenceById[s.program_id]=s; });
 const state = {region:'All', status:'All', incorp:false, q:'', openRow:null};
@@ -1939,6 +2147,29 @@ function renderLedger(){  const el = document.getElementById('timeline');
   }).join('');
 }
 
+function renderAgent(){
+  const ag = AGENT||{};
+  const sum = ag.summary||{};
+  const runTxt = ag.finished_utc ? ag.finished_utc.slice(0,16).replace('T',' ')+' UTC' : 'never run';
+  const dot = ag.ok==null ? '—' : (ag.ok ? '●' : '✕');
+  document.getElementById('agent-strip').innerHTML =
+    `<span><b>${dot}</b> last run ${esc(runTxt)}</span>`+
+    `<span><b>${sum.checked??'—'}</b> re-checked this run</span>`+
+    `<span><b>${(ALERTS.active||[]).length}</b> active alerts</span>`+
+    `<span><b>${((DISCOVERY||{}).candidates||[]).length}</b> discovery candidates</span>`+
+    `<span style="background:transparent;border-style:dashed">daily sweep · GitHub Actions</span>`;
+  const act = (ALERTS.active||[]);
+  document.getElementById('alerts-banner').innerHTML = act.length ? act.map(a=>
+    `<div class="abanner k-${esc(a.kind)}"><span class="ak">${esc(a.kind.replace(/_/g,' '))} · ${esc(a.raised)} · tier ${esc(a.tier)}</span>${esc(a.message)}</div>`
+  ).join('') : '<p class="empty">No active alerts — nothing imminent, overdue, or flipped.</p>';
+  const cands = ((DISCOVERY||{}).candidates||[]).slice().reverse();
+  document.getElementById('discovery-queue').innerHTML = cands.length ? cands.map(c=>
+    `<div class="dcard"><div><b>${esc(c.name_guess)}</b> <span class="tier unknown">UNKNOWN</span></div>`+
+    `<div class="dsnip">${esc(c.snippet)}</div>`+
+    `<div class="dmeta"><a href="${esc(c.url)}" target="_blank" rel="noopener">open ↗</a><span>via ${esc(c.discovery_source)}</span><span>spotted ${esc(c.discovered)}</span></div></div>`
+  ).join('') : '<p class="empty">Discovery queue is empty — no new candidates spotted.</p>';
+}
+
 renderHero();
 renderRoadmap();
 renderBuckets();
@@ -1947,6 +2178,7 @@ renderRadar();
 renderPipeline();
 renderDossier();
 renderLedger();
+renderAgent();
 </script>
 </body>
 </html>

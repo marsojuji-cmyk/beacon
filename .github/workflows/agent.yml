@@ -1,0 +1,35 @@
+name: beacon-agent
+
+# The autonomous loop: daily sweep — re-verify due sources, re-score
+# eligibility, surface deadline alerts, scan for new candidates, rebuild
+# the dashboard, and commit the results.
+#
+# Runs on GitHub's free Actions tier for public repos. Manual runs via
+# the "Run workflow" button.
+
+on:
+  schedule:
+    # 13:17 UTC daily ≈ 07:17 MDT / 06:17 MST
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run the agent loop
+        run: python3 scripts/agent.py
+      - name: Commit results
+        run: |
+          git config user.name "beacon-agent"
+          git config user.email "beacon-agent@users.noreply.github.com"
+          git add data docs
+          git diff --cached --quiet || git commit -m "agent: scheduled sweep $(date -u +%F)"
+          git push
