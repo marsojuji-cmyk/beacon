@@ -482,7 +482,7 @@ const DATA = {
   }
 };
 const SHORTLIST = {
-  "generated": "2026-09-30",
+  "generated": "2026-10-01",
   "profile": {
     "identity": "unincorporated independent builder",
     "location": "Calgary AB",
@@ -918,9 +918,9 @@ const SHORTLIST = {
     }
   ]
 };
-const LEDGER = [{"date":"2026-09-30","program_id":"tech-growth-fund","old_status":"open","new_status":"open","evidence_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","tier":"INFERRED","concern":"fetch_failed: RemoteDisconnected: Remote end closed connection without response"},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."}];
+const LEDGER = [{"date":"2026-09-30","program_id":"tech-growth-fund","old_status":"open","new_status":"open","evidence_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","tier":"INFERRED","concern":"fetch_failed: RemoteDisconnected: Remote end closed connection without response"},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-01","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."}];
 const DEADLINES = {
-  "generated": "2026-09-30",
+  "generated": "2026-10-01",
   "items": [
     {
       "id": "ai-rnd-associates",
@@ -958,7 +958,7 @@ const DEADLINES = {
       "status": "open",
       "deadline": "Apr 2026 – Mar 2029",
       "deadline_date": "2029-03-31",
-      "days_until": 913,
+      "days_until": 912,
       "urgency": "later",
       "tier": "VERIFIED"
     },
@@ -1018,7 +1018,7 @@ const DEADLINES = {
       "status": "open",
       "deadline": "To Dec 31, 2028",
       "deadline_date": "2028-12-31",
-      "days_until": 823,
+      "days_until": 822,
       "urgency": "later",
       "tier": "INFERRED"
     },
@@ -1057,7 +1057,7 @@ const DEADLINES = {
 const PIPELINE = {"applications":[{"amount_applied":null,"entered_stage":"2026-09-30","id":"app-001","notes":"SAMPLE: watching for programs the RINs launch locally — no application exists.","program_id":"ai-rin-2026","sample":true,"stage":"prospecting","tier":"SAMPLE"},{"amount_applied":105000,"entered_stage":"2026-09-30","id":"app-002","notes":"SAMPLE: draft budget for R&D Associate hire; blocked until incorporation.","program_id":"ai-rnd-associates","sample":true,"stage":"preparing","tier":"SAMPLE"},{"amount_applied":null,"entered_stage":"2026-09-30","id":"app-003","notes":"SAMPLE: IP strategy intake submitted via new portal.","program_id":"elevateip-ab","sample":true,"stage":"applied","tier":"SAMPLE"},{"amount_applied":10000,"entered_stage":"2026-09-30","id":"app-004","notes":"SAMPLE: intakes closed before submission — park and watch for reopen.","program_id":"ai-vouchers","sample":true,"stage":"declined","tier":"SAMPLE"}],"note":"SAMPLE DATA — this file is a schema reference only. Copy it to data/pipeline.json and fill in real entries; pipeline.json is gitignored and never pushed to the public repo.","sample":true,"stages":["prospecting","preparing","applied","in-review","awarded","declined"]};
 const PIPELINE_SRC = "template";
 const EVIDENCE = {
-  "generated": "2026-09-30",
+  "generated": "2026-10-01",
   "snapshots": [
     {
       "program_id": "ai-rnd-associates",
@@ -1659,7 +1659,7 @@ const AGENT = {
   "note": "Autonomous loop receipt. reverify respects per-program check_cadence_days; flips and alert crossings are appended to data/ledger.jsonl with evidence."
 };
 const ALERTS = {
-  "generated": "2026-09-30",
+  "generated": "2026-10-01",
   "active": [
     {
       "id": "discovery:queue:2026-09-30",
@@ -1669,13 +1669,22 @@ const ALERTS = {
       "raised": "2026-09-30",
       "tier": "UNKNOWN",
       "resolved": null
+    },
+    {
+      "id": "discovery:queue:2026-10-01",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-10-01",
+      "tier": "UNKNOWN",
+      "resolved": null
     }
   ],
   "resolved": [],
   "note": "Alerts are derived, not primary claims. Deadline alerts fire only on real deadline_date values; flips come from ledger events; discovery items stay UNKNOWN until verified."
 };
 const DISCOVERY = {
-  "generated": "2026-09-30",
+  "generated": "2026-10-01",
   "sources_checked": 3,
   "candidates": [
     {
@@ -1765,6 +1774,96 @@ const DISCOVERY = {
       "discovery_source": "Ayming Canada — Government Funding Programs",
       "snippet": "a/investment-tax-credits/investment-tax-credits/ontario-made-manufacturing-investment-tax-credit/\">Ontario Made Manufacturing Investment Tax Credit Saskatchewan Manufacturing & Processing Investment Tax Credit <div class=\"meg",
       "discovered": "2026-09-30",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "The Forest Enhancement Society of British Columbia (FESBC) Funding Program",
+      "url": "https://www.ayming.ca/direct-funding/government-funding-programs/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "ploads/sites/6/2025/10/test-icon-ayming-1.png 48w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/test-icon-ayming-1-32x32.png 32w\" sizes=\"(max-width: 48px) 100vw, 48px\" /> The Forest Enhancement Society of British Columbia (FESBC) Funding Program",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Supply Management Processing Investment Fund (SMPIF)",
+      "url": "https://www.ayming.ca/grants/grants-finder/supply-management-processing-investment-fund-smpif/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "//www.ayming.ca/wp-content/uploads/sites/6/2025/10/Service-Finance-Tax-AdobeStock_1675760545-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/Service-Finance-Tax-AdobeStock_1675760545-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Supply ",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Exportation and Commercialization Support Program- Stream (PSCE)",
+      "url": "https://www.ayming.ca/grants/grants-finder/exportation-and-commercialization-support-program-stream-2-psce/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "smiling-boxes-1096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/couple-smiling-boxes-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/couple-smiling-boxes-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Exporta",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Regional Tariff Response Initiative Québec",
+      "url": "https://www.ayming.ca/grants/grants-finder/regional-tariff-response-initiative-quebec/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "//www.ayming.ca/wp-content/uploads/sites/6/2025/10/Service-Finance-Tax-AdobeStock_1675760545-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/Service-Finance-Tax-AdobeStock_1675760545-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Regiona",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Strategic Response Fund",
+      "url": "https://www.ayming.ca/grants/grants-finder/strategic-response-fund/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "g 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/People-AdobeStock_1685209557-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/People-AdobeStock_1685209557-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Strategic Response",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "CAAIN – Technology Development & Smart Farm Networks Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/caain-technology-development-smart-farm-networks-program/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "07-1096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/05/AdobeStock_704849407-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/05/AdobeStock_704849407-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> CAAIN – Technology",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Critical Minerals Infrastructure Fund",
+      "url": "https://www.ayming.ca/grants/grants-finder/critical-minerals-infrastructure-fund/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Ayming-Canada_Critical-Minerals-min-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Ayming-Canada_Critical-Minerals-min-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Critical Minerals ",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "SCAP – Emerging Opportunities Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/funding-alert-emerging-opportunities-program-alberta/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "tion-532x532.png 532w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Agriculture-Innovation-150x150.png 150w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Agriculture-Innovation-132x132.png 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> SCAP – Emerging Op",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Productivity Grant",
+      "url": "https://www.ayming.ca/grants/grants-finder/alberta-productivity-grant/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "eg 150w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/People-AdobeStock_1433633142-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/10/People-AdobeStock_1433633142-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Alberta Productivi",
+      "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Export Expansion Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/alberta-export-expansion-program/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/02/AdobeStock_222902930-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/02/AdobeStock_222902930-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Alberta Export Exp",
+      "discovered": "2026-10-01",
       "tier": "UNKNOWN",
       "status": "candidate"
     }
