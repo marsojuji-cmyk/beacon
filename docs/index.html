@@ -74,6 +74,14 @@
     border-top:2px dotted var(--ink);font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.03em}
   .card-foot a{color:var(--evidence);text-decoration:none;font-weight:700}
   .card-foot a:hover{text-decoration:underline}
+  /* top-5 dual-coded strip — progressive disclosure above the full table */
+  .top5{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px;margin:20px 0 4px}
+  .t5{border:2px solid var(--ink);border-radius:var(--radius);padding:16px 16px 12px;background:var(--card);position:relative;overflow:hidden}
+  .t5::before{content:"";position:absolute;top:0;left:0;right:0;height:9px;background:var(--t5c,var(--dormant))}
+  .t5 h4{margin:10px 0 6px;font-family:var(--display);font-weight:800;font-size:16.5px;text-transform:uppercase;line-height:1.2}
+  .t5 .amt{font-family:var(--display);font-weight:900;font-size:26px;margin:2px 0 8px}
+  .t5 .meta{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:12.5px;color:var(--muted)}
+  .t5 .dl{font-family:var(--mono);font-size:11.5px}
   .tier{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
     border-radius:2px;padding:4px 10px;white-space:nowrap;border:1.5px solid var(--ink);color:var(--ink-soft);background:var(--card)}
   .tier.verified{background:var(--resolved);border-color:var(--resolved);color:#fff}
@@ -198,6 +206,7 @@
   <div id="blocked-cards"></div>
 
   <h2 class="sec">Full radar <span class="scope">scope · all programs</span></h2>
+  <div class="top5" id="top5-cards"></div>
   <div class="filters">
     <div class="search"><input type="search" id="q" placeholder="Search programs, amounts, eligibility…" aria-label="Search programs" autocomplete="off"></div>
     <div class="fgroup" id="f-region"><span class="flabel">Region</span></div>
@@ -1808,6 +1817,22 @@ function renderBuckets(){
   bl.innerHTML = (sl.blocked||[]).map(p=>programCard(p)).join('') || '<div class="empty">Nothing blocked.</div>';
 }
 
+function renderTop5(){
+  const el = document.getElementById('top5-cards');
+  const tierRank = {VERIFIED:0, INFERRED:1, GUESSED:2, UNKNOWN:3};
+  const tierColor = {VERIFIED:'var(--evidence)', INFERRED:'var(--signal)', GUESSED:'var(--proposal)', UNKNOWN:'var(--dormant)'};
+  const top = (DATA.programs||[])
+    .filter(p=>p.status==='open')
+    .sort((a,b)=>(tierRank[a.tier]??9)-(tierRank[b.tier]??9))
+    .slice(0,5);
+  el.innerHTML = top.map(p=>
+    `<div class="t5" style="--t5c:${tierColor[p.tier]||'var(--dormant)'}">`+
+    `<h4><span class="dot ${esc(p.status)}"></span>${esc(p.name)}</h4>`+
+    `<div class="amt">${esc(p.amount)}</div>`+
+    `<div class="meta">${tierBadge(p.tier)}<span class="dl">${esc(p.deadline||'—')}</span><span>verified ${esc(p.checked)}</span></div></div>`
+  ).join('') || '<div class="empty">No open programs.</div>';
+}
+
 function renderRadar(){
   const body = document.getElementById('radar-body');
   const ps = (DATA.programs||[]).filter(p =>
@@ -1917,6 +1942,7 @@ function renderLedger(){  const el = document.getElementById('timeline');
 renderHero();
 renderRoadmap();
 renderBuckets();
+renderTop5();
 renderRadar();
 renderPipeline();
 renderDossier();
