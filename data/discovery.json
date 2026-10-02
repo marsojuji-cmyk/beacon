@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-01",
+  "generated": "2026-10-02",
   "sources_checked": 3,
   "candidates": [
     {
@@ -179,6 +179,96 @@
       "discovery_source": "Ayming Canada — Government Funding Programs",
       "snippet": "096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/02/AdobeStock_222902930-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/02/AdobeStock_222902930-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Alberta Export Exp",
       "discovered": "2026-10-01",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Growing Greenhouses Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/alberta-growing-greenhouses-program/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/02/AdobeStock_235489007-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/02/AdobeStock_235489007-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Alberta Growing Gr",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Emissions Reduction Alberta- Advanced Materials Challenge Technology Funding Stream",
+      "url": "https://www.ayming.ca/grants/grants-finder/funding-alert-emissions-reduction-alberta-advanced-materials-challenge-technology-funding-stream/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "echnology-Funding-Stream-Government-Funding-150x150.jpg 150w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Alberta-Advanced-Materials-Challenge-Technology-Funding-Stream-Government-Funding-132x132.jpg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Emissions Reductio",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Innovates – Voucher Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-voucher-program/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "p-content/uploads/sites/6/2025/11/Alberta-Innovates-Voucher-Program-2-scaled-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Alberta-Innovates-Voucher-Program-2-scaled-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Alberta Innovates ",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Clean Industry Fund – Emissions Performance",
+      "url": "https://www.ayming.ca/grants/grants-finder/clean-industry-fund-emissions-performance/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/04/AdobeStock_137648639-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2026/04/AdobeStock_137648639-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Clean Industry Fun",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Food Processing Growth Fund for British Columbia",
+      "url": "https://www.ayming.ca/grants/grants-finder/food-processing-growth-fund-for-british-columbia/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/AdobeStock_271585911-scaled-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/AdobeStock_271585911-scaled-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Food Processing Gr",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "B.C. Agricultural Water Infrastructure Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/b-c-agricultural-water-infrastructure-program/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "g.ca/wp-content/uploads/sites/6/2025/11/hasan-almasi-CfimHDZtG3o-unsplash-scaled-1-698x698.jpg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/hasan-almasi-CfimHDZtG3o-unsplash-scaled-1-132x132.jpg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> B.C. Agricultural ",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "SCAP BC- On-Farm Technology Adoption Program",
+      "url": "https://www.ayming.ca/grants/grants-finder/funding-alert-scap-bc-on-farm-technology-adoption-program/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "/2025/11/SCAP-BC-Grant-532x532.jpg 532w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/SCAP-BC-Grant-150x150.jpg 150w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/SCAP-BC-Grant-132x132.jpg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> SCAP BC- On-Farm T",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "FedDEV PacifiCan (BC) – Regional Tariff Response Initiative (RTRI)",
+      "url": "https://www.ayming.ca/grants/grants-finder/funding-alert-feddev-pacifican-bc-regional-tariff-response-initiative-rtri/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "96w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/AdobeStock_1278883857-scaled-1-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/AdobeStock_1278883857-scaled-1-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> FedDEV PacifiCan (",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Industry Expansion Program for Manitoba",
+      "url": "https://www.ayming.ca/grants/grants-finder/industry-expansion-program-for-manitoba/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "83-1096x1096.jpeg 1096w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/AdobeStock_608131483-698x698.jpeg 698w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/AdobeStock_608131483-132x132.jpeg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> Industry Expansion",
+      "discovered": "2026-10-02",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "SCAP: The Capital Infrastructure and Investments Program- Manitoba Agriculture",
+      "url": "https://www.ayming.ca/grants/grants-finder/funding-alert-scap-the-capital-infrastructure-and-investments-program-manitoba-agriculture/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "re-and-Investments-Program-SCAP-Manitoba-Agriculture-150x150.jpg 150w, https://www.ayming.ca/wp-content/uploads/sites/6/2025/11/Capital-Infrastructure-and-Investments-Program-SCAP-Manitoba-Agriculture-132x132.jpg 132w\" sizes=\"(max-width: 532px) 100vw, 532px\" /> SCAP: The Capital ",
+      "discovered": "2026-10-02",
       "tier": "UNKNOWN",
       "status": "candidate"
     }
