@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-03",
+  "generated": "2026-10-04",
   "sources_checked": 3,
   "candidates": [
     {
@@ -359,6 +359,96 @@
       "discovery_source": "Alberta.ca — Small Business Resources",
       "snippet": "Feature Alberta Advantage Immigration Program Eligible individuals can apply to be nominated to work and live in Alberta permanently. <",
       "discovered": "2026-10-03",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Supports, grants and resources",
+      "url": "https://www.alberta.ca/supports-grants-and-resources",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "Home All services Business and economic development Supports, grants and resources Small business Small business resources </",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Canada-Alberta Productivity Grant",
+      "url": "https://www.alberta.ca/canada-alberta-productivity-grant",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "rganizations of any size to conduct research and development. This program is designed to work in tandem with the Job Creation Tax Cut and can provide you with up 20% toward qualifying research and development expenditures. If your business requires employees to undergo specific ",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Innovates funding programs",
+      "url": "https://albertainnovates.ca/funding/",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "an existing employee, or 75% of costs up to $10,000 for unemployed Albertans. This employer-driven program, which replaces the Canada-Alberta Job Grant, reimburses part of the training expenses to boost productivity and workforce competitiveness. Employers apply on behalf of thei",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Canada Small Business Financing Program",
+      "url": "http://www.ic.gc.ca/eic/site/csbfp-pfpec.nsf/eng/Home",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "and benefitting Albertans. The Agriculture Financial Services Corporation is a provincial Crown corporation providing farm and commercial loans, in addition to hail, crop and livestock price insurance and farm income disaster insurance. The Canada Small Business Financing Program",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Manufacturing Productivity Grant",
+      "url": "https://www.alberta.ca/alberta-manufacturing-productivity-grant",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": ". Visit the Business Development Bank of Canada (BDC) to explore loans for businesses that have been active for at least 12 months. BDC also provides referrals for businesses that have been active for less than 12 months. The Alberta Manufacturing Productivity Grant provides up t",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "The Regional Tariff Response Initiative",
+      "url": "https://www.canada.ca/en/prairies-economic-development/services/funding/regional-tariff-response-initiative.html",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "arch and finding a mentor through their Mentor Program to move your company to the next level. Tariff supports The Regional Tariff Response Initiative helps businesses and sectors negatively impacted by the new tariffs from the U.S., China and/or Canadian counter-tari",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Export Expansion Program",
+      "url": "https://www.alberta.ca/alberta-export-expansion-program",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "a/innovation/s/?language=en_CA\" target=\"_blank\">Business Benefits Finder with the Government of Canada offers support for research and development. Export goods or services The Alberta Export Expansion Program supports small and medium-sized businesses th",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Trade Expansion Lending Program",
+      "url": "https://www.edc.ca/en/solutions/working-capital-guarantees/trade-expansion-lending-program.html",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "their export expansion, as well as grant funding through the CanExport program . Export Development Canada supports small businesses to expand through their Trade Expansion Lending Program and their Export HelpHub . The Business Development Bank of",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Digital Marketing Program",
+      "url": "https://businesslink.ca/services/digital-marketing-program/",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "k of Canada also offers export tools . Develop your digital strategy Business Link’s Digital Marketing Program offers free digital marketing support to help Alberta small businesses grow their online presence. Small business owners can receive personalized guidance to set up Goog",
+      "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Aboriginal Business Investment Fund",
+      "url": "https://www.alberta.ca/aboriginal-business-investment-fund",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "ault goa-column-100-100-100\"> Supports for diverse groups Indigenous entrepreneurs Alberta offers the Aboriginal Business Investment Fund which helps Indigenous community-owned businesses ca",
+      "discovered": "2026-10-04",
       "tier": "UNKNOWN",
       "status": "candidate"
     }
