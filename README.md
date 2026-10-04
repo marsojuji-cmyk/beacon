@@ -1,5 +1,7 @@
 # Beacon — a funding radar that shows its work
 
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/) [![Programs](https://img.shields.io/badge/programs-13%20tracked-brightgreen)](data/)
 Beacon tracks funding programs for independent builders in Calgary, Alberta, and Canada — and labels every claim with how it was verified.
 
 Most grant lists present scraped text as fact. Beacon doesn't. Every program carries a **claim tier**:
