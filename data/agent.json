@@ -1,14 +1,14 @@
 {
-  "run_id": "20261004T173348Z",
-  "started_utc": "2026-10-04T17:33:48.749034+00:00",
-  "finished_utc": "2026-10-04T17:33:51.934946+00:00",
+  "run_id": "20261005T211108Z",
+  "started_utc": "2026-10-05T21:11:08.360101+00:00",
+  "finished_utc": "2026-10-05T21:11:11.046215+00:00",
   "ok": true,
   "failed_steps": [],
   "steps": [
     {
       "step": "reverify",
       "rc": 0,
-      "note": "  [ieg-sred] skip — checked 4d ago, cadence 7d |   [mitacs-accelerate] skip — checked 4d ago, cadence 7d |   [enmax-amplifier] skip — checked 4d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
+      "note": "  [ieg-sred] skip — checked 5d ago, cadence 7d |   [mitacs-accelerate] skip — checked 5d ago, cadence 7d |   [enmax-amplifier] skip — checked 5d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
     },
     {
       "step": "match",
@@ -28,17 +28,17 @@
     {
       "step": "discover",
       "rc": 0,
-      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 10 new candidate(s) | Wrote /home/runner/work/beacon/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=10 total_candidates=50"
+      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 7 new candidate(s) | Wrote /home/runner/work/beacon/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=7 total_candidates=57"
     },
     {
       "step": "alerts",
       "rc": 0,
-      "note": "Beacon alerts — 13 programs · 2026-10-04 | Wrote /home/runner/work/beacon/beacon/data/alerts.json | RESULT: PASS · raised=1 active=5 {'discovery': 5} |   NEW [discovery] queue: 10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source be"
+      "note": "Beacon alerts — 13 programs · 2026-10-05 | Wrote /home/runner/work/beacon/beacon/data/alerts.json | RESULT: PASS · raised=1 active=6 {'discovery': 6} |   NEW [discovery] queue: 7 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source bef"
     },
     {
       "step": "embed",
       "rc": 0,
-      "note": "Wrote /home/runner/work/beacon/beacon/docs/index.html (126319 bytes) | Wrote /home/runner/work/beacon/beacon/docs/variant-b.html (106869 bytes) | RESULT: PASS"
+      "note": "Wrote /home/runner/work/beacon/beacon/docs/index.html (131130 bytes) | Wrote /home/runner/work/beacon/beacon/docs/variant-b.html (111680 bytes) | RESULT: PASS"
     },
     {
       "step": "check",
@@ -50,8 +50,8 @@
     "programs_total": 13,
     "checked": 0,
     "flips": 0,
-    "alerts_active": 5,
-    "discovery_candidates": 50
+    "alerts_active": 6,
+    "discovery_candidates": 57
   },
   "schedule": "daily via .github/workflows/agent.yml (13:17 UTC); manual: python3 scripts/agent.py",
   "note": "Autonomous loop receipt. reverify respects per-program check_cadence_days; flips and alert crossings are appended to data/ledger.jsonl with evidence."

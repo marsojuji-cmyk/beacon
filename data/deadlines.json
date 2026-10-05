@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04",
+  "generated": "2026-10-05",
   "items": [
     {
       "id": "ai-rnd-associates",
@@ -37,7 +37,7 @@
       "status": "open",
       "deadline": "Apr 2026 – Mar 2029",
       "deadline_date": "2029-03-31",
-      "days_until": 909,
+      "days_until": 908,
       "urgency": "later",
       "tier": "VERIFIED"
     },
@@ -97,7 +97,7 @@
       "status": "open",
       "deadline": "To Dec 31, 2028",
       "deadline_date": "2028-12-31",
-      "days_until": 819,
+      "days_until": 818,
       "urgency": "later",
       "tier": "INFERRED"
     },

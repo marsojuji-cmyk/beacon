@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04",
+  "generated": "2026-10-05",
   "sources_checked": 3,
   "candidates": [
     {
@@ -449,6 +449,69 @@
       "discovery_source": "Alberta.ca — Small Business Resources",
       "snippet": "ault goa-column-100-100-100\"> Supports for diverse groups Indigenous entrepreneurs Alberta offers the Aboriginal Business Investment Fund which helps Indigenous community-owned businesses ca",
       "discovered": "2026-10-04",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Indigenous Employment Training Partnerships Program",
+      "url": "https://www.alberta.ca/indigenous-employment-training-partnerships-program",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "b4da-86bc-43aa-8784-717534ad8f29\" data-entity-substitution=\"canonical\" title=\"Aboriginal Business Investment Fund\">Aboriginal Business Investment Fund which helps Indigenous community-owned businesses capitalize on business development opportunities to improve socio-economic outc",
+      "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Indigenous Entrepreneur Startup Program",
+      "url": "https://futurpreneur.ca/en/offering/indigenous-entrepreneur-startup/",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "t=\"_blank\">Indigenous Women Entrepreneurs program are offered by the Alberta Indian Investment Corporation , a First Nation owned investment company that provides business resources and lending for First Nations people in Alberta. The Indigenous Entrepreneur Startup Program and t",
+      "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Black Entrepreneur Startup Program",
+      "url": "https://futurpreneur.ca/en/offering/black-entrepreneur-startup/",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "practical business resources and connects small businesses to programs, funding and networks to help them start and grow their business ideas with confidence. Black entrepreneurs A Black Entrepreneur Startup Program is offered through Futurpreneur to support young Black entrepren",
+      "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Entrepreneurship Empowerment program",
+      "url": "https://entrepreneurship.africacentre.ca/",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "lass=\"goa-text\"> A Black Entrepreneur Startup Program is offered through Futurpreneur to support young Black entrepreneurs through financing, mentorship, networking and other resources. The Entrepreneurship Empowerment program is offered through the Africa Centre and the Business",
+      "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Alberta Women’s Economic Recovery Capital Growth Initiative",
+      "url": "https://albertacf.com/latest-news-blog-success-stories/new-funding-to-empower-women-entrepreneurs-in-rural-alberta",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "program\">Bridge pilot program , backed by the governments of Canada and Alberta, to support women entrepreneurs and small business owners who are actively running their business to move from early-stage operations to an established, growth-ready future with grants of up to $5,000",
+      "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Entrepreneurs with Disabilities Program",
+      "url": "https://albertacf.com/services/entrepreneurs-with-disabilities-program",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "rpreneur.ca/en/program/g20-young-entrepreneurs-alliance/\" target=\"_blank\">G20 YoungEntrepreneurs’ Alliance , a global network of over 500,000 young entrepreneurs and organizations that support them. Community Futures Alberta supports the Entrepreneurs with Disabilities Program . ",
+      "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Small and Medium Enterprise Relaunch Grant",
+      "url": "https://www.alberta.ca/small-medium-enterprise-relaunch-grant",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "5J 4G8. Next Small and Medium Enterprise Relaunch Grant <div class=\"goa-metadata-feedback goa-feedback-wrapper\" data-page-meta='{\"id\":\"",
+      "discovered": "2026-10-05",
       "tier": "UNKNOWN",
       "status": "candidate"
     }
