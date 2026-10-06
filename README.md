@@ -2,9 +2,10 @@
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/) [![Programs](https://img.shields.io/badge/programs-13%20tracked-brightgreen)](data/)
+**Most grant lists present scraped text as fact. Beacon doesn't.**
 Beacon tracks funding programs for independent builders in Calgary, Alberta, and Canada — and labels every claim with how it was verified.
 
-Most grant lists present scraped text as fact. Beacon doesn't. Every program carries a **claim tier**:
+Every program carries a **claim tier**:
 
 - **VERIFIED** — confirmed against a primary source (the program's own site or announcement) in the current check cycle.
 - **INFERRED** — drawn from secondary reporting (press, guides). Treated as a lead, not a fact.
