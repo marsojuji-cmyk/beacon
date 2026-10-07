@@ -58,7 +58,7 @@ From committed data, 2026-10-07:
 
 - **`data/programs.json`:** 13 programs. 10 open, 2 paused, 1 closed. 12 INFERRED, 1 VERIFIED (Alberta Innovates Regional Innovation Networks renewal). By region: 6 Alberta, 6 Canada, 1 Calgary.
 - **`data/shortlist.json`:** 3 eligible now, 5 blocked (unlock on incorporation), 5 not a fit.
-- **`data/agent.json`:** the scheduled run at 2026-10-07 19:19 UTC (13:19 MDT) finished with `ok: true`, all 8 steps rc 0. It checked 10 sources, found 0 flips and has 58 discovery candidates queued.
+- **`data/agent.json`:** the latest run, at 2026-10-07 19:19 UTC (13:19 MDT), finished with `ok: true`, all 8 steps rc 0. It checked 10 sources, found 0 flips and has 58 discovery candidates queued.
 - `python3 scripts/check.py` passes locally (2026-10-07).
 
 Most records are INFERRED from secondary sources. Verify before you apply; Beacon tells you exactly which claims need it.
