@@ -129,360 +129,9 @@
   <footer>Compiled from public program pages &amp; guides · Beacon v2 · Verify before you apply</footer>
 </main>
 <script>
-const DATA = {
-  "generated": "2026-09-30",
-  "programs": [
-    {
-      "amount": "Up to $105,000 (non-repayable)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Continuous intake",
-      "deadline_date": null,
-      "eligibility": [
-        "Alberta-based incorporated for-profit SME",
-        "Under 500 employees, under $50M revenue",
-        "Hire a dedicated R&D Associate",
-        "25% applicant cash contribution",
-        "Project completed within 12 months"
-      ],
-      "id": "ai-rnd-associates",
-      "name": "Alberta Innovates — Industry R&D Associates Program",
-      "region": "Alberta",
-      "requires_incorporation": true,
-      "source_name": "Ayming Canada (secondary)",
-      "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
-      "stacking": [
-        {
-          "with": "ieg-sred",
-          "note": "Provincial grant funding reduces the federal SR&ED claim base."
-        }
-      ],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026 (continuous)",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "Up to $50,000 (non-dilutive)",
-      "check_cadence_days": 14,
-      "checked": "2026-09-30",
-      "deadline": "Halted — no intake",
-      "deadline_date": null,
-      "eligibility": [
-        "Alberta digital tech company, software core to product",
-        "Under 50 FTE, under $1M ARR",
-        "MVP in hand",
-        "Intending to scale in 1–2 years"
-      ],
-      "id": "ai-digital-traction",
-      "name": "Alberta Digital Traction Program",
-      "region": "Alberta",
-      "requires_incorporation": true,
-      "source_name": "Alberta Business Grants (secondary)",
-      "source_url": "https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "paused",
-      "status_since": "2026-05-29",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "Micro Voucher $10,000 · Voucher $100,000",
-      "check_cadence_days": 14,
-      "checked": "2026-09-30",
-      "deadline": "Intakes closed",
-      "deadline_date": null,
-      "eligibility": [
-        "Alberta-registered for-profit, under 500 employees",
-        "Under $50M gross revenue",
-        "Minimum 25% cash contribution"
-      ],
-      "id": "ai-vouchers",
-      "name": "Alberta Innovates — Micro Voucher / Voucher Program",
-      "region": "Alberta",
-      "requires_incorporation": true,
-      "source_name": "Reinvest Wealth guide (secondary)",
-      "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-      "stacking": [
-        {
-          "with": "ieg-sred",
-          "note": "Voucher funding is assistance against SR&ED-eligible spend."
-        }
-      ],
-      "stacking_tier": "INFERRED",
-      "status": "paused",
-      "status_since": "2026-05-29",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "$20.6M over 3 years (ecosystem infrastructure)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Apr 2026 – Mar 2029",
-      "deadline_date": "2029-03-31",
-      "eligibility": [
-        "Flows via 8 Regional Innovation Networks (incl. Calgary Innovation Coalition)",
-        "Founder-facing: watch for programs the RINs launch locally"
-      ],
-      "id": "ai-rin-2026",
-      "name": "Alberta Innovates — Regional Innovation Networks renewal",
-      "region": "Alberta",
-      "requires_incorporation": false,
-      "source_name": "Alberta Innovates (primary)",
-      "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026-09-23",
-      "tier": "VERIFIED",
-      "type": "ecosystem"
-    },
-    {
-      "amount": "IP strategy funding (streams vary)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Open — new portal",
-      "deadline_date": null,
-      "eligibility": [
-        "Alberta startups and SMEs",
-        "IP education, strategy coaching, protection funding"
-      ],
-      "id": "elevateip-ab",
-      "name": "ElevateIP Alberta (relaunched)",
-      "region": "Alberta",
-      "requires_incorporation": false,
-      "source_name": "Innovate Calgary via press (secondary)",
-      "source_url": "https://www.europesays.com/canada/190129/",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026-08-31",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "$50,000 – $500,000+ (non-repayable)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Rolling via ITA",
-      "deadline_date": null,
-      "eligibility": [
-        "Canadian-incorporated SME, under 500 employees",
-        "Internal technical team",
-        "AI-core product (not AI-assisted) = highest-probability stream",
-        "Apply through regional Industrial Technology Advisor"
-      ],
-      "id": "irap-ai-assist",
-      "name": "NRC IRAP — AI Assist",
-      "region": "Canada",
-      "requires_incorporation": true,
-      "source_name": "GrantCompass / NRC (secondary)",
-      "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-      "stacking": [
-        {
-          "with": "ieg-sred",
-          "note": "IRAP funding is government assistance — it reduces your SR&ED expenditure pool."
-        }
-      ],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2025–26 scaling",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "$244.2M envelope (project-level varies)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Rolling via ITA",
-      "deadline_date": null,
-      "eligibility": [
-        "Canadian SME",
-        "Dual-use tech: cybersecurity, autonomous systems, advanced materials, comms, surveillance",
-        "Commercial viability + defence relevance"
-      ],
-      "id": "irap-di-assist",
-      "name": "NRC IRAP — Defence Industry Assist (DI Assist)",
-      "region": "Canada",
-      "requires_incorporation": true,
-      "source_name": "GrantCompass (secondary)",
-      "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026-01",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "Compute credits (variable)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Ongoing",
-      "deadline_date": null,
-      "eligibility": [
-        "SMEs, AI startups, research-driven companies",
-        "HPC / training / deployment workloads"
-      ],
-      "id": "ai-compute-fund",
-      "name": "AI Compute Access Fund (Canada, $1B)",
-      "region": "Canada",
-      "requires_incorporation": false,
-      "source_name": "Northern Arc sector briefing (secondary)",
-      "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026 (expanded)",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "$5M+ growth capital / equity",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Deploying 2026",
-      "deadline_date": null,
-      "eligibility": [
-        "Canadian AI scaleups with commercial traction",
-        "Defensible IP, credible path to global growth",
-        "Too large for SME instruments — NOT pre-revenue founder territory"
-      ],
-      "id": "tech-growth-fund",
-      "name": "Canadian Tech Growth Fund ($500M)",
-      "region": "Canada",
-      "requires_incorporation": true,
-      "source_name": "Northern Arc sector briefing (secondary)",
-      "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026-06-04",
-      "tier": "INFERRED",
-      "type": "signal"
-    },
-    {
-      "amount": "$250K – $5M (repayable, interest-free)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "To Dec 31, 2028",
-      "deadline_date": "2028-12-31",
-      "eligibility": [
-        "SMEs building or adopting AI",
-        "Via PrairiesCan for Alberta founders",
-        "Productization / commercialization projects"
-      ],
-      "id": "raii-prairies",
-      "name": "Regional AI Initiative — PrairiesCan",
-      "region": "Canada",
-      "requires_incorporation": true,
-      "source_name": "IMFounder guide (secondary)",
-      "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
-      "stacking": [
-        {
-          "with": "ieg-sred",
-          "note": "Repayable contributions still interact with stacking caps — confirm with a tax advisor."
-        }
-      ],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "8% base / 20% enhanced on eligible R&D (up to $4M spend)",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Claim via AT1 Schedule 29 (no application)",
-      "deadline_date": null,
-      "eligibility": [
-        "Alberta corporation with eligible R&D spend",
-        "Expenses must qualify under federal SR&ED",
-        "Record-keeping is the whole game"
-      ],
-      "id": "ieg-sred",
-      "name": "Innovation Employment Grant + SR&ED stack",
-      "region": "Alberta",
-      "requires_incorporation": true,
-      "source_name": "Reinvest Wealth guide (secondary)",
-      "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-      "stacking": [
-        {
-          "with": null,
-          "note": "Designed stack: federal SR&ED credit + Alberta IEG on the same eligible R&D spend."
-        }
-      ],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "ongoing",
-      "tier": "INFERRED",
-      "type": "tax-credit"
-    },
-    {
-      "amount": "~$7,500 Mitacs contribution per 4-month unit",
-      "check_cadence_days": 7,
-      "checked": "2026-09-30",
-      "deadline": "Rolling",
-      "deadline_date": null,
-      "eligibility": [
-        "Incorporated startup hosted in Mitacs-approved incubator",
-        "Project with genuine research content",
-        "Pairs you with grad researchers"
-      ],
-      "id": "mitacs-accelerate",
-      "name": "Mitacs Accelerate Entrepreneur",
-      "region": "Canada",
-      "requires_incorporation": true,
-      "source_name": "BoilerplateHub guide (secondary)",
-      "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
-      "stacking": [
-        {
-          "with": "ieg-sred",
-          "note": "Mitacs contributions count as government assistance for SR&ED purposes."
-        }
-      ],
-      "stacking_tier": "INFERRED",
-      "status": "open",
-      "status_since": "2026",
-      "tier": "INFERRED",
-      "type": "grant"
-    },
-    {
-      "amount": "$25,000 (annual award)",
-      "check_cadence_days": 30,
-      "checked": "2026-09-30",
-      "deadline": "2026 awarded (Gradient Thermal) — watch for next cycle",
-      "deadline_date": null,
-      "eligibility": [
-        "Innovative Calgary small business",
-        "Annual competition via Calgary Chamber of Commerce"
-      ],
-      "id": "enmax-amplifier",
-      "name": "ENMAX Amplifier Fund",
-      "region": "Calgary",
-      "requires_incorporation": false,
-      "source_name": "Calgary Chamber via YouTube (secondary)",
-      "source_url": "https://www.youtube.com/watch?v=ynMktBfqoyY",
-      "stacking": [],
-      "stacking_tier": "INFERRED",
-      "status": "closed",
-      "status_since": "2026 (awarded)",
-      "tier": "INFERRED",
-      "type": "grant"
-    }
-  ],
-  "radar": "Beacon — funding radar for independent Alberta/Canada builders",
-  "tier_key": {
-    "INFERRED": "Secondary reporting (press, guides). Treat as lead, verify before applying.",
-    "VERIFIED": "Primary source (agency site / announcement) checked this cycle."
-  }
-};
+const DATA = {"generated":"2026-10-07","programs":[{"amount":"Up to $105,000 (non-repayable)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Continuous intake","deadline_date":null,"eligibility":["Alberta-based incorporated for-profit SME","Under 500 employees, under $50M revenue","Hire a dedicated R&D Associate","25% applicant cash contribution","Project completed within 12 months"],"id":"ai-rnd-associates","name":"Alberta Innovates — Industry R&D Associates Program","region":"Alberta","requires_incorporation":true,"source_name":"Ayming Canada (secondary)","source_url":"https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/","stacking":[{"with":"ieg-sred","note":"Provincial grant funding reduces the federal SR&ED claim base."}],"stacking_tier":"INFERRED","status":"open","status_since":"2026 (continuous)","tier":"INFERRED","type":"grant"},{"amount":"Up to $50,000 (non-dilutive)","check_cadence_days":14,"checked":"2026-09-30","deadline":"Halted — no intake","deadline_date":null,"eligibility":["Alberta digital tech company, software core to product","Under 50 FTE, under $1M ARR","MVP in hand","Intending to scale in 1–2 years"],"id":"ai-digital-traction","name":"Alberta Digital Traction Program","region":"Alberta","requires_incorporation":true,"source_name":"Alberta Business Grants (secondary)","source_url":"https://albertabusinessgrants.ca/grants/alberta-digital-traction-program-%E2%94%82alberta-innovates/","stacking":[],"stacking_tier":"INFERRED","status":"paused","status_since":"2026-05-29","tier":"INFERRED","type":"grant"},{"amount":"Micro Voucher $10,000 · Voucher $100,000","check_cadence_days":14,"checked":"2026-09-30","deadline":"Intakes closed","deadline_date":null,"eligibility":["Alberta-registered for-profit, under 500 employees","Under $50M gross revenue","Minimum 25% cash contribution"],"id":"ai-vouchers","name":"Alberta Innovates — Micro Voucher / Voucher Program","region":"Alberta","requires_incorporation":true,"source_name":"Reinvest Wealth guide (secondary)","source_url":"https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups","stacking":[{"with":"ieg-sred","note":"Voucher funding is assistance against SR&ED-eligible spend."}],"stacking_tier":"INFERRED","status":"paused","status_since":"2026-05-29","tier":"INFERRED","type":"grant"},{"amount":"$20.6M over 3 years (ecosystem infrastructure)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Apr 2026 – Mar 2029","deadline_date":"2029-03-31","eligibility":["Flows via 8 Regional Innovation Networks (incl. Calgary Innovation Coalition)","Founder-facing: watch for programs the RINs launch locally"],"id":"ai-rin-2026","name":"Alberta Innovates — Regional Innovation Networks renewal","region":"Alberta","requires_incorporation":false,"source_name":"Alberta Innovates (primary)","source_url":"https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/","stacking":[],"stacking_tier":"INFERRED","status":"open","status_since":"2026-09-23","tier":"VERIFIED","type":"ecosystem"},{"amount":"IP strategy funding (streams vary)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Open — new portal","deadline_date":null,"eligibility":["Alberta startups and SMEs","IP education, strategy coaching, protection funding"],"id":"elevateip-ab","name":"ElevateIP Alberta (relaunched)","region":"Alberta","requires_incorporation":false,"source_name":"Innovate Calgary via press (secondary)","source_url":"https://www.europesays.com/canada/190129/","stacking":[],"stacking_tier":"INFERRED","status":"open","status_since":"2026-08-31","tier":"INFERRED","type":"grant"},{"amount":"$50,000 – $500,000+ (non-repayable)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Rolling via ITA","deadline_date":null,"eligibility":["Canadian-incorporated SME, under 500 employees","Internal technical team","AI-core product (not AI-assisted) = highest-probability stream","Apply through regional Industrial Technology Advisor"],"id":"irap-ai-assist","name":"NRC IRAP — AI Assist","region":"Canada","requires_incorporation":true,"source_name":"GrantCompass / NRC (secondary)","source_url":"https://grantcompass.ca/irap-funding-canada.html","stacking":[{"with":"ieg-sred","note":"IRAP funding is government assistance — it reduces your SR&ED expenditure pool."}],"stacking_tier":"INFERRED","status":"open","status_since":"2025–26 scaling","tier":"INFERRED","type":"grant"},{"amount":"$244.2M envelope (project-level varies)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Rolling via ITA","deadline_date":null,"eligibility":["Canadian SME","Dual-use tech: cybersecurity, autonomous systems, advanced materials, comms, surveillance","Commercial viability + defence relevance"],"id":"irap-di-assist","name":"NRC IRAP — Defence Industry Assist (DI Assist)","region":"Canada","requires_incorporation":true,"source_name":"GrantCompass (secondary)","source_url":"https://grantcompass.ca/irap-funding-canada.html","stacking":[],"stacking_tier":"INFERRED","status":"open","status_since":"2026-01","tier":"INFERRED","type":"grant"},{"amount":"Compute credits (variable)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Ongoing","deadline_date":null,"eligibility":["SMEs, AI startups, research-driven companies","HPC / training / deployment workloads"],"id":"ai-compute-fund","name":"AI Compute Access Fund (Canada, $1B)","region":"Canada","requires_incorporation":false,"source_name":"Northern Arc sector briefing (secondary)","source_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","stacking":[],"stacking_tier":"INFERRED","status":"open","status_since":"2026 (expanded)","tier":"INFERRED","type":"grant"},{"amount":"$5M+ growth capital / equity","check_cadence_days":7,"checked":"2026-10-07","deadline":"Deploying 2026","deadline_date":null,"eligibility":["Canadian AI scaleups with commercial traction","Defensible IP, credible path to global growth","Too large for SME instruments — NOT pre-revenue founder territory"],"id":"tech-growth-fund","name":"Canadian Tech Growth Fund ($500M)","region":"Canada","requires_incorporation":true,"source_name":"Northern Arc sector briefing (secondary)","source_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","stacking":[],"stacking_tier":"INFERRED","status":"open","status_since":"2026-06-04","tier":"INFERRED","type":"signal"},{"amount":"$250K – $5M (repayable, interest-free)","check_cadence_days":7,"checked":"2026-10-07","deadline":"To Dec 31, 2028","deadline_date":"2028-12-31","eligibility":["SMEs building or adopting AI","Via PrairiesCan for Alberta founders","Productization / commercialization projects"],"id":"raii-prairies","name":"Regional AI Initiative — PrairiesCan","region":"Canada","requires_incorporation":true,"source_name":"IMFounder guide (secondary)","source_url":"https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/","stacking":[{"with":"ieg-sred","note":"Repayable contributions still interact with stacking caps — confirm with a tax advisor."}],"stacking_tier":"INFERRED","status":"open","status_since":"2026","tier":"INFERRED","type":"grant"},{"amount":"8% base / 20% enhanced on eligible R&D (up to $4M spend)","check_cadence_days":7,"checked":"2026-10-07","deadline":"Claim via AT1 Schedule 29 (no application)","deadline_date":null,"eligibility":["Alberta corporation with eligible R&D spend","Expenses must qualify under federal SR&ED","Record-keeping is the whole game"],"id":"ieg-sred","name":"Innovation Employment Grant + SR&ED stack","region":"Alberta","requires_incorporation":true,"source_name":"Reinvest Wealth guide (secondary)","source_url":"https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups","stacking":[{"with":null,"note":"Designed stack: federal SR&ED credit + Alberta IEG on the same eligible R&D spend."}],"stacking_tier":"INFERRED","status":"open","status_since":"ongoing","tier":"INFERRED","type":"tax-credit"},{"amount":"~$7,500 Mitacs contribution per 4-month unit","check_cadence_days":7,"checked":"2026-10-07","deadline":"Rolling","deadline_date":null,"eligibility":["Incorporated startup hosted in Mitacs-approved incubator","Project with genuine research content","Pairs you with grad researchers"],"id":"mitacs-accelerate","name":"Mitacs Accelerate Entrepreneur","region":"Canada","requires_incorporation":true,"source_name":"BoilerplateHub guide (secondary)","source_url":"https://boilerplatehub.com/blog/funding-for-ai-startups-canada","stacking":[{"with":"ieg-sred","note":"Mitacs contributions count as government assistance for SR&ED purposes."}],"stacking_tier":"INFERRED","status":"open","status_since":"2026","tier":"INFERRED","type":"grant"},{"amount":"$25,000 (annual award)","check_cadence_days":30,"checked":"2026-09-30","deadline":"2026 awarded (Gradient Thermal) — watch for next cycle","deadline_date":null,"eligibility":["Innovative Calgary small business","Annual competition via Calgary Chamber of Commerce"],"id":"enmax-amplifier","name":"ENMAX Amplifier Fund","region":"Calgary","requires_incorporation":false,"source_name":"Calgary Chamber via YouTube (secondary)","source_url":"https://www.youtube.com/watch?v=ynMktBfqoyY","stacking":[],"stacking_tier":"INFERRED","status":"closed","status_since":"2026 (awarded)","tier":"INFERRED","type":"grant"}],"radar":"Beacon — funding radar for independent Alberta/Canada builders","tier_key":{"INFERRED":"Secondary reporting (press, guides). Treat as lead, verify before applying.","VERIFIED":"Primary source (agency site / announcement) checked this cycle."}};
 const SHORTLIST = {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "profile": {
     "identity": "unincorporated independent builder",
     "location": "Calgary AB",
@@ -507,7 +156,7 @@ const SHORTLIST = {
       "type": "ecosystem",
       "amount": "$20.6M over 3 years (ecosystem infrastructure)",
       "tier": "VERIFIED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
       "verdict": "eligible-now",
       "unblock": null,
@@ -522,7 +171,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "IP strategy funding (streams vary)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.europesays.com/canada/190129/",
       "verdict": "eligible-now",
       "unblock": null,
@@ -537,7 +186,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "Compute credits (variable)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
       "verdict": "eligible-now",
       "unblock": null,
@@ -554,7 +203,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "Up to $105,000 (non-repayable)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -569,7 +218,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "$50,000 – $500,000+ (non-repayable)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://grantcompass.ca/irap-funding-canada.html",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -584,7 +233,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "$250K – $5M (repayable, interest-free)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -599,7 +248,7 @@ const SHORTLIST = {
       "type": "tax-credit",
       "amount": "8% base / 20% enhanced on eligible R&D (up to $4M spend)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -614,7 +263,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "~$7,500 Mitacs contribution per 4-month unit",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -661,7 +310,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "$244.2M envelope (project-level varies)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://grantcompass.ca/irap-funding-canada.html",
       "verdict": "not-for-him",
       "unblock": null,
@@ -676,7 +325,7 @@ const SHORTLIST = {
       "type": "signal",
       "amount": "$5M+ growth capital / equity",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
       "verdict": "not-for-him",
       "unblock": null,
@@ -730,7 +379,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "Up to $105,000 (non-repayable)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -775,7 +424,7 @@ const SHORTLIST = {
       "type": "ecosystem",
       "amount": "$20.6M over 3 years (ecosystem infrastructure)",
       "tier": "VERIFIED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
       "verdict": "eligible-now",
       "unblock": null,
@@ -790,7 +439,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "IP strategy funding (streams vary)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.europesays.com/canada/190129/",
       "verdict": "eligible-now",
       "unblock": null,
@@ -805,7 +454,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "$50,000 – $500,000+ (non-repayable)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://grantcompass.ca/irap-funding-canada.html",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -820,7 +469,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "$244.2M envelope (project-level varies)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://grantcompass.ca/irap-funding-canada.html",
       "verdict": "not-for-him",
       "unblock": null,
@@ -835,7 +484,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "Compute credits (variable)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
       "verdict": "eligible-now",
       "unblock": null,
@@ -850,7 +499,7 @@ const SHORTLIST = {
       "type": "signal",
       "amount": "$5M+ growth capital / equity",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
       "verdict": "not-for-him",
       "unblock": null,
@@ -865,7 +514,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "$250K – $5M (repayable, interest-free)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -880,7 +529,7 @@ const SHORTLIST = {
       "type": "tax-credit",
       "amount": "8% base / 20% enhanced on eligible R&D (up to $4M spend)",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -895,7 +544,7 @@ const SHORTLIST = {
       "type": "grant",
       "amount": "~$7,500 Mitacs contribution per 4-month unit",
       "tier": "INFERRED",
-      "checked": "2026-09-30",
+      "checked": "2026-10-07",
       "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
       "verdict": "blocked",
       "unblock": "incorporate",
@@ -918,9 +567,9 @@ const SHORTLIST = {
     }
   ]
 };
-const LEDGER = [{"date":"2026-09-30","program_id":"tech-growth-fund","old_status":"open","new_status":"open","evidence_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","tier":"INFERRED","concern":"fetch_failed: RemoteDisconnected: Remote end closed connection without response"},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-01","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-02","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-03","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-04","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-05","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"7 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."}];
+const LEDGER = [{"date":"2026-09-30","program_id":"tech-growth-fund","old_status":"open","new_status":"open","evidence_url":"https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf","tier":"INFERRED","concern":"fetch_failed: RemoteDisconnected: Remote end closed connection without response"},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-09-30","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-01","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-02","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-03","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-04","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-05","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"7 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."},{"date":"2026-10-07","program_id":"queue","old_status":null,"new_status":null,"evidence_url":"","tier":"UNKNOWN","kind":"alert","alert_kind":"discovery","message":"1 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking."}];
 const DEADLINES = {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "items": [
     {
       "id": "ai-rnd-associates",
@@ -958,7 +607,7 @@ const DEADLINES = {
       "status": "open",
       "deadline": "Apr 2026 – Mar 2029",
       "deadline_date": "2029-03-31",
-      "days_until": 907,
+      "days_until": 906,
       "urgency": "later",
       "tier": "VERIFIED"
     },
@@ -1018,7 +667,7 @@ const DEADLINES = {
       "status": "open",
       "deadline": "To Dec 31, 2028",
       "deadline_date": "2028-12-31",
-      "days_until": 817,
+      "days_until": 816,
       "urgency": "later",
       "tier": "INFERRED"
     },
@@ -1057,7 +706,7 @@ const DEADLINES = {
 const PIPELINE = {"applications":[{"amount_applied":null,"entered_stage":"2026-09-30","id":"app-001","notes":"SAMPLE: watching for programs the RINs launch locally — no application exists.","program_id":"ai-rin-2026","sample":true,"stage":"prospecting","tier":"SAMPLE"},{"amount_applied":105000,"entered_stage":"2026-09-30","id":"app-002","notes":"SAMPLE: draft budget for R&D Associate hire; blocked until incorporation.","program_id":"ai-rnd-associates","sample":true,"stage":"preparing","tier":"SAMPLE"},{"amount_applied":null,"entered_stage":"2026-09-30","id":"app-003","notes":"SAMPLE: IP strategy intake submitted via new portal.","program_id":"elevateip-ab","sample":true,"stage":"applied","tier":"SAMPLE"},{"amount_applied":10000,"entered_stage":"2026-09-30","id":"app-004","notes":"SAMPLE: intakes closed before submission — park and watch for reopen.","program_id":"ai-vouchers","sample":true,"stage":"declined","tier":"SAMPLE"}],"note":"SAMPLE DATA — this file is a schema reference only. Copy it to data/pipeline.json and fill in real entries; pipeline.json is gitignored and never pushed to the public repo.","sample":true,"stages":["prospecting","preparing","applied","in-review","awarded","declined"]};
 const PIPELINE_SRC = "template";
 const EVIDENCE = {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "snapshots": [
     {
       "program_id": "ai-rnd-associates",
@@ -1067,28 +716,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026 (continuous))",
           "source_name": "Ayming Canada (secondary)",
           "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Continuous intake",
           "source_name": "Ayming Canada (secondary)",
           "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: Up to $105,000 (non-repayable)",
           "source_name": "Ayming Canada (secondary)",
           "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (5 criteria listed)",
           "source_name": "Ayming Canada (secondary)",
           "source_url": "https://www.ayming.ca/grants/grants-finder/funding-alert-alberta-innovates-the-industry-rd-associates-program/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1190,28 +839,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026-09-23)",
           "source_name": "Alberta Innovates (primary)",
           "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "VERIFIED"
         },
         {
           "fact": "Deadline: Apr 2026 – Mar 2029",
           "source_name": "Alberta Innovates (primary)",
           "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "VERIFIED"
         },
         {
           "fact": "Amount: $20.6M over 3 years (ecosystem infrastructure)",
           "source_name": "Alberta Innovates (primary)",
           "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "VERIFIED"
         },
         {
           "fact": "Eligibility (2 criteria listed)",
           "source_name": "Alberta Innovates (primary)",
           "source_url": "https://albertainnovates.ca/news/alberta-innovates-invests-20-6-million-to-strengthen-innovation-supports-across-alberta/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "VERIFIED"
         }
       ],
@@ -1231,28 +880,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026-08-31)",
           "source_name": "Innovate Calgary via press (secondary)",
           "source_url": "https://www.europesays.com/canada/190129/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Open — new portal",
           "source_name": "Innovate Calgary via press (secondary)",
           "source_url": "https://www.europesays.com/canada/190129/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: IP strategy funding (streams vary)",
           "source_name": "Innovate Calgary via press (secondary)",
           "source_url": "https://www.europesays.com/canada/190129/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (2 criteria listed)",
           "source_name": "Innovate Calgary via press (secondary)",
           "source_url": "https://www.europesays.com/canada/190129/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1272,28 +921,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2025–26 scaling)",
           "source_name": "GrantCompass / NRC (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Rolling via ITA",
           "source_name": "GrantCompass / NRC (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: $50,000 – $500,000+ (non-repayable)",
           "source_name": "GrantCompass / NRC (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (4 criteria listed)",
           "source_name": "GrantCompass / NRC (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1313,28 +962,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026-01)",
           "source_name": "GrantCompass (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Rolling via ITA",
           "source_name": "GrantCompass (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: $244.2M envelope (project-level varies)",
           "source_name": "GrantCompass (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (3 criteria listed)",
           "source_name": "GrantCompass (secondary)",
           "source_url": "https://grantcompass.ca/irap-funding-canada.html",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1354,28 +1003,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026 (expanded))",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Ongoing",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: Compute credits (variable)",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (2 criteria listed)",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1395,28 +1044,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026-06-04)",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Deploying 2026",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: $5M+ growth capital / equity",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (3 criteria listed)",
           "source_name": "Northern Arc sector briefing (secondary)",
           "source_url": "https://www.northernarc.ca/pdfs/ai-for-all-sector-briefing.pdf",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1442,28 +1091,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026)",
           "source_name": "IMFounder guide (secondary)",
           "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: To Dec 31, 2028",
           "source_name": "IMFounder guide (secondary)",
           "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: $250K – $5M (repayable, interest-free)",
           "source_name": "IMFounder guide (secondary)",
           "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (3 criteria listed)",
           "source_name": "IMFounder guide (secondary)",
           "source_url": "https://imfounder.com/entrepreneurship/grants-for-ai-companies-canada/",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1483,28 +1132,28 @@ const EVIDENCE = {
           "fact": "Status: open (since ongoing)",
           "source_name": "Reinvest Wealth guide (secondary)",
           "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Claim via AT1 Schedule 29 (no application)",
           "source_name": "Reinvest Wealth guide (secondary)",
           "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: 8% base / 20% enhanced on eligible R&D (up to $4M spend)",
           "source_name": "Reinvest Wealth guide (secondary)",
           "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (3 criteria listed)",
           "source_name": "Reinvest Wealth guide (secondary)",
           "source_url": "https://www.reinvestwealth.com/en-ca/post/small-business-grants-alberta-startups",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1524,28 +1173,28 @@ const EVIDENCE = {
           "fact": "Status: open (since 2026)",
           "source_name": "BoilerplateHub guide (secondary)",
           "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Deadline: Rolling",
           "source_name": "BoilerplateHub guide (secondary)",
           "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Amount: ~$7,500 Mitacs contribution per 4-month unit",
           "source_name": "BoilerplateHub guide (secondary)",
           "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         },
         {
           "fact": "Eligibility (3 criteria listed)",
           "source_name": "BoilerplateHub guide (secondary)",
           "source_url": "https://boilerplatehub.com/blog/funding-for-ai-startups-canada",
-          "checked": "2026-09-30",
+          "checked": "2026-10-07",
           "tier": "INFERRED"
         }
       ],
@@ -1601,16 +1250,16 @@ const EVIDENCE = {
   ]
 };
 const AGENT = {
-  "run_id": "20261005T211108Z",
-  "started_utc": "2026-10-05T21:11:08.360101+00:00",
-  "finished_utc": "2026-10-05T21:11:11.046215+00:00",
+  "run_id": "20261006T185413Z",
+  "started_utc": "2026-10-06T18:54:13.348958+00:00",
+  "finished_utc": "2026-10-06T18:54:14.197685+00:00",
   "ok": true,
   "failed_steps": [],
   "steps": [
     {
       "step": "reverify",
       "rc": 0,
-      "note": "  [ieg-sred] skip — checked 5d ago, cadence 7d |   [mitacs-accelerate] skip — checked 5d ago, cadence 7d |   [enmax-amplifier] skip — checked 5d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
+      "note": "  [ieg-sred] skip — checked 6d ago, cadence 7d |   [mitacs-accelerate] skip — checked 6d ago, cadence 7d |   [enmax-amplifier] skip — checked 6d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
     },
     {
       "step": "match",
@@ -1630,17 +1279,17 @@ const AGENT = {
     {
       "step": "discover",
       "rc": 0,
-      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 7 new candidate(s) | Wrote /home/runner/work/beacon/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=7 total_candidates=57"
+      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 0 new candidate(s) | Wrote /home/runner/work/beacon/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=0 total_candidates=57"
     },
     {
       "step": "alerts",
       "rc": 0,
-      "note": "Beacon alerts — 13 programs · 2026-10-05 | Wrote /home/runner/work/beacon/beacon/data/alerts.json | RESULT: PASS · raised=1 active=6 {'discovery': 6} |   NEW [discovery] queue: 7 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source bef"
+      "note": "Beacon alerts — 13 programs · 2026-10-06 | Wrote /home/runner/work/beacon/beacon/data/alerts.json | RESULT: PASS · raised=0 active=6 {'discovery': 6}"
     },
     {
       "step": "embed",
       "rc": 0,
-      "note": "Wrote /home/runner/work/beacon/beacon/docs/index.html (131130 bytes) | Wrote /home/runner/work/beacon/beacon/docs/variant-b.html (111680 bytes) | RESULT: PASS"
+      "note": "Wrote /home/runner/work/beacon/beacon/docs/index.html (131128 bytes) | Wrote /home/runner/work/beacon/beacon/docs/variant-b.html (111678 bytes) | RESULT: PASS"
     },
     {
       "step": "check",
@@ -1659,17 +1308,8 @@ const AGENT = {
   "note": "Autonomous loop receipt. reverify respects per-program check_cadence_days; flips and alert crossings are appended to data/ledger.jsonl with evidence."
 };
 const ALERTS = {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "active": [
-    {
-      "id": "discovery:queue:2026-09-30",
-      "kind": "discovery",
-      "program_id": "queue",
-      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
-      "raised": "2026-09-30",
-      "tier": "UNKNOWN",
-      "resolved": null
-    },
     {
       "id": "discovery:queue:2026-10-01",
       "kind": "discovery",
@@ -1714,13 +1354,32 @@ const ALERTS = {
       "raised": "2026-10-05",
       "tier": "UNKNOWN",
       "resolved": null
+    },
+    {
+      "id": "discovery:queue:2026-10-07",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "1 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-10-07",
+      "tier": "UNKNOWN",
+      "resolved": null
     }
   ],
-  "resolved": [],
+  "resolved": [
+    {
+      "id": "discovery:queue:2026-09-30",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-09-30",
+      "tier": "UNKNOWN",
+      "resolved": "2026-10-07"
+    }
+  ],
   "note": "Alerts are derived, not primary claims. Deadline alerts fire only on real deadline_date values; flips come from ledger events; discovery items stay UNKNOWN until verified."
 };
 const DISCOVERY = {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "sources_checked": 3,
   "candidates": [
     {
@@ -2233,6 +1892,15 @@ const DISCOVERY = {
       "discovery_source": "Alberta.ca — Small Business Resources",
       "snippet": "5J 4G8. Next Small and Medium Enterprise Relaunch Grant <div class=\"goa-metadata-feedback goa-feedback-wrapper\" data-page-meta='{\"id\":\"",
       "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Choosing a Government Funding Consultant in Canada",
+      "url": "https://www.ayming.ca/latest/expert-opinion/choosing-a-government-funding-consultant/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "_search-title\">Trending Choosing a Government Funding Consultant in Canada",
+      "discovered": "2026-10-07",
       "tier": "UNKNOWN",
       "status": "candidate"
     }

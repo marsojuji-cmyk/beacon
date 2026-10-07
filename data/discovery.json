@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "sources_checked": 3,
   "candidates": [
     {
@@ -512,6 +512,15 @@
       "discovery_source": "Alberta.ca — Small Business Resources",
       "snippet": "5J 4G8. Next Small and Medium Enterprise Relaunch Grant <div class=\"goa-metadata-feedback goa-feedback-wrapper\" data-page-meta='{\"id\":\"",
       "discovered": "2026-10-05",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Choosing a Government Funding Consultant in Canada",
+      "url": "https://www.ayming.ca/latest/expert-opinion/choosing-a-government-funding-consultant/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "_search-title\">Trending Choosing a Government Funding Consultant in Canada",
+      "discovered": "2026-10-07",
       "tier": "UNKNOWN",
       "status": "candidate"
     }

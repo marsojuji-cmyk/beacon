@@ -1,15 +1,6 @@
 {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "active": [
-    {
-      "id": "discovery:queue:2026-09-30",
-      "kind": "discovery",
-      "program_id": "queue",
-      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
-      "raised": "2026-09-30",
-      "tier": "UNKNOWN",
-      "resolved": null
-    },
     {
       "id": "discovery:queue:2026-10-01",
       "kind": "discovery",
@@ -54,8 +45,27 @@
       "raised": "2026-10-05",
       "tier": "UNKNOWN",
       "resolved": null
+    },
+    {
+      "id": "discovery:queue:2026-10-07",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "1 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-10-07",
+      "tier": "UNKNOWN",
+      "resolved": null
     }
   ],
-  "resolved": [],
+  "resolved": [
+    {
+      "id": "discovery:queue:2026-09-30",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-09-30",
+      "tier": "UNKNOWN",
+      "resolved": "2026-10-07"
+    }
+  ],
   "note": "Alerts are derived, not primary claims. Deadline alerts fire only on real deadline_date values; flips come from ledger events; discovery items stay UNKNOWN until verified."
 }
