@@ -1,15 +1,6 @@
 {
-  "generated": "2026-10-07",
+  "generated": "2026-10-08",
   "active": [
-    {
-      "id": "discovery:queue:2026-10-01",
-      "kind": "discovery",
-      "program_id": "queue",
-      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
-      "raised": "2026-10-01",
-      "tier": "UNKNOWN",
-      "resolved": null
-    },
     {
       "id": "discovery:queue:2026-10-02",
       "kind": "discovery",
@@ -54,9 +45,27 @@
       "raised": "2026-10-07",
       "tier": "UNKNOWN",
       "resolved": null
+    },
+    {
+      "id": "discovery:queue:2026-10-08",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "2 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-10-08",
+      "tier": "UNKNOWN",
+      "resolved": null
     }
   ],
   "resolved": [
+    {
+      "id": "discovery:queue:2026-10-01",
+      "kind": "discovery",
+      "program_id": "queue",
+      "message": "10 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source before tracking.",
+      "raised": "2026-10-01",
+      "tier": "UNKNOWN",
+      "resolved": "2026-10-08"
+    },
     {
       "id": "discovery:queue:2026-09-30",
       "kind": "discovery",

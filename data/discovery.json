@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-07",
+  "generated": "2026-10-08",
   "sources_checked": 3,
   "candidates": [
     {
@@ -521,6 +521,24 @@
       "discovery_source": "Ayming Canada — Government Funding Programs",
       "snippet": "_search-title\">Trending Choosing a Government Funding Consultant in Canada",
       "discovered": "2026-10-07",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "New agrifood funding programs in Canada: Quebec, Ontario and federal opportunities open now",
+      "url": "https://www.ayming.ca/latest/expert-opinion/new-agrifood-funding-programs-canada-2026/",
+      "discovery_source": "Ayming Canada — Government Funding Programs",
+      "snippet": "_search-title\">Trending New agrifood funding programs in Canada: Quebec, Ontario and federal opportunities open now",
+      "discovered": "2026-10-08",
+      "tier": "UNKNOWN",
+      "status": "candidate"
+    },
+    {
+      "name_guess": "Funding advances primary care innovation",
+      "url": "https://www.alberta.ca/announcements.cfm?xID=97910E70F5988-B8ED-3824-678EC39D240B1A4E",
+      "discovery_source": "Alberta.ca — Small Business Resources",
+      "snippet": "igation into allegations of use of force during arrest in Sylvan Lake October 7, 2026 Funding advances primary care innovation",
+      "discovered": "2026-10-08",
       "tier": "UNKNOWN",
       "status": "candidate"
     }
