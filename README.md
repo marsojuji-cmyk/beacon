@@ -27,11 +27,36 @@ Every program carries a **claim tier**:
 
 ```bash
 git clone https://github.com/marsojuji-cmyk/beacon && cd beacon
-python3 scripts/check.py      # validate the dataset
-python3 scripts/agent.py --dry-run
+python3 scripts/match.py      # run funding & eligibility search
 ```
 
 Standard-library Python only. No dependencies.
+
+### Example search & output
+
+Running `python3 scripts/match.py` scores builder criteria (`data/profile.yaml`) against all funding programs in `data/programs.json`:
+
+```text
+Beacon match — 13 programs · 2026-10-07
+Verdicts: blocked=5, eligible-now=3, not-for-him=5
+Shortlist:
+  + ai-rin-2026: Ecosystem infrastructure — founder-facing via RINs; no incorporation bar.
+  + elevateip-ab: Open and does not require incorporation for this profile.
+  + ai-compute-fund: Open and does not require incorporation for this profile.
+Unlock roadmap:
+  → incorporate unlocks 5: ai-rnd-associates, irap-ai-assist, raii-prairies, ieg-sred, mitacs-accelerate
+  → first-rnd-dollar unlocks 1: ieg-sred
+Wrote data/shortlist.json
+RESULT: PASS
+```
+
+### Interpreting the results
+
+- **Verdicts:** Categorizes programs into **eligible-now** (apply today), **blocked** (prerequisites pending), and **not-for-him** (out of scope).
+- **Shortlist:** Immediately actionable programs that meet all criteria without blocking hurdles.
+- **Unlock roadmap:** Highlights concrete tactical milestones (incorporation or first R&D dollar) and the programs each unlock.
+
+### Running the pipeline
 
 ```bash
 python3 scripts/check.py      # validate the dataset (schema, tiers, pipeline privacy)
