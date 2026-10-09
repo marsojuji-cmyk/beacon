@@ -1,14 +1,14 @@
 {
-  "run_id": "20261008T191608Z",
-  "started_utc": "2026-10-08T19:16:08.030105+00:00",
-  "finished_utc": "2026-10-08T19:16:09.635585+00:00",
+  "run_id": "20261009T184815Z",
+  "started_utc": "2026-10-09T18:48:15.410717+00:00",
+  "finished_utc": "2026-10-09T18:48:16.477843+00:00",
   "ok": true,
   "failed_steps": [],
   "steps": [
     {
       "step": "reverify",
       "rc": 0,
-      "note": "  [ieg-sred] skip — checked 1d ago, cadence 7d |   [mitacs-accelerate] skip — checked 1d ago, cadence 7d |   [enmax-amplifier] skip — checked 8d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
+      "note": "  [ieg-sred] skip — checked 2d ago, cadence 7d |   [mitacs-accelerate] skip — checked 2d ago, cadence 7d |   [enmax-amplifier] skip — checked 9d ago, cadence 30d | RESULT: flips=0 concerns=0 primary_verified=0 skipped=13 events=0"
     },
     {
       "step": "match",
@@ -28,17 +28,17 @@
     {
       "step": "discover",
       "rc": 0,
-      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 1 new candidate(s) | Wrote /home/runner/work/beacon/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=2 total_candidates=60"
+      "note": "  [Alberta.ca — Small Business Resources] fetch https://www.alberta.ca/small-business-resources… |     HTTP 200 · 0 new candidate(s) | Wrote /home/runner/work/beacon/beacon/data/discovery.json | RESULT: PASS · sources=3 new_candidates=0 total_candidates=60"
     },
     {
       "step": "alerts",
       "rc": 0,
-      "note": "Beacon alerts — 13 programs · 2026-10-08 | Wrote /home/runner/work/beacon/beacon/data/alerts.json | RESULT: PASS · raised=1 active=6 {'discovery': 6} |   NEW [discovery] queue: 2 new UNVERIFIED candidate(s) in the discovery queue — verify against a primary source bef"
+      "note": "Beacon alerts — 13 programs · 2026-10-09 | Wrote /home/runner/work/beacon/beacon/data/alerts.json | RESULT: PASS · raised=0 active=5 {'discovery': 5}"
     },
     {
       "step": "embed",
       "rc": 0,
-      "note": "Wrote /home/runner/work/beacon/beacon/docs/index.html (131043 bytes) | Wrote /home/runner/work/beacon/beacon/docs/variant-b.html (111593 bytes) | RESULT: PASS"
+      "note": "Wrote /home/runner/work/beacon/beacon/docs/index.html (131000 bytes) | Wrote /home/runner/work/beacon/beacon/docs/variant-b.html (111550 bytes) | RESULT: PASS"
     },
     {
       "step": "check",
@@ -50,7 +50,7 @@
     "programs_total": 13,
     "checked": 0,
     "flips": 0,
-    "alerts_active": 6,
+    "alerts_active": 5,
     "discovery_candidates": 60
   },
   "schedule": "daily via .github/workflows/agent.yml (13:17 UTC); manual: python3 scripts/agent.py",
