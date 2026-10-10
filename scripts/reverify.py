@@ -185,6 +185,26 @@ def append_ledger(events: list[dict], dry_run: bool) -> None:
         fh.write(lines)
 
 
+def record_transport_failure(program: dict, err: str) -> tuple[bool, dict]:
+    """A transport failure keeps the program and its status.
+
+    VERIFIED is downgraded to INFERRED. The ledger event records the same
+    status on both sides so a failed fetch cannot flip or delete a program.
+    """
+    downgraded = program.get("tier") == "VERIFIED"
+    if downgraded:
+        program["tier"] = "INFERRED"
+    event = {
+        "program_id": program.get("id", "?"),
+        "old_status": program.get("status", "open"),
+        "new_status": program.get("status", "open"),
+        "evidence_url": program.get("source_url", ""),
+        "tier": program.get("tier", "INFERRED"),
+        "concern": f"fetch_failed: {err}",
+    }
+    return downgraded, event
+
+
 def main() -> int:
     opts = parse_args(sys.argv[1:])
     today = date.today().isoformat()
@@ -231,20 +251,12 @@ def main() -> int:
         if err and code == 0:
             # Hard failure — keep status, mark tier concern, log, continue.
             concerns += 1
-            if p.get("tier") == "VERIFIED":
-                p["tier"] = "INFERRED"
+            downgraded, event = record_transport_failure(p, err)
+            event["date"] = today
+            if downgraded:
                 dirty = True
-            note = f"fetch_failed: {err}"
-            print(f"    CONCERN {note} — keep status={old_status}")
-            events.append({
-                "date": today,
-                "program_id": pid,
-                "old_status": old_status,
-                "new_status": old_status,
-                "evidence_url": url,
-                "tier": p.get("tier", "INFERRED"),
-                "concern": note,
-            })
+            print(f"    CONCERN {event['concern']} — keep status={old_status}")
+            events.append(event)
             continue
 
         new_status, evidence = detect_status(code, body, old_status, p.get("name", ""))
